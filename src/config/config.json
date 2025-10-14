@@ -34,9 +34,28 @@
     "label": "Get Started",
     "link": "https://github.com/zeon-studio/commerceplate"
   },
+  "header_topbar": {
+    "enable": true,
+    "message": "Spedizione gratuita oltre 49€",
+    "links": [
+      { "label": "Assistenza", "url": "/contact" },
+      { "label": "Tracking ordine", "url": "/account" }
+    ]
+  },
+  "header_cta": {
+    "enable": true,
+    "label": "Scopri le novità",
+    "url": "/products"
+  },
+  "header_highlight": {
+    "title": "Prenditi cura del tuo migliore amico",
+    "description": "Prodotti selezionati per cani e gatti, testati dal nostro team.",
+    "badge": "Valutazione 4.9 ★ da 500 clienti",
+    "suggestions": ["Snack naturali", "Giochi interattivi", "Cucce comfort"]
+  },
 
   "metadata": {
-    "meta_author": "Zeon Studio",
+    "meta_author": "Emanuele Denaro",
     "meta_image": "/images/og-image.png",
     "meta_description": "Shopify Storefront Boilerplate"
   },

@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import CartModal from "./CartModal";
+import CartTrigger from "./CartTrigger";
 import { getCart } from "@/lib/shopify";
 
 export default async function Cart() {
@@ -11,5 +11,5 @@ export default async function Cart() {
     cart = await getCart(cartId);
   }
 
-  return <CartModal cart={cart} />;
+  return <CartTrigger cart={cart} />;
 }

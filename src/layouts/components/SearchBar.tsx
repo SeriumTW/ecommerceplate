@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoClose, IoSearch } from "react-icons/io5";
 
-const SearchBar = () => {
+const SearchBar = ({ placeholder = "Search for products" }: { placeholder?: string }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isInputEditing, setInputEditing] = useState(false);
@@ -72,7 +72,7 @@ const SearchBar = () => {
         key={searchParams?.get("q")}
         type="search"
         name="search"
-        placeholder="Search for products"
+        placeholder={placeholder}
         autoComplete="off"
         value={inputValue}
         onChange={handleChange}

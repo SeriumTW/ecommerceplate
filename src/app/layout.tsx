@@ -7,6 +7,7 @@ import Footer from "@/partials/Footer";
 import Header from "@/partials/Header";
 import Providers from "@/partials/Providers";
 import "@/styles/main.css";
+import Link from "next/link";
 
 export default function RootLayout({
   children,
@@ -59,7 +60,13 @@ export default function RootLayout({
         <TwSizeIndicator />
         <Providers>
           <Header>
-            <OpenCart />
+            <Link
+              href="/cart"
+              aria-label="Apri il carrello"
+              className="relative inline-flex items-center justify-center"
+            >
+              <OpenCart />
+            </Link>
             <Cart />
           </Header>
           <main>{children}</main>
