@@ -61,10 +61,10 @@ const HeaderTopBar = ({
   }
 
   return (
-    <div className="bg-[#FADADD] text-xs text-text-dark dark:bg-darkmode-light/30 dark:text-darkmode-text">
+    <div className="bg-primary-muted text-xs text-text-dark dark:bg-darkmode-light/30 dark:text-darkmode-text">
       <div className="container flex flex-col items-center justify-center gap-2 py-2 text-center sm:flex-row sm:justify-between sm:gap-3 sm:text-left">
         <div className="flex items-center justify-center gap-2 font-semibold uppercase tracking-[0.2em] sm:justify-start">
-          <span className="h-2 w-2 rounded-full bg-primary/80 dark:bg-darkmode-primary" />
+          <span className="h-2 w-2 rounded-full bg-support-1 dark:bg-support-1" />
           {message}
         </div>
         {links?.length ? (
@@ -73,7 +73,7 @@ const HeaderTopBar = ({
               <Link
                 key={label}
                 href={url}
-                className="transition hover:text-primary hover:underline"
+                className="transition text-support-1 hover:text-primary hover:underline"
               >
                 {label}
               </Link>
@@ -231,7 +231,7 @@ const MobileDrawerUserSection = ({
   const greetingName = customer?.firstName?.split(" ")?.[0] ?? "Shopper";
 
   return (
-    <section className="space-y-4 rounded-3xl border border-border/60 bg-white/95 p-5 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
+    <section className="space-y-4 rounded-2xl border border-border/60 bg-white/95 p-5 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-border/40 bg-white dark:border-darkmode-border/50 dark:bg-darkmode-light/30">
           {customer ? (
@@ -352,7 +352,7 @@ const MobileDrawer = ({
         <div className="flex-1 overflow-y-auto px-6 pb-10 pt-6">
           <div className="space-y-8">
             {settings.search ? (
-              <section className="space-y-3 rounded-3xl border border-border/50 bg-white/95 p-5 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
+              <section className="space-y-3 rounded-2xl border border-border/50 bg-white/95 p-5 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary/70 dark:text-darkmode-primary">
                   Cerca nel catalogo
                 </p>

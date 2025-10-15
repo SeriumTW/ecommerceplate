@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import { cookies } from "next/headers";
@@ -31,7 +30,7 @@ const buildMerchandiseUrl = (item: CartItem) => {
 
 const EmptyCartState = () => (
   <section className="container py-24">
-    <div className="mx-auto max-w-xl rounded-3xl border border-border/60 bg-light/70 p-10 text-center shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-light/10">
+    <div className="mx-auto max-w-xl rounded-2xl border border-border/60 bg-light/70 p-10 text-center shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-light/10">
       <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary/80 dark:text-darkmode-primary">
         Il tuo carrello
       </p>
@@ -39,9 +38,13 @@ const EmptyCartState = () => (
         Ancora vuoto
       </h1>
       <p className="mt-3 text-text-light dark:text-darkmode-text">
-        Aggiungi i prodotti preferiti per animali domestici e torna qui per completare l&apos;ordine.
+        Aggiungi i prodotti preferiti per animali domestici e torna qui per
+        completare l&apos;ordine.
       </p>
-      <Link href="/products" className="btn btn-primary mt-8 inline-flex rounded-full px-6 py-3 text-sm">
+      <Link
+        href="/products"
+        className="btn btn-primary mt-8 inline-flex rounded-full px-6 py-3 text-sm"
+      >
         Vai al catalogo
       </Link>
     </div>
@@ -55,7 +58,7 @@ const CartLine = ({ item }: { item: CartItem }) => {
   );
 
   return (
-    <li className="rounded-3xl border border-border/60 bg-body p-4 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
+    <li className="rounded-xl border border-border/60 bg-body p-4 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
         <Link
           href={merchandiseUrl}
@@ -115,7 +118,7 @@ const CartLine = ({ item }: { item: CartItem }) => {
 };
 
 const CartSummary = ({ cart }: { cart: Cart }) => (
-  <aside className="rounded-3xl border border-border/60 bg-body p-6 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
+  <aside className="rounded-2xl border border-border/60 bg-body p-6 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
     <h2 className="text-lg font-semibold text-text-dark dark:text-white">
       Riepilogo ordine
     </h2>
@@ -156,7 +159,8 @@ const CartSummary = ({ cart }: { cart: Cart }) => (
       Procedi al checkout
     </a>
     <p className="mt-3 text-xs text-text-light dark:text-darkmode-text">
-      Pagamenti sicuri con Shopify. Potrai aggiungere note o codici sconto nella pagina successiva.
+      Pagamenti sicuri con Shopify. Potrai aggiungere note o codici sconto nella
+      pagina successiva.
     </p>
   </aside>
 );
@@ -180,7 +184,8 @@ export default async function CartPage() {
           Pronto per il tuo pet
         </h1>
         <p className="mt-2 text-text-light dark:text-darkmode-text">
-          Controlla gli articoli selezionati, aggiorna le quantità o rimuovi ciò che non ti serve prima di procedere al pagamento.
+          Controlla gli articoli selezionati, aggiorna le quantità o rimuovi ciò
+          che non ti serve prima di procedere al pagamento.
         </p>
       </div>
 
@@ -193,9 +198,17 @@ export default async function CartPage() {
         <CartSummary cart={cart} />
       </div>
 
-      <div className="mt-12 rounded-3xl border border-border/40 bg-light/60 p-6 text-sm text-text-light shadow-sm dark:border-darkmode-border/40 dark:bg-darkmode-light/10 dark:text-darkmode-text">
+      <div className="mt-12 rounded-2xl border border-border/40 bg-light/60 p-6 text-sm text-text-light shadow-sm dark:border-darkmode-border/40 dark:bg-darkmode-light/10 dark:text-darkmode-text">
         <p>
-          Hai bisogno di assistenza? <Link href="/contact" className="font-semibold text-primary dark:text-darkmode-primary">Contattaci</Link> e il nostro team ti guiderà nella scelta dei prodotti migliori per il tuo animale domestico.
+          Hai bisogno di assistenza?{" "}
+          <Link
+            href="/contact"
+            className="font-semibold text-primary dark:text-darkmode-primary"
+          >
+            Contattaci
+          </Link>{" "}
+          e il nostro team ti guiderà nella scelta dei prodotti migliori per il
+          tuo animale domestico.
         </p>
       </div>
     </section>

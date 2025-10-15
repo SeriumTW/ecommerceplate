@@ -35,7 +35,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                   width={312}
                   height={269}
                   alt={featuredImage?.altText || "fallback image"}
-                  className="w-[312px] h-[150px] md:h-[269px] object-cover border border-border rounded-md"
+                  className="w-[312px] h-[150px] md:h-[269px] object-cover border border-border rounded-lg"
                 />
 
                 <AddToCart
@@ -59,13 +59,12 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                 </h2>
                 <div className="flex flex-wrap justify-center items-center gap-x-2 mt-2 md:mt-4">
                   <span className="text-base md:text-xl font-bold text-text-dark dark:text-darkmode-text-dark">
-                    {currencySymbol}{" "}
-                    {priceRange.minVariantPrice.amount}{" "}
+                    {currencySymbol} {priceRange.minVariantPrice.amount}{" "}
                     {compareAtPriceRange?.maxVariantPrice?.currencyCode}
                   </span>
 
                   {parseFloat(compareAtPriceRange?.maxVariantPrice.amount) >
-                    0 ? (
+                  0 ? (
                     <s className="text-text-light dark:text-darkmode-text-light text-xs md:text-base font-medium">
                       {currencySymbol}{" "}
                       {compareAtPriceRange?.maxVariantPrice.amount}{" "}

@@ -13,7 +13,7 @@
   position: absolute;
   width: 100%;
   height: 8px;
-  background-color: #e7e7e7;
+  background-color: var(--color-border);
   border-radius: 10px;
   top: 50%;
   transform: translateY(-50%);
@@ -22,7 +22,7 @@
 .slider-range {
   position: absolute;
   height: 8px;
-  background-color: gray;
+  background-color: var(--color-primary);
   top: 50%;
   transform: translateY(-50%);
 }
@@ -31,8 +31,8 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: white;
-  border: 3px solid gray;
+  background-color: var(--color-primary-muted);
+  border: 3px solid var(--color-primary);
   border-radius: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -41,11 +41,11 @@
 }
 
 .slider-thumb:hover {
-  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 4px rgba(253, 151, 22, 0.15);
 }
 
 .slider-thumb:active {
-  box-shadow: 0 0 0 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 12px rgba(253, 151, 22, 0.15);
   cursor: grabbing;
 }
 

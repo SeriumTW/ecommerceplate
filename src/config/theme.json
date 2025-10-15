@@ -2,30 +2,50 @@
   "colors": {
     "default": {
       "theme_color": {
-        "primary": "#121212",
-        "body": "#fff",
-        "border": "#eaeaea",
-        "light": "#f2f2f2",
-        "dark": "#000"
+        "primary": "#FD9716",
+        "primary_hover": "#FD9716",
+        "primary_muted": "#F6C38C",
+        "body": "#FFFFFF",
+        "border": "#FFE6C7",
+        "light": "#FFE6C7",
+        "dark": "#2F1B10",
+        "support_1": "#15858F",
+        "support_2": "#FFE6C7",
+        "support_3": "#2F1B10",
+        "neutral": "#FFE6C7",
+        "success": "#FD9716",
+        "warning": "#FD9716",
+        "error": "#2F1B10"
       },
       "text_color": {
-        "text": "#444",
-        "text-dark": "#000",
-        "text-light": "#666"
+        "text": "#2F1B10",
+        "text-dark": "#2F1B10",
+        "text-light": "#FD9716",
+        "text-inverse": "#FFFFFF"
       }
     },
     "darkmode": {
       "theme_color": {
-        "primary": "#fff",
-        "body": "#252525",
-        "border": "#3E3E3E",
-        "light": "#222222",
-        "dark": "#000"
+        "primary": "#FD9716",
+        "primary_hover": "#FD9716",
+        "primary_muted": "#2F1B10",
+        "body": "#000000",
+        "border": "#FFE6C7",
+        "light": "#2F1B10",
+        "dark": "#000000",
+        "support_1": "#4DD6E0",
+        "support_2": "#2F1B10",
+        "support_3": "#FFE6C7",
+        "neutral": "#2F1B10",
+        "success": "#FD9716",
+        "warning": "#FD9716",
+        "error": "#FFE6C7"
       },
       "text_color": {
-        "text": "#DDD",
-        "text-dark": "#fff",
-        "text-light": "#DDD"
+        "text": "#FFE6C7",
+        "text-dark": "#FFFFFF",
+        "text-light": "#FD9716",
+        "text-inverse": "#000000"
       }
     }
   },

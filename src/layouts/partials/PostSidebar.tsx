@@ -44,7 +44,7 @@ const PostSidebar = ({
               return (
                 <li className="inline-block" key={tag}>
                   <Link
-                    className="m-1 block rounded bg-white px-3 py-1 hover:bg-primary hover:text-white dark:bg-darkmode-body dark:hover:bg-darkmode-primary dark:hover:text-text-dark"
+                    className="m-1 block rounded bg-body px-3 py-1 hover:bg-primary hover:text-text-inverse dark:bg-darkmode-body dark:hover:bg-darkmode-primary dark:hover:text-darkmode-text-dark"
                     href={`/tags/${tag}`}
                   >
                     {humanize(tag)}

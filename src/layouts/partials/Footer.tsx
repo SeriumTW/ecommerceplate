@@ -18,49 +18,76 @@ const Footer = () => {
   const { copyright } = config.params;
 
   return (
-    <footer className="bg-light dark:bg-darkmode-light">
-      <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-center py-10 md:pt-20 md:pb-14">
-          <Logo />
-
-          <ul className="flex gap-x-4 lg:gap-x-10 my-3">
-            {menu.footer.map((menu) => (
-              <li className="footer-link" key={menu.name}>
-                <Link href={menu.url}>{menu.name}</Link>
-              </li>
-            ))}
-          </ul>
-
-          {/* social share */}
-          <ul className="social-icons social-icons-footer">
-            {social?.main.map((social: ISocial) => (
-              <li key={social.name}>
-                <a
-                  aria-label={social.name}
-                  href={social.link}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                >
-                  <span className="sr-only">{social.name}</span>
-                  <DynamicIcon className="inline-block" icon={social.icon} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="border-t border-border py-5 dark:border-darkmode-border">
-          <div className="flex flex-col md:flex-row gap-y-2 justify-between items-center text-text-light dark:text-darkmode-text-light">
-            <ul className="flex gap-x-4">
-              {menu.footerCopyright.map((menu) => (
-                <li className="footer-link" key={menu.name}>
-                  <Link href={menu.url}>{menu.name}</Link>
+    <footer className="footer-grain border-t border-border/80 bg-primary_muted dark:border-darkmode-border/40 dark:bg-darkmode-light">
+      <div className="container py-12 md:py-16">
+        <div className="grid gap-10 md:grid-cols-[minmax(0,2fr)_repeat(2,minmax(0,1fr))] md:gap-14 lg:gap-20">
+          <div>
+            <Logo />
+            <p className="mt-4 max-w-md text-sm text-support-1 dark:text-support-1">
+              Prodotti coccola-pet selezionati con cura per cani e gatti felici,
+              consegnati con amore direttamente a casa tua.
+            </p>
+            <ul className="mt-6 flex gap-3 social-icons social-icons-footer">
+              {social?.main.map((item: ISocial) => (
+                <li key={item.name}>
+                  <a
+                    aria-label={item.name}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                  >
+                    <span className="sr-only">{item.name}</span>
+                    <DynamicIcon className="inline-block" icon={item.icon} />
+                  </a>
                 </li>
               ))}
             </ul>
+          </div>
 
+          <nav aria-label="Navigazione footer">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.35em] text-support-1 dark:text-support-1">
+              Scopri
+            </h2>
+            <ul className="mt-4 space-y-3 text-sm font-medium text-text dark:text-darkmode-text">
+              {menu.footer.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    className="transition hover:text-support-1 dark:hover:text-support-1"
+                    href={item.url}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <h2 className="text-xs font-semibold uppercase tracking-[0.35em] text-support-1 dark:text-support-1">
+              Supporto
+            </h2>
+            <ul className="mt-4 space-y-3 text-sm font-medium text-text dark:text-darkmode-text">
+              {menu.footerCopyright.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    className="transition hover:text-support-1 dark:hover:text-support-1"
+                    href={item.url}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 border-t border-border/80 pt-6 dark:border-darkmode-border/40">
+          <div className="flex flex-col items-center justify-between gap-3 text-sm text-text dark:text-darkmode-text md:flex-row">
+            <p className="order-2 text-center md:order-1 md:text-left">
+              {`© ${new Date().getFullYear()} ${config.site.title}. Tutti i diritti riservati.`}
+            </p>
             <p
-              className="text-sm font-light"
+              className="order-1 text-center font-light md:order-2 md:text-right"
               dangerouslySetInnerHTML={markdownify(copyright)}
             />
           </div>

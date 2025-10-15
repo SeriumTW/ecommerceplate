@@ -86,8 +86,8 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
           if (brand) {
             Array.isArray(brand)
               ? (queryString += `${brand
-                .map((b) => `(vendor:${b})`)
-                .join(" OR ")}`)
+                  .map((b) => `(vendor:${b})`)
+                  .join(" OR ")}`)
               : (queryString += `vendor:"${brand}"`);
 
             if (Array.isArray(brand) && brand.length > 0) {
@@ -120,14 +120,14 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
           productsData =
             category && category !== "all"
               ? await getCollectionProducts({
-                collection: category,
-                sortKey,
-                reverse,
-                filterCategoryProduct:
-                  filterCategoryProduct.length > 0
-                    ? filterCategoryProduct
-                    : undefined,
-              })
+                  collection: category,
+                  sortKey,
+                  reverse,
+                  filterCategoryProduct:
+                    filterCategoryProduct.length > 0
+                      ? filterCategoryProduct
+                      : undefined,
+                })
               : await getProducts({ ...query, cursor });
         } else {
           // Fetch all products
@@ -250,7 +250,7 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
                       width={312}
                       height={269}
                       alt={featuredImage?.altText || "fallback image"}
-                      className="w-[312px] h-[150px] md:h-[269px] object-cover border border-border dark:border-darkmode-border rounded-md"
+                      className="w-[312px] h-[150px] md:h-[269px] object-cover border border-border dark:border-darkmode-border rounded-lg"
                     />
                   </div>
 

@@ -30,7 +30,11 @@ const ProductLayouts = ({
   useEffect(() => {
     const inputField = document.getElementById(
       "searchInput",
-    ) as HTMLInputElement;
+    ) as HTMLInputElement | null;
+    if (!inputField) {
+      return;
+    }
+
     if (isInputEditing || searchParams.get("q")) {
       inputField.focus();
     }
@@ -90,15 +94,17 @@ const ProductLayouts = ({
                 <div className="flex gap-2">
                   <button
                     onClick={() => layoutChange("card")}
-                    className={`btn border dark:border-darkmode-border ${isListView ? "btn-outline-primary" : "btn-primary"
-                      } p-2 hover:scale-105 duration-300`}
+                    className={`btn border dark:border-darkmode-border ${
+                      isListView ? "btn-outline-primary" : "btn-primary"
+                    } p-2 hover:scale-105 duration-300`}
                   >
                     <BsGridFill />
                   </button>
                   <button
                     onClick={() => layoutChange("list")}
-                    className={`btn border dark:border-darkmode-border ${isListView ? "btn-primary" : "btn-outline-primary"
-                      } p-2 hover:scale-105 duration-300`}
+                    className={`btn border dark:border-darkmode-border ${
+                      isListView ? "btn-primary" : "btn-outline-primary"
+                    } p-2 hover:scale-105 duration-300`}
                   >
                     <FaList />
                   </button>

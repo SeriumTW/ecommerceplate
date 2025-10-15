@@ -86,8 +86,8 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
           if (brand) {
             Array.isArray(brand)
               ? (queryString += `${brand
-                .map((b) => `(vendor:${b})`)
-                .join(" OR ")}`)
+                  .map((b) => `(vendor:${b})`)
+                  .join(" OR ")}`)
               : (queryString += `vendor:"${brand}"`);
 
             if (Array.isArray(brand) && brand.length > 0) {
@@ -120,14 +120,14 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
           productsData =
             category && category !== "all"
               ? await getCollectionProducts({
-                collection: category,
-                sortKey,
-                reverse,
-                filterCategoryProduct:
-                  filterCategoryProduct.length > 0
-                    ? filterCategoryProduct
-                    : undefined,
-              })
+                  collection: category,
+                  sortKey,
+                  reverse,
+                  filterCategoryProduct:
+                    filterCategoryProduct.length > 0
+                      ? filterCategoryProduct
+                      : undefined,
+                })
               : await getProducts({ ...query, cursor });
         } else {
           // Fetch all products
@@ -241,7 +241,7 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
                   width={312}
                   height={269}
                   alt={product.featuredImage?.altText || "fallback image"}
-                  className="w-full h-[200px] sm:w-[312px] md:h-[269px] object-cover rounded-md border mx-auto"
+                  className="w-full h-[200px] sm:w-[312px] md:h-[269px] object-cover rounded-lg border mx-auto"
                 />
 
                 <Suspense>

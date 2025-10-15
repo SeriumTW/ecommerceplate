@@ -79,7 +79,7 @@
 
 /* search style */
 .search-icon {
-  @apply cursor-pointer transition text-white dark:text-black bg-black dark:bg-white;
+  @apply cursor-pointer transition text-text-inverse bg-primary dark:text-darkmode-text-dark dark:bg-darkmode-primary;
 }
 
 .search-modal {
