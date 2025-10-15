@@ -8,8 +8,14 @@ import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { Suspense, useCallback, useEffect, useMemo, useState } from "react";
-import { LuArrowRight, LuMenu, LuSearch, LuX } from "react-icons/lu";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { LuArrowRight, LuMenu, LuX } from "react-icons/lu";
 
 interface IChildNavigationLink {
   name: string;
@@ -76,75 +82,6 @@ const HeaderTopBar = ({
   );
 };
 
-
-const HighlightCard = ({
-  title,
-  description,
-  badge,
-  cta,
-  variant = "default",
-}: {
-  title?: string;
-  description?: string;
-  badge?: string;
-  cta?: { enable?: boolean; label?: string; url?: string };
-  variant?: "default" | "compact";
-}) => {
-  if (!title && !description) {
-    return null;
-  }
-
-  const isCompact = variant === "compact";
-  const wrapperClasses = isCompact
-    ? "relative overflow-hidden rounded-2xl border border-primary/15 bg-primary/10 px-5 py-5 text-text-dark shadow-sm dark:border-darkmode-primary/30 dark:bg-darkmode-primary/10 dark:text-darkmode-text"
-    : "relative overflow-hidden rounded-3xl border border-primary/20 bg-primary/10 px-6 py-6 text-text-dark shadow-sm dark:border-darkmode-primary/30 dark:bg-darkmode-primary/10 dark:text-darkmode-text";
-  const titleClasses = isCompact
-    ? "mt-2 text-xl font-semibold text-text-dark dark:text-white"
-    : "mt-3 text-2xl font-semibold text-text-dark dark:text-white";
-  const descriptionClasses = isCompact
-    ? "mt-2 text-sm text-text-light dark:text-darkmode-text"
-    : "mt-3 text-sm text-text-light dark:text-darkmode-text";
-  const badgeClasses = isCompact
-    ? "mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-primary shadow-sm dark:bg-darkmode-body/80 dark:text-darkmode-primary"
-    : "mt-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-primary shadow-sm dark:bg-darkmode-body/80 dark:text-darkmode-primary";
-  const buttonClasses = isCompact
-    ? "btn btn-primary mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm"
-    : "btn btn-primary mt-6 inline-flex items-center gap-2 rounded-full px-6 py-2 text-sm";
-
-  return (
-    <div className={wrapperClasses}>
-      <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/20 blur-3xl dark:bg-darkmode-primary/30" />
-      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary/80 dark:text-darkmode-primary">
-        Novità dal negozio
-      </p>
-      <h3 className={titleClasses}>
-        {title}
-      </h3>
-      {description ? (
-        <p className={descriptionClasses}>
-          {description}
-        </p>
-      ) : null}
-
-      {badge ? (
-        <div className={badgeClasses}>
-          {badge}
-        </div>
-      ) : null}
-
-      {cta?.enable && cta.label && cta.url ? (
-        <Link
-          href={cta.url}
-          className={buttonClasses}
-        >
-          {cta.label}
-          <LuArrowRight className="text-base" />
-        </Link>
-      ) : null}
-    </div>
-  );
-};
-
 const DesktopNavigation = ({
   menuItems,
   pathname,
@@ -184,12 +121,18 @@ const DesktopNavigation = ({
       <div className="flex items-center gap-4">
         {settings.search ? (
           <div className="hidden w-96 xl:w-[510px] lg:block">
-            <SearchBar placeholder="Cerca prodotti..." inputId="header-search" />
+            <SearchBar
+              placeholder="Cerca prodotti..."
+              inputId="header-search"
+            />
           </div>
         ) : null}
 
         {navigationButton?.enable ? (
-          <Link href={navigationButton.link} className="btn btn-outline-primary">
+          <Link
+            href={navigationButton.link}
+            className="btn btn-outline-primary"
+          >
             {navigationButton.label}
           </Link>
         ) : null}
@@ -200,7 +143,7 @@ const DesktopNavigation = ({
 
         {settings.account ? <NavUser /> : null}
 
-        <div className="relative">
+        <div className="flex items-center pb-[1.5px]">
           <Suspense fallback={cartFallback}>{cartContent}</Suspense>
         </div>
       </div>
@@ -265,7 +208,6 @@ const MobileDrawer = ({
   onClose,
   menuItems,
   navigationButton,
-  highlight,
   settings,
 }: {
   open: boolean;
@@ -276,13 +218,12 @@ const MobileDrawer = ({
     label: string;
     link: string;
   };
-  highlight?: {
-    title?: string;
-    description?: string;
-    badge?: string;
-  };
   settings: typeof config.settings;
 }) => {
+  const filteredMenuItems = menuItems.filter(
+    (item) => item.name?.toLowerCase() !== "pages",
+  );
+
   return (
     <>
       <div
@@ -291,13 +232,13 @@ const MobileDrawer = ({
       />
 
       <div
-        className={`fixed inset-y-0 left-0 z-50 flex w-full max-w-sm transform flex-col border-r border-border bg-body transition-transform duration-300 dark:border-darkmode-border dark:bg-darkmode-body ${open ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed inset-0 z-50 flex h-full w-full transform flex-col bg-body/95 backdrop-blur transition-transform duration-300 dark:bg-darkmode-body/95 ${open ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="flex items-center justify-between px-6 py-5 border-b border-border/70 dark:border-darkmode-border/60">
+        <div className="flex items-center justify-between border-b border-border/60 px-6 py-5 dark:border-darkmode-border/60">
           <Logo />
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-xl transition hover:border-primary/40 hover:text-primary dark:border-darkmode-border dark:text-darkmode-text dark:hover:border-darkmode-primary/40 dark:hover:text-darkmode-primary"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border text-xl transition hover:border-primary/40 hover:text-primary dark:border-darkmode-border dark:text-darkmode-text dark:hover:border-darkmode-primary/40 dark:hover:text-darkmode-primary"
             onClick={onClose}
             aria-label="Chiudi navigazione"
           >
@@ -305,31 +246,27 @@ const MobileDrawer = ({
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 py-6">
+        <div className="flex-1 overflow-y-auto px-6 pb-10 pt-6">
           {settings.search ? (
-            <div className="rounded-2xl border border-border/40 bg-light/60 p-4 dark:border-darkmode-border/50 dark:bg-darkmode-light/10">
-              <SearchBar placeholder="Cerca subito..." />
-            </div>
+            <section className="space-y-3 rounded-3xl border border-border/50 bg-white/95 p-5 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary/70 dark:text-darkmode-primary">
+                Cerca nel catalogo
+              </p>
+              <SearchBar
+                placeholder="Cerca tra prodotti e collezioni..."
+                inputId="mobile-drawer-search"
+                autoFocusOnMount={open}
+              />
+            </section>
           ) : null}
 
-          {(highlight?.title || highlight?.description) && (
-            <div className="mt-5">
-              <HighlightCard
-                title={highlight?.title}
-                description={highlight?.description}
-                badge={highlight?.badge}
-                variant="compact"
-              />
-            </div>
-          )}
-
-          <nav className="mt-6 space-y-4">
-            {menuItems.map((item) => (
+          <nav className="mt-8 space-y-4">
+            {filteredMenuItems.map((item) => (
               <div key={item.name} className="space-y-2">
                 <Link
                   href={item.url || "#"}
                   onClick={onClose}
-                  className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-base font-semibold text-text-dark shadow-sm transition hover:bg-primary/10 hover:text-primary dark:bg-darkmode-light/20 dark:text-darkmode-text dark:hover:bg-darkmode-primary/20 dark:hover:text-darkmode-primary"
+                  className="flex items-center justify-between rounded-2xl bg-white px-5 py-3 text-base font-semibold text-text-dark shadow-sm transition hover:bg-primary/10 hover:text-primary dark:bg-darkmode-light/20 dark:text-darkmode-text dark:hover:bg-darkmode-primary/20 dark:hover:text-darkmode-primary"
                 >
                   {item.name}
                   <LuArrowRight className="text-sm opacity-60" />
@@ -354,17 +291,17 @@ const MobileDrawer = ({
           </nav>
         </div>
 
-        <div className="px-6 pb-8">
-          {navigationButton?.enable ? (
+        {navigationButton?.enable ? (
+          <div className="border-t border-border/60 px-6 py-6 dark:border-darkmode-border/60">
             <Link
               href={navigationButton.link}
               onClick={onClose}
-              className="btn btn-outline-primary mb-3 w-full"
+              className="btn btn-outline-primary w-full"
             >
               {navigationButton.label}
             </Link>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
     </>
   );
@@ -376,15 +313,14 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const cartContent = childArray[1] ?? null;
 
   const { main }: { main: INavigationLink[] } = menu;
-  const { navigation_button, settings, header_topbar, header_highlight } =
-    config;
+  const { navigation_button, settings, header_topbar } = config;
 
   const pathname = usePathname();
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [navbarShadow, setNavbarShadow] = useState(false);
 
   const closeAllOverlays = useCallback(() => {
-        setIsDrawerOpen(false);
+    setIsDrawerOpen(false);
   }, []);
 
   useEffect(() => {
@@ -403,7 +339,6 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     };
   }, []);
 
-  
   const topBarLinks = useMemo<TopBarLink[]>(
     () => header_topbar?.links ?? [],
     [header_topbar?.links],
@@ -440,24 +375,19 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               cartFallback={cartFallback}
               cartContent={cartContent}
             />
-
+          </div>
+        </div>
       </div>
 
-    </div>
-  </div>
-
-  <MobileDrawer
-    open={isDrawerOpen}
-    onClose={() => setIsDrawerOpen(false)}
-    menuItems={main}
-    navigationButton={navigation_button}
-    highlight={header_highlight}
-    settings={settings}
-  />
+      <MobileDrawer
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        menuItems={main}
+        navigationButton={navigation_button}
+        settings={settings}
+      />
     </header>
   );
 };
 
 export default Header;
-
-
