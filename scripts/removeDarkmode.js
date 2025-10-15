@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
 const rootDirs = ["src/app", "src/hooks", "src/layouts", "src/styles"];
 const configFiles = [

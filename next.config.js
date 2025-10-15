@@ -1,3 +1,6 @@
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
 const config = require("./src/config/config.json");
 
 /** @type {import('next').NextConfig} */
@@ -15,4 +18,4 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

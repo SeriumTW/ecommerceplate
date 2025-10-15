@@ -4,6 +4,7 @@
   "description": "Shopify Storefront Boilerplate with Next.js, Tailwind CSS, and Shopify SDK",
   "author": "zeon.studio",
   "license": "MIT",
+  "type": "module",
   "packageManager": "yarn@1.22.19",
   "scripts": {
     "dev": "next dev --turbopack",
