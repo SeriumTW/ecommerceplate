@@ -9,13 +9,7 @@ import menu from "@/config/menu.json";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { Suspense, useCallback, useEffect, useMemo, useState } from "react";
-import {
-  LuArrowRight,
-  LuChevronDown,
-  LuMenu,
-  LuSparkles,
-  LuX,
-} from "react-icons/lu";
+import { LuArrowRight, LuMenu, LuSearch, LuX } from "react-icons/lu";
 
 interface IChildNavigationLink {
   name: string;
@@ -44,13 +38,6 @@ const isMenuItemActive = (
 
   const normalizedPath = item.url.endsWith("/") ? item.url : `${item.url}/`;
   return pathname === item.url || pathname === normalizedPath;
-};
-
-const menuDescriptions: Record<string, string> = {
-  Home: "Dai un’occhiata alle ultime novità in homepage.",
-  Products: "Tutto il catalogo pet-friendly diviso per collezioni.",
-  Pages: "Scopri informazioni utili, contatti e policy del negozio.",
-  Contact: "Hai bisogno di aiuto? Il nostro team è a tua disposizione.",
 };
 
 const HeaderTopBar = ({
@@ -89,131 +76,6 @@ const HeaderTopBar = ({
   );
 };
 
-const DiscoverPanel = ({
-  menuItems,
-  pathname,
-  onNavigate,
-  suggestions,
-  highlight,
-  cta,
-}: {
-  menuItems: INavigationLink[];
-  pathname: string;
-  onNavigate: () => void;
-  suggestions: string[];
-  highlight?: {
-    title?: string;
-    description?: string;
-    badge?: string;
-  };
-  cta?: {
-    enable?: boolean;
-    label?: string;
-    url?: string;
-  };
-}) => {
-  if (!menuItems.length) {
-    return null;
-  }
-
-  return (
-    <div className="hidden lg:block">
-      <div className="absolute inset-x-0 top-full z-30 bg-body/95 py-10 backdrop-blur dark:bg-darkmode-body/95">
-        <div className="container grid gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-          <div className="flex flex-col gap-4">
-            <SearchSection suggestions={suggestions} />
-            <HighlightCard
-              title={highlight?.title}
-              description={highlight?.description}
-              badge={highlight?.badge}
-              cta={cta}
-            />
-          </div>
-          <div className="grid gap-6 md:grid-cols-2">
-            {menuItems.map((item) => (
-              <div
-                key={item.name}
-                className="group rounded-3xl border border-border/40 bg-white/90 p-6 shadow-lg/10 transition hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl dark:border-darkmode-border/60 dark:bg-darkmode-light/30 dark:hover:border-darkmode-primary/60"
-              >
-                <div className="flex items-center justify-between">
-                  <Link
-                    href={item.url || "#"}
-                    className={`text-lg font-semibold transition hover:text-primary ${isMenuItemActive(item, pathname) ? "text-primary" : "text-text-dark dark:text-darkmode-text"}`}
-                    onClick={onNavigate}
-                  >
-                    {item.name}
-                  </Link>
-                  <LuSparkles className="text-primary/70 dark:text-darkmode-primary" />
-                </div>
-
-                <p className="mt-2 text-sm text-text-light dark:text-darkmode-text">
-                  {menuDescriptions[item.name] ??
-                    "Esplora questa sezione per scoprire nuove idee."}
-                </p>
-
-                {item.children?.length ? (
-                  <ul className="mt-4 space-y-2 text-sm">
-                    {item.children.map((child) => (
-                      <li key={child.url}>
-                        <Link
-                          href={child.url}
-                          className={`flex items-center justify-between rounded-full bg-light/60 px-4 py-2 text-text-dark transition hover:bg-primary/10 hover:text-primary dark:bg-darkmode-light/30 dark:text-darkmode-text dark:hover:bg-darkmode-primary/20 dark:hover:text-darkmode-primary ${isMenuItemActive(child, pathname) ? "bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary" : ""}`}
-                          onClick={onNavigate}
-                        >
-                          <span>{child.name}</span>
-                          <LuArrowRight className="text-xs opacity-70" />
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const SearchSection = ({
-  suggestions,
-}: {
-  suggestions: string[];
-}) => {
-  return (
-    <div className="rounded-3xl border border-border/60 bg-light/80 px-6 py-6 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-light/10">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary/80 dark:text-darkmode-primary">
-            Cerca il regalo perfetto per il tuo pet
-          </p>
-          <p className="mt-2 text-base text-text-dark dark:text-darkmode-text">
-            Suggerimenti personalizzati e prodotti selezionati per ogni esigenza.
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-4">
-        <SearchBar placeholder="Cerca snack, cucce, giochi..." />
-      </div>
-
-      {suggestions?.length ? (
-        <div className="mt-4 flex flex-wrap gap-3">
-          {suggestions.map((suggestion) => (
-            <Link
-              key={suggestion}
-              href={`/products?q=${encodeURIComponent(suggestion)}`}
-              className="rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-text-light shadow-sm transition hover:border-primary/40 hover:bg-primary/10 hover:text-primary dark:bg-darkmode-body/80 dark:text-darkmode-text dark:hover:bg-darkmode-primary/20 dark:hover:text-darkmode-primary"
-            >
-              {suggestion}
-            </Link>
-          ))}
-        </div>
-      ) : null}
-    </div>
-  );
-};
 
 const HighlightCard = ({
   title,
@@ -286,35 +148,24 @@ const HighlightCard = ({
 const DesktopNavigation = ({
   menuItems,
   pathname,
-  isMegaOpen,
-  onMegaToggle,
   navigationButton,
+  settings,
+  cartFallback,
+  cartContent,
 }: {
   menuItems: INavigationLink[];
   pathname: string;
-  isMegaOpen: boolean;
-  onMegaToggle: () => void;
   navigationButton: {
     enable: boolean;
     label: string;
     link: string;
   };
+  settings: typeof config.settings;
+  cartFallback: React.ReactNode;
+  cartContent: React.ReactNode;
 }) => {
   return (
-    <div className="hidden items-center gap-4 lg:flex">
-      <button
-        type="button"
-        onClick={onMegaToggle}
-        aria-expanded={isMegaOpen}
-        className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${isMegaOpen ? "border-primary bg-primary text-white shadow-lg hover:bg-primary/90" : "border-border bg-white text-text-dark shadow-sm hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-lg dark:border-darkmode-border dark:bg-darkmode-light/20 dark:text-darkmode-text dark:hover:border-darkmode-primary/40"}`}
-      >
-        <LuSparkles className={isMegaOpen ? "text-white" : "text-primary"} />
-        Catalogo
-        <LuChevronDown
-          className={`transition ${isMegaOpen ? "rotate-180" : ""}`}
-        />
-      </button>
-
+    <div className="hidden items-center justify-between gap-6 lg:flex">
       <nav className="flex items-center gap-2 text-sm font-semibold">
         {menuItems.map((item) => (
           <React.Fragment key={item.name}>
@@ -330,11 +181,29 @@ const DesktopNavigation = ({
         ))}
       </nav>
 
-      {navigationButton?.enable ? (
-        <Link href={navigationButton.link} className="btn btn-outline-primary">
-          {navigationButton.label}
-        </Link>
-      ) : null}
+      <div className="flex items-center gap-4">
+        {settings.search ? (
+          <div className="hidden w-96 xl:w-[510px] lg:block">
+            <SearchBar placeholder="Cerca prodotti..." inputId="header-search" />
+          </div>
+        ) : null}
+
+        {navigationButton?.enable ? (
+          <Link href={navigationButton.link} className="btn btn-outline-primary">
+            {navigationButton.label}
+          </Link>
+        ) : null}
+
+        {settings.theme_switcher ? (
+          <ThemeSwitcher className="hidden lg:inline-flex" />
+        ) : null}
+
+        {settings.account ? <NavUser /> : null}
+
+        <div className="relative">
+          <Suspense fallback={cartFallback}>{cartContent}</Suspense>
+        </div>
+      </div>
     </div>
   );
 };
@@ -396,7 +265,6 @@ const MobileDrawer = ({
   onClose,
   menuItems,
   navigationButton,
-  headerCta,
   highlight,
   settings,
 }: {
@@ -407,11 +275,6 @@ const MobileDrawer = ({
     enable: boolean;
     label: string;
     link: string;
-  };
-  headerCta?: {
-    enable?: boolean;
-    label?: string;
-    url?: string;
   };
   highlight?: {
     title?: string;
@@ -455,7 +318,6 @@ const MobileDrawer = ({
                 title={highlight?.title}
                 description={highlight?.description}
                 badge={highlight?.badge}
-                cta={headerCta}
                 variant="compact"
               />
             </div>
@@ -502,18 +364,6 @@ const MobileDrawer = ({
               {navigationButton.label}
             </Link>
           ) : null}
-          {headerCta?.enable &&
-          headerCta.label &&
-          headerCta.url &&
-          !(highlight?.title || highlight?.description) ? (
-            <Link
-              href={headerCta.url}
-              onClick={onClose}
-              className="btn btn-primary w-full rounded-full"
-            >
-              {headerCta.label}
-            </Link>
-          ) : null}
         </div>
       </div>
     </>
@@ -526,22 +376,15 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const cartContent = childArray[1] ?? null;
 
   const { main }: { main: INavigationLink[] } = menu;
-  const {
-    navigation_button,
-    settings,
-    header_topbar,
-    header_cta,
-    header_highlight,
-  } = config;
+  const { navigation_button, settings, header_topbar, header_highlight } =
+    config;
 
   const pathname = usePathname();
-  const [isMegaOpen, setIsMegaOpen] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [navbarShadow, setNavbarShadow] = useState(false);
 
   const closeAllOverlays = useCallback(() => {
-    setIsMegaOpen(false);
-    setIsDrawerOpen(false);
+        setIsDrawerOpen(false);
   }, []);
 
   useEffect(() => {
@@ -560,11 +403,7 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     };
   }, []);
 
-  const suggestionList = useMemo(
-    () => header_highlight?.suggestions ?? [],
-    [header_highlight?.suggestions],
-  );
-
+  
   const topBarLinks = useMemo<TopBarLink[]>(
     () => header_topbar?.links ?? [],
     [header_topbar?.links],
@@ -591,63 +430,34 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <div className="hidden items-center justify-between lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-8">
             <div className="flex items-center gap-4">
               <Logo />
-              <div className="hidden rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-primary/80 dark:bg-darkmode-primary/10 dark:text-darkmode-primary sm:inline-flex">
-                LoveBirds Pet Care
-              </div>
             </div>
 
             <DesktopNavigation
               menuItems={main}
               pathname={pathname}
-              isMegaOpen={isMegaOpen}
-              onMegaToggle={() => setIsMegaOpen((prev) => !prev)}
               navigationButton={navigation_button}
+              settings={settings}
+              cartFallback={cartFallback}
+              cartContent={cartContent}
             />
 
-            <div className="hidden items-center gap-4 lg:flex">
-              {settings.theme_switcher ? (
-                <ThemeSwitcher className="hidden lg:flex" />
-              ) : null}
-              {settings.account ? <NavUser /> : null}
-              <div className="relative">
-                <Suspense fallback={cartFallback}>{cartContent}</Suspense>
-              </div>
-              {header_cta?.enable && header_cta.label && header_cta.url ? (
-                <Link
-                  href={header_cta.url}
-                  className="btn btn-primary rounded-full px-5 py-2 text-sm"
-                >
-                  {header_cta.label}
-                </Link>
-              ) : null}
-            </div>
-          </div>
-
-        </div>
-
-        {isMegaOpen ? (
-          <DiscoverPanel
-            menuItems={main}
-            pathname={pathname}
-            onNavigate={() => setIsMegaOpen(false)}
-            suggestions={suggestionList}
-            highlight={header_highlight}
-            cta={header_cta}
-          />
-        ) : null}
       </div>
 
-      <MobileDrawer
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-        menuItems={main}
-        navigationButton={navigation_button}
-        headerCta={header_cta}
-        highlight={header_highlight}
-        settings={settings}
-      />
+    </div>
+  </div>
+
+  <MobileDrawer
+    open={isDrawerOpen}
+    onClose={() => setIsDrawerOpen(false)}
+    menuItems={main}
+    navigationButton={navigation_button}
+    highlight={header_highlight}
+    settings={settings}
+  />
     </header>
   );
 };
 
 export default Header;
+
+

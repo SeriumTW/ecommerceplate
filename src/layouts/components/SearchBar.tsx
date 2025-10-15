@@ -5,20 +5,30 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoClose, IoSearch } from "react-icons/io5";
 
-const SearchBar = ({ placeholder = "Search for products" }: { placeholder?: string }) => {
+type SearchBarProps = {
+  placeholder?: string;
+  inputId?: string;
+  autoFocusOnMount?: boolean;
+};
+
+const SearchBar = ({
+  placeholder = "Search for products",
+  inputId = "searchInput",
+  autoFocusOnMount = false,
+}: SearchBarProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isInputEditing, setInputEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    const inputField = document.getElementById(
-      "searchInput",
-    ) as HTMLInputElement;
-    if (isInputEditing || searchParams.get("q")) {
+    const inputField = document.getElementById(inputId) as HTMLInputElement | null;
+    if (!inputField) return;
+
+    if (autoFocusOnMount || isInputEditing || searchParams.get("q")) {
       inputField.focus();
     }
-  }, [searchParams, isInputEditing]);
+  }, [searchParams, isInputEditing, autoFocusOnMount, inputId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputEditing(true);
@@ -67,7 +77,7 @@ const SearchBar = ({ placeholder = "Search for products" }: { placeholder?: stri
       className={`border border-border dark:border-darkmode-border rounded-full flex bg-light/90 dark:bg-dark/10 pl-4 relative`}
     >
       <input
-        id="searchInput"
+        id={inputId}
         className="bg-transparent border-none search-input focus:ring-transparent p-2 w-full"
         key={searchParams?.get("q")}
         type="search"
