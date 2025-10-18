@@ -1,6 +1,6 @@
 "use client";
 
-import ImageFallback from "@/helpers/ImageFallback";
+import ImageFallback from "@/layouts/helpers/ImageFallback";
 import { markdownify } from "@/lib/utils/textConverter";
 import { Testimonial } from "@/types";
 import { useRef, useState } from "react";
@@ -104,10 +104,11 @@ const Testimonials = ({
               ))}
 
               <div
-                className={`hidden lg:flex justify-between w-full absolute top-1/2 z-10 px-6 text-text-dark ${isHovered
-                  ? "opacity-100 transition-opacity duration-300 ease-in-out"
-                  : "opacity-0 transition-opacity duration-300 ease-in-out"
-                  }`}
+                className={`hidden lg:flex justify-between w-full absolute top-1/2 z-10 px-6 text-text-dark ${
+                  isHovered
+                    ? "opacity-100 transition-opacity duration-300 ease-in-out"
+                    : "opacity-0 transition-opacity duration-300 ease-in-out"
+                }`}
               >
                 <div
                   ref={prevRef}

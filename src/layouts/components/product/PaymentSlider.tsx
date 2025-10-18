@@ -1,6 +1,6 @@
 "use client";
 
-import ImageFallback from "@/helpers/ImageFallback";
+import ImageFallback from "@/layouts/helpers/ImageFallback";
 import { useRef, useState } from "react";
 import { BsChevronRight } from "react-icons/bs";
 // Import Swiper styles

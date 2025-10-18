@@ -1,5 +1,5 @@
 import Expandable from "@/components/Expandable";
-import ImageFallback from "@/helpers/ImageFallback";
+import ImageFallback from "@/layouts/helpers/ImageFallback";
 import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
@@ -98,7 +98,9 @@ const About = () => {
                   <div key={idx} className="border border-border rounded-lg">
                     <div className="py-6 space-y-2">
                       <h3 className="h4">{s.name}</h3>
-                      <p className="text-text-dark dark:text-darkmode-text-light">{s.designation}</p>
+                      <p className="text-text-dark dark:text-darkmode-text-light">
+                        {s.designation}
+                      </p>
                     </div>
                     <div className="bg-light rounded-b-xl mx-auto">
                       <ImageFallback

@@ -1,6 +1,6 @@
 "use client";
 
-import ImageFallback from "@/helpers/ImageFallback";
+import ImageFallback from "@/layouts/helpers/ImageFallback";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -69,11 +69,12 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
           return (
             <SwiperSlide key={handle}>
               <div className="text-center relative">
-                <img
-                  src={image?.url}
+                <ImageFallback
+                  src={image?.url || "/images/image-placeholder.png"}
+                  fallback="/images/image-placeholder.png"
                   width={424}
                   height={306}
-                  alt={title}
+                  alt={image?.altText || `${title} collection`}
                   className="h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md"
                 />
                 <div className="py-6">
@@ -95,10 +96,11 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
         })}
 
         <div
-          className={`hidden md:block w-full absolute top-[33%] z-10 px-4 text-text-dark ${isHovered
-            ? "opacity-100 transition-opacity duration-300 ease-in-out"
-            : "opacity-0 transition-opacity duration-300 ease-in-out"
-            }`}
+          className={`hidden md:block w-full absolute top-[33%] z-10 px-4 text-text-dark ${
+            isHovered
+              ? "opacity-100 transition-opacity duration-300 ease-in-out"
+              : "opacity-0 transition-opacity duration-300 ease-in-out"
+          }`}
         >
           <div
             ref={prevRef}

@@ -3,7 +3,7 @@
 import { AddToCart } from "@/components/cart/AddToCart";
 import SkeletonCards from "@/components/loadings/skeleton/SkeletonCards";
 import config from "@/config/config.json";
-import ImageFallback from "@/helpers/ImageFallback";
+import ImageFallback from "@/layouts/helpers/ImageFallback";
 import useLoadMore from "@/hooks/useLoadMore";
 import { defaultSort, sorting } from "@/lib/constants";
 import { getCollectionProducts, getProducts } from "@/lib/shopify";

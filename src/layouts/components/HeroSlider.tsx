@@ -1,6 +1,6 @@
 "use client";
 
-import ImageFallback from "@/helpers/ImageFallback";
+import ImageFallback from "@/layouts/helpers/ImageFallback";
 import { Product } from "@/lib/shopify/types";
 import Link from "next/link";
 import "swiper/css";

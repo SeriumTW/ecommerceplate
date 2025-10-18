@@ -1,7 +1,7 @@
 "use client";
 import { AddToCart } from "@/components/cart/AddToCart";
 import config from "@/config/config.json";
-import ImageFallback from "@/helpers/ImageFallback";
+import ImageFallback from "@/layouts/helpers/ImageFallback";
 import { Product } from "@/lib/shopify/types";
 import Link from "next/link";
 
