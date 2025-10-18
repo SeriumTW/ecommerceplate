@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Logo = ({ src }: { src?: string }) => {
-
   const {
     logo,
     logo_darkmode,

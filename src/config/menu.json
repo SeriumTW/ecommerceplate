@@ -12,6 +12,7 @@
       "name": "Pages",
       "url": "",
       "hasChildren": true,
+      "hiddenOnMobile": true,
       "children": [
         {
           "name": "About",
