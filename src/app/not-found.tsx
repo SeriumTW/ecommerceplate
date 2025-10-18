@@ -1,6 +1,6 @@
 import SeoMeta from "@/partials/SeoMeta";
-import { Suspense } from "react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 const NotFound = async () => {
   return (
@@ -8,27 +8,32 @@ const NotFound = async () => {
       <Suspense fallback={null}>
         <SeoMeta title={"Page Not Found"} />
       </Suspense>
-      <section className="section-sm text-center">
-        <div className="container">
-          <div className="row justify-center">
-            <div className="sm:col-10 md:col-8 lg:col-6">
-              <span className="text-[8rem] block font-bold text-text-dark dark:text-darkmode-text-dark">
-                404
-              </span>
-              <h1 className="h2 mb-4">Page not found</h1>
-              <div className="content">
-                <p>
-                  The page you are looking for might have been removed, had its
-                  name changed, or is temporarily unavailable.
-                </p>
-              </div>
-              <Link href="/" className="btn btn-primary mt-8">
-                Back to home
-              </Link>
-            </div>
-          </div>
+      <style>{`
+        header.header,
+        footer {
+          display: none !important;
+        }
+      `}</style>
+      <main className="min-h-screen flex flex-col items-center justify-center bg-body dark:bg-darkmode-body px-4">
+        <div className="text-center max-w-xl">
+          <span className="block text-[10rem] leading-none font-bold text-primary dark:text-darkmode-primary">
+            404
+          </span>
+          <h1 className="h2 mb-4 text-text-dark dark:text-darkmode-text">
+            Pagina non trovata
+          </h1>
+          <p className="text-text-light dark:text-darkmode-text-light mb-8">
+            La pagina che stavi cercando potrebbe essere stata rimossa,
+            rinominata oppure è temporaneamente non disponibile.
+          </p>
+          <Link
+            href="/"
+            className="btn btn-primary inline-flex items-center justify-center"
+          >
+            Torna alla home
+          </Link>
         </div>
-      </section>
+      </main>
     </>
   );
 };
