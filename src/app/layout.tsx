@@ -50,8 +50,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href={`https://fonts.googleapis.com/css2?family=${pf}${sf ? "&family=" + sf : ""
-            }&display=swap`}
+          href={`https://fonts.googleapis.com/css2?family=${pf}${
+            sf ? "&family=" + sf : ""
+          }&display=swap`}
           rel="stylesheet"
         />
       </head>
@@ -59,16 +60,18 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <TwSizeIndicator />
         <Providers>
-          <Header>
-            <Link
-              href="/cart"
-              aria-label="Apri il carrello"
-              className="relative inline-flex items-center justify-center"
-            >
-              <OpenCart />
-            </Link>
-            <Cart />
-          </Header>
+          <Header
+            cartFallback={
+              <Link
+                href="/cart"
+                aria-label="Apri il carrello"
+                className="relative inline-flex items-center justify-center"
+              >
+                <OpenCart />
+              </Link>
+            }
+            cartContent={<Cart />}
+          />
           <main>{children}</main>
           <Footer />
         </Providers>
