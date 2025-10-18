@@ -1,10 +1,13 @@
 import SeoMeta from "@/partials/SeoMeta";
+import { Suspense } from "react";
 import Link from "next/link";
 
 const NotFound = async () => {
   return (
     <>
-      <SeoMeta title={"Page Not Found"} />
+      <Suspense fallback={null}>
+        <SeoMeta title={"Page Not Found"} />
+      </Suspense>
       <section className="section-sm text-center">
         <div className="container">
           <div className="row justify-center">

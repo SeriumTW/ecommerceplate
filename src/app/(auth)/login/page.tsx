@@ -2,6 +2,8 @@
 
 import { CustomerError } from "@/lib/shopify/types";
 import Link from "next/link";
+import SeoMeta from "@/partials/SeoMeta";
+import { Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -61,6 +63,9 @@ const Login = () => {
       <div className="container">
         <div className="row">
           <div className="col-11 sm:col-9 md:col-7 mx-auto">
+            <Suspense fallback={null}>
+              <SeoMeta title="Login" />
+            </Suspense>
             <div className="mb-14 text-center">
               <h2 className="max-md:h1 md:mb-2">Login</h2>
               <p className="md:text-lg">

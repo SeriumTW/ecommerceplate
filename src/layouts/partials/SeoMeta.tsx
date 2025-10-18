@@ -3,6 +3,7 @@
 import config from "@/config/config.json";
 import { plainify } from "@/lib/utils/textConverter";
 import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 
 const SeoMeta = ({
   title,
@@ -94,4 +95,10 @@ const SeoMeta = ({
   );
 };
 
-export default SeoMeta;
+export default function SeoMetaSafe(props: Parameters<typeof SeoMeta>[0]) {
+  return (
+    <Suspense fallback={null}>
+      <SeoMeta {...props} />
+    </Suspense>
+  );
+}
