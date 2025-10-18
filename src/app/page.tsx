@@ -68,7 +68,7 @@ const Home = () => {
         <div className="container">
           <div className="text-center mb-6 md:mb-14">
             <h2 className="mb-2">Featured Products</h2>
-            <p className="md:h5">Explore Today's Featured Picks!</p>
+            <p className="md:h5">Explore Today&apos;s Featured Picks!</p>
           </div>
           <Suspense fallback={<SkeletonFeaturedProducts />}>
             <ShowFeaturedProducts />

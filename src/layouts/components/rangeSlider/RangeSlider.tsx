@@ -3,7 +3,7 @@
 import config from "@/config/config.json";
 import { createUrl } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./rangeSlider.css";
 
 const RangeSlider = ({
@@ -39,11 +39,7 @@ const RangeSlider = ({
     }
   }, [getMinPrice, getMaxPrice, maxAmount]);
 
-  useEffect(() => {
-    updateRangeBar();
-  }, [minValue, maxValue]);
-
-  const updateRangeBar = () => {
+  const updateRangeBar = useCallback(() => {
     if (
       !rangeLineRef.current ||
       !minThumbRef.current ||
@@ -63,7 +59,11 @@ const RangeSlider = ({
     // Update thumbs position
     minThumbRef.current.style.left = `${minPercent}%`;
     maxThumbRef.current.style.left = `${maxPercent}%`;
-  };
+  }, [maxAmount, maxValue, minValue]);
+
+  useEffect(() => {
+    updateRangeBar();
+  }, [updateRangeBar]);
 
   const handleMouseDown = (thumb: "min" | "max") => (e: React.MouseEvent) => {
     e.preventDefault();
