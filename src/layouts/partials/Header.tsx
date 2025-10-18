@@ -163,22 +163,25 @@ const MobileHeaderRow = ({
   cartFallback: React.ReactNode;
   cartContent: React.ReactNode;
 }) => (
-  <div className="grid grid-cols-[auto_1fr_auto] items-center lg:hidden">
-    <button
-      type="button"
-      onClick={onToggleDrawer}
-      aria-label="Apri navigazione"
-      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border text-xl text-text-dark transition hover:border-primary/40 hover:text-primary dark:border-darkmode-border dark:text-darkmode-text dark:hover:border-darkmode-primary/40 dark:hover:text-darkmode-primary"
-    >
-      <LuMenu />
-    </button>
-
-    <div className="flex justify-center">
-      <Logo />
+  <div className="flex items-center justify-between lg:hidden">
+    <div className="flex items-center">
+      <div className="origin-left scale-[0.80]">
+        <Logo />
+      </div>
     </div>
 
-    <div className="flex items-center justify-end">
-      <Suspense fallback={cartFallback}>{cartContent}</Suspense>
+    <div className="flex items-center justify-between gap-8">
+      <div className="flex items-center scale-125">
+        <Suspense fallback={cartFallback}>{cartContent}</Suspense>
+      </div>
+      <button
+        type="button"
+        onClick={onToggleDrawer}
+        aria-label="Apri navigazione"
+        className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border text-2xl text-text-dark transition hover:border-primary/40 hover:text-primary dark:border-darkmode-border dark:text-darkmode-text dark:hover:border-darkmode-primary/40 dark:hover:text-darkmode-primary"
+      >
+        <LuMenu />
+      </button>
     </div>
   </div>
 );
@@ -231,9 +234,9 @@ const MobileDrawerUserSection = ({
   const greetingName = customer?.firstName?.split(" ")?.[0] ?? "Shopper";
 
   return (
-    <section className="space-y-4 rounded-2xl border border-border/60 bg-white/95 p-5 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
-      <div className="flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-border/40 bg-white dark:border-darkmode-border/50 dark:bg-darkmode-light/30">
+    <section className="space-y-5 rounded-2xl border border-border/60 bg-white/95 p-6 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
+      <div className="flex items-center gap-4">
+        <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-border/40 bg-white dark:border-darkmode-border/50 dark:bg-darkmode-light/30">
           {customer ? (
             <Gravatar
               email={customer.email ?? ""}
@@ -241,12 +244,12 @@ const MobileDrawerUserSection = ({
               style={{ borderRadius: "9999px" }}
             />
           ) : (
-            <BsPerson className="text-2xl text-primary dark:text-darkmode-primary" />
+            <BsPerson className="text-4xl text-primary dark:text-darkmode-primary" />
           )}
         </div>
 
         <div className="min-w-0">
-          <p className="text-base font-semibold text-text-dark dark:text-darkmode-text">
+          <p className="text-lg font-semibold text-text-dark dark:text-darkmode-text">
             {customer ? `Ciao, ${greetingName}!` : "Area clienti"}
           </p>
           <p className="text-sm text-text-light dark:text-darkmode-text/70">
@@ -258,7 +261,7 @@ const MobileDrawerUserSection = ({
       </div>
 
       {loading ? (
-        <p className="text-sm font-medium text-text-light dark:text-darkmode-text/60">
+        <p className="text-base font-medium text-text-light dark:text-darkmode-text/60">
           Recupero del profilo in corso...
         </p>
       ) : customer ? (
@@ -266,14 +269,14 @@ const MobileDrawerUserSection = ({
           <Link
             href="/account"
             onClick={onClose}
-            className="btn btn-outline-primary justify-center text-center"
+            className="btn btn-outline-primary justify-center text-center py-3 text-base"
           >
             Vai all&apos;account
           </Link>
           <button
             type="button"
             onClick={handleLogout}
-            className="btn btn-primary justify-center text-center"
+            className="btn btn-primary justify-center text-center py-3 text-base"
           >
             Esci
           </button>
@@ -283,14 +286,14 @@ const MobileDrawerUserSection = ({
           <Link
             href="/login"
             onClick={onClose}
-            className="btn btn-primary justify-center text-center"
+            className="btn btn-primary justify-center text-center py-3 text-base"
           >
             Accedi
           </Link>
           <Link
             href="/sign-up"
             onClick={onClose}
-            className="btn btn-outline-primary justify-center text-center"
+            className="btn btn-outline-primary justify-center text-center py-3 text-base"
           >
             Crea account
           </Link>
@@ -332,15 +335,19 @@ const MobileDrawer = ({
         className={`fixed inset-0 z-50 flex h-full w-full transform flex-col bg-body/95 backdrop-blur transition-transform duration-300 dark:bg-darkmode-body/95 ${open ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="flex items-center justify-between border-b border-border/60 px-6 py-5 dark:border-darkmode-border/60">
-          <Logo />
-          <div className="flex items-center gap-3">
+          <div className="flex items-center">
+            <div className="origin-left scale-[0.80]">
+              <Logo />
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
             {settings.theme_switcher ? (
-              <ThemeSwitcher className="inline-flex" />
+              <ThemeSwitcher className="!h-14 !w-14 !text-2xl" />
             ) : null}
 
             <button
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border text-xl transition hover:border-primary/40 hover:text-primary dark:border-darkmode-border dark:text-darkmode-text dark:hover:border-darkmode-primary/40 dark:hover:text-darkmode-primary"
+              className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border text-2xl transition hover:border-primary/40 hover:text-primary dark:border-darkmode-border dark:text-darkmode-text dark:hover:border-darkmode-primary/40 dark:hover:text-darkmode-primary"
               onClick={onClose}
               aria-label="Chiudi navigazione"
             >
@@ -349,11 +356,11 @@ const MobileDrawer = ({
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 pb-10 pt-6">
-          <div className="space-y-8">
+        <div className="flex-1 overflow-y-auto px-6 pb-12 pt-8">
+          <div className="space-y-10">
             {settings.search ? (
-              <section className="space-y-3 rounded-2xl border border-border/50 bg-white/95 p-5 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary/70 dark:text-darkmode-primary">
+              <section className="space-y-5 rounded-2xl border border-border/50 bg-white/95 p-6 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
+                <p className="text-base font-semibold uppercase tracking-[0.3em] text-primary/70 dark:text-darkmode-primary">
                   Cerca nel catalogo
                 </p>
                 <SearchBar
@@ -370,23 +377,23 @@ const MobileDrawer = ({
 
             <nav className="space-y-4">
               {filteredMenuItems.map((item) => (
-                <div key={item.name} className="space-y-2">
+                <div key={item.name} className="space-y-4">
                   <Link
                     href={item.url || "#"}
                     onClick={onClose}
-                    className="flex items-center justify-between rounded-2xl bg-white px-5 py-3 text-base font-semibold text-text-dark shadow-sm transition hover:bg-primary/10 hover:text-primary dark:bg-darkmode-light/20 dark:text-darkmode-text dark:hover:bg-darkmode-primary/20 dark:hover:text-darkmode-primary"
+                    className="flex items-center justify-between rounded-2xl bg-white px-6 py-4 text-lg font-semibold text-text-dark shadow-sm transition hover:bg-primary/10 hover:text-primary dark:bg-darkmode-light/20 dark:text-darkmode-text dark:hover:bg-darkmode-primary/20 dark:hover:text-darkmode-primary"
                   >
                     {item.name}
-                    <LuArrowRight className="text-sm opacity-60" />
+                    <LuArrowRight className="text-base opacity-60" />
                   </Link>
                   {item.children?.length ? (
                     <ul className="ml-4 border-l border-border/40 pl-4 dark:border-darkmode-border/40">
                       {item.children.map((child) => (
-                        <li key={child.url} className="py-1">
+                        <li key={child.url} className="py-2">
                           <Link
                             href={child.url}
                             onClick={onClose}
-                            className="text-sm text-text-light transition hover:text-primary dark:text-darkmode-text dark:hover:text-darkmode-primary"
+                            className="text-base text-text-light transition hover:text-primary dark:text-darkmode-text dark:hover:text-darkmode-primary"
                           >
                             {child.name}
                           </Link>
@@ -401,11 +408,11 @@ const MobileDrawer = ({
         </div>
 
         {navigationButton?.enable ? (
-          <div className="border-t border-border/60 px-6 py-6 dark:border-darkmode-border/60">
+          <div className="border-t border-border/60 px-6 py-8 dark:border-darkmode-border/60">
             <Link
               href={navigationButton.link}
               onClick={onClose}
-              className="btn btn-outline-primary w-full"
+              className="btn btn-outline-primary w-full py-4 text-lg"
             >
               {navigationButton.label}
             </Link>
@@ -448,6 +455,21 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isDrawerOpen) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    };
+  }, [isDrawerOpen]);
+
   const topBarLinks = useMemo<TopBarLink[]>(
     () => header_topbar?.links ?? [],
     [header_topbar?.links],
@@ -462,7 +484,7 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       )}
 
       <div className="relative bg-body/95 backdrop-blur dark:bg-darkmode-body/95">
-        <div className="container space-y-4 py-3 lg:space-y-5 lg:py-5">
+        <div className="container space-y-3 py-2 lg:space-y-5 lg:py-5">
           <MobileHeaderRow
             onToggleDrawer={() => setIsDrawerOpen((prev) => !prev)}
             cartFallback={cartFallback}

@@ -26,3 +26,10 @@
 @utility form-label {
   @apply mb-4 block font-secondary text-xl font-normal text-text-dark dark:text-darkmode-light;
 }
+
+/* Override space-y utilities to remove bottom margin */
+@layer utilities {
+  .space-y-3 > :not(:last-child) {
+    margin-block-end: 0 !important;
+  }
+}
