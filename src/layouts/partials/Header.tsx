@@ -61,7 +61,7 @@ const HeaderTopBar = ({
   }
 
   return (
-    <div className="bg-primary-muted text-xs text-text-dark dark:bg-darkmode-light/30 dark:text-darkmode-text">
+    <div className="hidden lg:block bg-primary-muted text-xs text-text-dark dark:bg-darkmode-light/30 dark:text-darkmode-text">
       <div className="container flex flex-col items-center justify-center gap-2 py-2 text-center sm:flex-row sm:justify-between sm:gap-3 sm:text-left">
         <div className="flex items-center justify-center gap-2 font-semibold uppercase tracking-[0.2em] sm:justify-start">
           <span className="h-2 w-2 rounded-full bg-support-1 dark:bg-support-1" />
@@ -334,7 +334,7 @@ const MobileDrawer = ({
       <div
         className={`fixed inset-0 z-50 flex h-full w-full transform flex-col bg-body/95 backdrop-blur transition-transform duration-300 dark:bg-darkmode-body/95 ${open ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="flex items-center justify-between border-b border-border/60 px-6 py-5 dark:border-darkmode-border/60">
+        <div className="flex items-center justify-between border-b border-border/60 px-4 py-2 dark:border-darkmode-border/60">
           <div className="flex items-center">
             <div className="origin-left scale-[0.80]">
               <Logo />
