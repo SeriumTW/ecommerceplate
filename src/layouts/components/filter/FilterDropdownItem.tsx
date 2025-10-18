@@ -22,8 +22,9 @@ function PathFilterItem({ item }: { item: PathFilterItemType }) {
     <li className="mt-2 flex text-black dark:text-white" key={item.title}>
       <DynamicTag
         href={createUrl(item.path, newParams)}
-        className={`w-full text-sm ${active ? "bg-green-400" : "hover:underline"
-          }`}
+        className={`w-full text-sm ${
+          active ? "bg-green-400" : "hover:underline"
+        }`}
       >
         {item.title}
       </DynamicTag>

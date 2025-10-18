@@ -12,7 +12,10 @@ const Breadcrumbs = ({ className }: { className?: string }) => {
   let parts = [
     {
       label: (
-        <BiHome className="text-text-light dark:text-darkmode-text-light" size={24} />
+        <BiHome
+          className="text-text-light dark:text-darkmode-text-light"
+          size={24}
+        />
       ),
       href: "/",
       "aria-label": pathname === "/" ? "page" : undefined,

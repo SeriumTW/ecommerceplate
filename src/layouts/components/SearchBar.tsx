@@ -22,7 +22,9 @@ const SearchBar = ({
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    const inputField = document.getElementById(inputId) as HTMLInputElement | null;
+    const inputField = document.getElementById(
+      inputId,
+    ) as HTMLInputElement | null;
     if (!inputField) return;
 
     if (autoFocusOnMount || isInputEditing || searchParams.get("q")) {

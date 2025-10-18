@@ -15,10 +15,12 @@ const Button = ({
     <Link
       href={link}
       target="_blank"
-      rel={`noopener noreferrer ${rel ? (rel === "follow" ? "" : rel) : "nofollow"
-        }`}
-      className={`btn mb-4 me-4 no-underline hover:text-white dark:hover:text-black ${style === "outline" ? "btn-outline-primary" : "btn-primary"
-        }`}
+      rel={`noopener noreferrer ${
+        rel ? (rel === "follow" ? "" : rel) : "nofollow"
+      }`}
+      className={`btn mb-4 me-4 no-underline hover:text-white dark:hover:text-black ${
+        style === "outline" ? "btn-outline-primary" : "btn-primary"
+      }`}
     >
       {label}
     </Link>

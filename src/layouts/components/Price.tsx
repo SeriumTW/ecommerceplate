@@ -15,9 +15,7 @@ const Price = ({
       currency: currencyCode,
       currencyDisplay: "narrowSymbol",
     }).format(parseFloat(amount))}`}
-    <span
-      className={`ml-1 inline ${currencyCodeClassName}`}
-    >
+    <span className={`ml-1 inline ${currencyCodeClassName}`}>
       {currencyCode}
     </span>
   </p>

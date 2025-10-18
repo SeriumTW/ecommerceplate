@@ -83,10 +83,10 @@ const ShowProducts = async ({
     productsData =
       category && category !== "all"
         ? await getCollectionProducts({
-          collection: category,
-          sortKey,
-          reverse,
-        })
+            collection: category,
+            sortKey,
+            reverse,
+          })
         : await getProducts(query);
 
     const uniqueVendors: string[] = [
