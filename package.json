@@ -5,7 +5,7 @@
   "author": "zeon.studio",
   "license": "MIT",
   "type": "module",
-  "packageManager": "yarn@1.22.19",
+  "packageManager": "npm@10.0.0",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -13,7 +13,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier -w ./src",
-    "remove-darkmode": "node scripts/removeDarkmode.js && yarn format"
+    "remove-darkmode": "node scripts/removeDarkmode.js && npm run format"
   },
   "engines": {
     "node": ">=18.0.0"
