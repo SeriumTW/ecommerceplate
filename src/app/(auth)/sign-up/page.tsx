@@ -69,9 +69,7 @@ const SignUp = () => {
           <div className="col-11 sm:col-9 md:col-7 mx-auto">
             <div className="mb-14 text-center">
               <h2 className="max-md:h1 md:mb-2">Create an account</h2>
-              <p className="md:text-lg">
-                Create an account and start using...
-              </p>
+              <p className="md:text-lg">Create an account and start using...</p>
             </div>
 
             <form onSubmit={handleSignUp}>
