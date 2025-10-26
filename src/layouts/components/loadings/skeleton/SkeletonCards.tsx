@@ -2,7 +2,7 @@ const SkeletonCards = () => {
   return (
     <section>
       <div className="container">
-        <div className="row gy-4">
+        <div className="row gy-5">
           <div className="col-12 mx-auto">
             <div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

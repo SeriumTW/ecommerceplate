@@ -197,7 +197,7 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
   const resultsText = products.length > 1 ? "results" : "result";
 
   return (
-    <div ref={targetElementRef} className="row">
+    <div ref={targetElementRef} className="row gy-5">
       {searchValue ? (
         <p className="mb-4">
           {products.length === 0
