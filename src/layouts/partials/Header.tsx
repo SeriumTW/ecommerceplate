@@ -2,7 +2,7 @@
 
 import Logo from "@/components/Logo";
 import DesktopNavigation from "@/components/navigation/DesktopNavigation";
-import HeaderTopBar from "@/components/navigation/HeaderTopBar";
+import UnifiedTopBar from "@/components/UnifiedTopBar";
 import MobileDrawer from "@/components/navigation/mobile/MobileDrawer";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
@@ -61,7 +61,7 @@ const Header: React.FC<HeaderCartProps> = ({ cartFallback, cartContent }) => {
       className={`header relative z-40 ${settings.sticky_header ? "sticky top-0" : ""} ${navbarShadow ? "shadow-md" : ""}`}
     >
       {header_topbar?.enable && (
-        <HeaderTopBar message={header_topbar.message} links={topBarLinks} />
+        <UnifiedTopBar links={topBarLinks} />
       )}
 
       <div className="relative bg-body/95 backdrop-blur dark:bg-darkmode-body/95">
