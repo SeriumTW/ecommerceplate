@@ -58,7 +58,7 @@ const CartLine = ({ item }: { item: CartItem }) => {
   );
 
   return (
-    <li className="rounded-xl border border-border/60 bg-body p-4 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
+    <li className="rounded-2xl border border-border/60 bg-body p-4 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
         <Link
           href={merchandiseUrl}

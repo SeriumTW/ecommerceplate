@@ -7,7 +7,7 @@ const SkeletonCategory = () => {
           return (
             <div
               key={index}
-              className="h-[150px] md:h-[250px] lg:h-[306px] rounded-md animate-pulse bg-neutral-200 dark:bg-neutral-700"
+              className="h-[150px] md:h-[250px] lg:h-[306px] rounded-2xl animate-pulse bg-neutral-200 dark:bg-neutral-700"
             />
           );
         })}

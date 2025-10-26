@@ -1,6 +1,6 @@
 import React from "react";
 
-const dots = "mx-[1px] inline-block h-1 w-1 animate-blink rounded-md";
+const dots = "mx-[1px] inline-block h-1 w-1 animate-blink rounded-2xl";
 
 const LoadingDots = ({ className }: { className: string }) => {
   return (

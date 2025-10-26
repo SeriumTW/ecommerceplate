@@ -1,4 +1,7 @@
 import LoadingProducts from "@/components/loadings/skeleton/SkeletonProducts";
+import ActiveFilters from "@/components/ActiveFilters";
+import CategoryHeader from "@/components/CategoryHeader";
+import EmptyState from "@/components/EmptyState";
 import ProductLayouts from "@/components/product/ProductLayouts";
 import { defaultSort, sorting } from "@/lib/constants";
 import { getListPage } from "@/lib/contentParser";
@@ -9,10 +12,14 @@ import {
   getProducts,
   getVendors,
 } from "@/lib/shopify";
-import { PageInfo, Product } from "@/lib/shopify/types";
+import { Collection, PageInfo, Product } from "@/lib/shopify/types";
+import {
+  buildProductQuery,
+  extractFiltersFromSearchParams,
+  hasActiveFilters,
+} from "@/lib/utils/productQueryBuilder";
 import CallToAction from "@/partials/CallToAction";
 import ProductCardView from "@/partials/ProductCardView";
-import ProductFilters from "@/partials/ProductFilters";
 import ProductListView from "@/partials/ProductListView";
 import { Suspense } from "react";
 
@@ -48,30 +55,20 @@ const ShowProducts = async ({
   const { sortKey, reverse } =
     sorting.find((item) => item.slug === sort) || defaultSort;
 
+  // Estrai filtri usando utility
+  const filters = extractFiltersFromSearchParams(
+    searchParams as { [key: string]: string | undefined },
+  );
+  const hasFilters = hasActiveFilters(filters);
+
   let productsData: any;
   let vendorsWithCounts: { vendor: string; productCount: number }[] = [];
   let categoriesWithCounts: { category: string; productCount: number }[] = [];
+  let currentCategory: Collection | undefined;
 
-  if (searchValue || brand || minPrice || maxPrice || category || tag) {
-    let queryString = "";
-
-    if (minPrice || maxPrice) {
-      queryString += `variants.price:<=${maxPrice} variants.price:>=${minPrice}`;
-    }
-
-    if (searchValue) {
-      queryString += ` ${searchValue}`;
-    }
-
-    if (brand) {
-      Array.isArray(brand)
-        ? (queryString += `${brand.map((b) => `(vendor:${b})`).join(" OR ")}`)
-        : (queryString += `vendor:"${brand}"`);
-    }
-
-    if (tag) {
-      queryString += ` ${tag}`;
-    }
+  if (hasFilters) {
+    // Usa utility per costruire query invece di duplicare logica
+    const queryString = buildProductQuery(filters);
 
     const query = {
       sortKey,
@@ -128,8 +125,14 @@ const ShowProducts = async ({
     // Fetch all products
     productsData = await getProducts({ sortKey, reverse, cursor });
   }
+
   const categories = await getCollections();
   const vendors = await getVendors({});
+
+  // Trova categoria corrente se c'è
+  if (category && category !== "all") {
+    currentCategory = categories.find((cat) => cat.handle === category);
+  }
 
   const tags = [
     ...new Set(
@@ -141,41 +144,44 @@ const ShowProducts = async ({
 
   const maxPriceData = await getHighestProductPrice();
 
+  const productCount = productsData?.products?.length || 0;
+  const hasProducts = productCount > 0;
+
   return (
     <>
-      <Suspense>
-        <ProductLayouts
-          categories={categories}
-          vendors={vendors}
-          tags={tags}
-          maxPriceData={maxPriceData}
-          vendorsWithCounts={vendorsWithCounts}
-          categoriesWithCounts={categoriesWithCounts}
-        />
-      </Suspense>
+      {/* Hero Section con Breadcrumbs integrati */}
+      <CategoryHeader
+        category={currentCategory}
+        searchValue={searchValue}
+        productCount={productCount}
+      />
 
-      <div className="container">
-        <div className="row">
-          <div className="col-3 hidden lg:block -mt-14">
-            <Suspense>
-              <ProductFilters
-                categories={categories}
-                vendors={vendors}
-                tags={tags}
-                maxPriceData={maxPriceData!}
-                vendorsWithCounts={vendorsWithCounts}
-                categoriesWithCounts={categoriesWithCounts}
-              />
-            </Suspense>
-          </div>
+      {/* Main Content con spacing verticale */}
+      <div className="py-12 md:py-16">
+        <div className="container">
+          {/* Active Filters con chips removibili */}
+          <ActiveFilters filters={filters} />
 
-          <div className="col-12 lg:col-9">
-            {layout === "list" ? (
-              <ProductListView searchParams={searchParams} />
-            ) : (
-              <ProductCardView searchParams={searchParams} />
-            )}
-          </div>
+          {/* Product Layouts (sort, view toggle, filtri drawer) */}
+          <Suspense>
+            <ProductLayouts
+              categories={categories}
+              vendors={vendors}
+              tags={tags}
+              maxPriceData={maxPriceData}
+              vendorsWithCounts={vendorsWithCounts}
+              categoriesWithCounts={categoriesWithCounts}
+            />
+          </Suspense>
+
+          {/* Prodotti Grid/List */}
+          {!hasProducts ? (
+            <EmptyState />
+          ) : layout === "list" ? (
+            <ProductListView searchParams={searchParams} />
+          ) : (
+            <ProductCardView searchParams={searchParams} />
+          )}
         </div>
       </div>
     </>

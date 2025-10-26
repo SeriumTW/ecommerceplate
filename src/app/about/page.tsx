@@ -43,7 +43,7 @@ const About = () => {
               {index % 2 === 0 ? (
                 <>
                   <ImageFallback
-                    className="rounded-md mx-auto"
+                    className="rounded-2xl mx-auto"
                     src={section?.image}
                     width={536}
                     height={449}
@@ -67,7 +67,7 @@ const About = () => {
                     />
                   </div>
                   <ImageFallback
-                    className="rounded-md mx-auto mt-10 lg:mt-0"
+                    className="rounded-2xl mx-auto mt-10 lg:mt-0"
                     src={section.image}
                     width={536}
                     height={449}
@@ -95,20 +95,20 @@ const About = () => {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-14">
               {staff_section_enable &&
                 staff!.map((s, idx) => (
-                  <div key={idx} className="border border-border rounded-lg">
+                  <div key={idx} className="border border-border rounded-2xl">
                     <div className="py-6 space-y-2">
                       <h3 className="h4">{s.name}</h3>
                       <p className="text-text-dark dark:text-darkmode-text-light">
                         {s.designation}
                       </p>
                     </div>
-                    <div className="bg-light rounded-b-xl mx-auto">
+                    <div className="bg-light rounded-b-2xl mx-auto">
                       <ImageFallback
                         src={s.avatar}
                         alt={`Staff-${s.name}`}
                         width={290}
                         height={250}
-                        className="mx-auto w-full h-[250px] rounded-b-xl overflow-hidden"
+                        className="mx-auto w-full h-[250px] rounded-b-2xl overflow-hidden"
                       />
                     </div>
                   </div>
@@ -120,7 +120,7 @@ const About = () => {
 
       <section className="section">
         <div className="container">
-          <div className="bg-light px-7 py-20 dark:bg-darkmode-light text-center rounded-md">
+          <div className="bg-light px-7 py-20 dark:bg-darkmode-light text-center rounded-2xl">
             <h2>Reasons to shop with us</h2>
 
             <div className="row justify-center gap-6 mt-14">
@@ -158,7 +158,7 @@ const About = () => {
 
       <section>
         <div className="container">
-          <div className="bg-light px-7 lg:px-32 py-20 dark:bg-darkmode-light mb-14 xl:mb-28 rounded-b-md">
+          <div className="bg-light px-7 lg:px-32 py-20 dark:bg-darkmode-light mb-14 xl:mb-28 rounded-b-2xl">
             <div className="row">
               <div className="md:col-5 mx-auto space-y-5 mb-10 md:mb-0">
                 <h1 dangerouslySetInnerHTML={markdownify(faq_section_title!)} />

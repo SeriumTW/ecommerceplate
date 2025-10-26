@@ -61,8 +61,8 @@
   },
 
   "shopify": {
-    "currencySymbol": "৳",
-    "currencyCode": "BDT",
+    "currencySymbol": "$",
+    "currencyCode": "MXN",
     "collections": {
       "hero_slider": "hidden-homepage-carousel",
       "featured_products": "featured-products"

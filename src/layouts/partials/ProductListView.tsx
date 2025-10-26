@@ -1,20 +1,21 @@
 "use client";
 
-import { AddToCart } from "@/components/cart/AddToCart";
 import SkeletonCards from "@/components/loadings/skeleton/SkeletonCards";
-import config from "@/config/config.json";
-import ImageFallback from "@/layouts/helpers/ImageFallback";
+import ProductListItem from "@/components/ProductListItem";
 import useLoadMore from "@/hooks/useLoadMore";
 import { defaultSort, sorting } from "@/lib/constants";
 import { getCollectionProducts, getProducts } from "@/lib/shopify";
 import { PageInfo, Product } from "@/lib/shopify/types";
+import {
+  buildProductQuery,
+  extractFiltersFromSearchParams,
+} from "@/lib/utils/productQueryBuilder";
 import { titleify } from "@/lib/utils/textConverter";
-import Link from "next/link";
-import { Suspense, useEffect, useRef, useState } from "react";
+import ImageFallback from "@/helpers/ImageFallback";
+import { useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 
 const ProductListView = ({ searchParams }: { searchParams: any }) => {
-  const { currencySymbol } = config.shopify;
   const [isLoading, setIsLoading] = useState(true);
   const targetElementRef = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<{
@@ -224,89 +225,20 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
           </div>
         )}
 
-        <div className="row space-y-10">
-          {products?.map((product: Product) => {
-            const {
-              id,
-              title,
-              variants,
-              handle,
-              featuredImage,
-              priceRange,
-              description,
-              compareAtPriceRange,
-            } = product;
-
-            const defaultVariantId =
-              variants.length > 0 ? variants[0].id : undefined;
-
-            return (
-              <div className="col-12" key={id}>
-                <div className="row">
-                  <div className="col-4">
-                    <ImageFallback
-                      src={featuredImage?.url || "/images/product_image404.jpg"}
-                      // fallback={'/images/category-1.png'}
-                      width={312}
-                      height={269}
-                      alt={featuredImage?.altText || "fallback image"}
-                      className="w-[312px] h-[150px] md:h-[269px] object-cover border border-border dark:border-darkmode-border rounded-lg"
-                    />
-                  </div>
-
-                  <div className="col-8 py-3 max-md:pt-4">
-                    <h2 className="font-bold md:font-normal h4">
-                      <Link href={`/products/${handle}`}>{title}</Link>
-                    </h2>
-
-                    <div className="flex items-center gap-x-2 mt-2">
-                      <span className="text-text-light dark:text-darkmode-text-light text-xs md:text-lg font-bold">
-                        ৳ {priceRange?.minVariantPrice?.amount}{" "}
-                        {priceRange?.minVariantPrice?.currencyCode}
-                      </span>
-                      {parseFloat(
-                        compareAtPriceRange?.maxVariantPrice?.amount,
-                      ) > 0 ? (
-                        <s className="text-text-light dark:text-darkmode-text-light text-xs md:text-base font-medium">
-                          {currencySymbol}{" "}
-                          {compareAtPriceRange?.maxVariantPrice?.amount}{" "}
-                          {compareAtPriceRange?.maxVariantPrice?.currencyCode}
-                        </s>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-
-                    <p className="max-md:text-xs text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-1 md:line-clamp-3">
-                      {description}
-                    </p>
-                    <Suspense>
-                      <AddToCart
-                        variants={product?.variants}
-                        availableForSale={product?.availableForSale}
-                        handle={handle}
-                        defaultVariantId={defaultVariantId}
-                        stylesClass={
-                          "btn btn-outline-primary max-md:btn-sm drop-shadow-md"
-                        }
-                      />
-                    </Suspense>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <div className="flex flex-col gap-6">
+          {products?.map((product: Product, index) => (
+            <ProductListItem key={product.id || index} product={product} />
+          ))}
         </div>
 
-        <p
-          className={
-            hasNextPage || isLoading
-              ? "opacity-100 flex justify-center"
-              : "opacity-0 hidden"
-          }
-        >
-          <BiLoaderAlt className={`animate-spin`} size={30} />
-        </p>
+        {(hasNextPage || isLoading) && (
+          <div className="flex justify-center mt-12">
+            <BiLoaderAlt
+              className="animate-spin text-primary dark:text-darkmode-primary"
+              size={40}
+            />
+          </div>
+        )}
       </div>
     </section>
   );

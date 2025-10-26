@@ -89,19 +89,50 @@ const Footer = () => {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 opacity-70">
               <svg className="h-8" viewBox="0 0 48 32" fill="none">
-                <rect width="48" height="32" rx="4" fill="#1434CB"/>
-                <path d="M18 16L21 19L27 13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                <text x="24" y="22" fill="white" fontSize="8" textAnchor="middle" fontWeight="bold">VISA</text>
+                <rect width="48" height="32" rx="4" fill="#1434CB" />
+                <path
+                  d="M18 16L21 19L27 13"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <text
+                  x="24"
+                  y="22"
+                  fill="white"
+                  fontSize="8"
+                  textAnchor="middle"
+                  fontWeight="bold"
+                >
+                  VISA
+                </text>
               </svg>
               <svg className="h-8" viewBox="0 0 48 32" fill="none">
-                <rect width="48" height="32" rx="4" fill="#EB001B"/>
-                <circle cx="18" cy="16" r="8" fill="#FF5F00"/>
-                <circle cx="30" cy="16" r="8" fill="#F79E1B"/>
+                <rect width="48" height="32" rx="4" fill="#EB001B" />
+                <circle cx="18" cy="16" r="8" fill="#FF5F00" />
+                <circle cx="30" cy="16" r="8" fill="#F79E1B" />
               </svg>
               <svg className="h-8" viewBox="0 0 48 32" fill="none">
-                <rect width="48" height="32" rx="4" fill="#00457C"/>
-                <ellipse cx="24" cy="16" rx="12" ry="10" fill="none" stroke="#FAA61A" strokeWidth="2"/>
-                <text x="24" y="20" fill="white" fontSize="6" textAnchor="middle" fontWeight="bold">PayPal</text>
+                <rect width="48" height="32" rx="4" fill="#00457C" />
+                <ellipse
+                  cx="24"
+                  cy="16"
+                  rx="12"
+                  ry="10"
+                  fill="none"
+                  stroke="#FAA61A"
+                  strokeWidth="2"
+                />
+                <text
+                  x="24"
+                  y="20"
+                  fill="white"
+                  fontSize="6"
+                  textAnchor="middle"
+                  fontWeight="bold"
+                >
+                  PayPal
+                </text>
               </svg>
             </div>
           </div>

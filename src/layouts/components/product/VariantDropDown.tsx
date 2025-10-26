@@ -49,7 +49,7 @@ const VariantDropDown = ({ sizeOption }: any) => {
   return (
     <div className="w-72 relative" ref={dropdownRef}>
       <button
-        className="w-full py-2 pl-3 pr-10 text-left bg-light rounded-md cursor-pointer sm:text-sm focus:outline-none"
+        className="w-full py-2 pl-3 pr-10 text-left bg-light rounded-2xl cursor-pointer sm:text-sm focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="block truncate text-text-light">{selected}</span>
@@ -70,7 +70,7 @@ const VariantDropDown = ({ sizeOption }: any) => {
       </button>
 
       {isOpen && (
-        <ul className="absolute z-20 mt-1 max-h-60 w-full bg-white shadow-lg rounded-md overflow-auto ring-1 ring-black/5 focus:outline-none">
+        <ul className="absolute z-20 mt-1 max-h-60 w-full bg-white shadow-lg rounded-2xl overflow-auto ring-1 ring-black/5 focus:outline-none">
           {sizeOption?.values?.map((size: string) => (
             <li
               key={size}

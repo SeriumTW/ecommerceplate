@@ -119,7 +119,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
               </div>
 
               <div className="mb-8 md:mb-10">
-                <p className="p-2 max-md:text-sm rounded-md bg-light dark:bg-darkmode-light inline">
+                <p className="p-2 max-md:text-sm rounded-2xl bg-light dark:bg-darkmode-light inline">
                   {estimated_delivery}
                 </p>
               </div>

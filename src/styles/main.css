@@ -20,7 +20,7 @@
 }
 
 .iiz__hint {
-  @apply rounded-md;
+  @apply rounded-2xl;
 }
 
 /* change input autofield color */
@@ -67,10 +67,10 @@ input:-webkit-autofill:active {
 /* Hide scrollbar but keep functionality */
 @layer utilities {
   .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
   .scrollbar-hide::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari and Opera */
+    display: none; /* Chrome, Safari and Opera */
   }
 }

@@ -97,9 +97,7 @@ const UnifiedTopBar: React.FC<UnifiedTopBarProps> = ({ links }) => {
             )}
 
             {/* Icon */}
-            <span className="flex-shrink-0">
-              {currentAnnouncement.icon}
-            </span>
+            <span className="flex-shrink-0">{currentAnnouncement.icon}</span>
 
             {/* Text with animation */}
             <div

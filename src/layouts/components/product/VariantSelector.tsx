@@ -152,7 +152,7 @@ export function VariantSelector({
                     title={`${option.name} ${value}${
                       !isAvailableForSale ? " (Out of Stock)" : ""
                     }`}
-                    className={`flex min-w-[48px] items-center justify-center rounded-md border border-border text-sm cursor-pointer ${
+                    className={`flex min-w-[48px] items-center justify-center rounded-2xl border border-border text-sm cursor-pointer ${
                       isActive && option.name !== "Color"
                         ? "cursor-default ring-2 ring-dark dark:ring-darkmode-dark"
                         : ""
@@ -170,7 +170,7 @@ export function VariantSelector({
                     {option.name === "Color" ? (
                       <div
                         key={value}
-                        className={`relative rounded-md overflow-hidden ${
+                        className={`relative rounded-2xl overflow-hidden ${
                           isActive &&
                           "outline-1 outline-dark dark:outline-darkmode-dark"
                         }`}

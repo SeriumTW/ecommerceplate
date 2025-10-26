@@ -60,9 +60,7 @@ const Header: React.FC<HeaderCartProps> = ({ cartFallback, cartContent }) => {
     <header
       className={`header relative z-40 ${settings.sticky_header ? "sticky top-0" : ""} ${navbarShadow ? "shadow-md" : ""}`}
     >
-      {header_topbar?.enable && (
-        <UnifiedTopBar links={topBarLinks} />
-      )}
+      {header_topbar?.enable && <UnifiedTopBar links={topBarLinks} />}
 
       <div className="relative bg-body/95 backdrop-blur dark:bg-darkmode-body/95">
         <div className="container space-y-3 py-2 lg:space-y-5 lg:py-5">

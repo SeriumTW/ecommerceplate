@@ -18,7 +18,6 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
     setLoadingCollectionsData(false);
   }, [collections]);
 
-
   if (loadingCollectionsData) {
     return <LoadingCategory />;
   }
@@ -39,7 +38,8 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
           }}
           pagination={{
             clickable: true,
-            bulletClass: "swiper-pagination-bullet !bg-primary/30 !w-2 !h-2 !mx-1",
+            bulletClass:
+              "swiper-pagination-bullet !bg-primary/30 !w-2 !h-2 !mx-1",
             bulletActiveClass: "!bg-primary !w-6 !rounded-full",
           }}
           breakpoints={{
@@ -50,40 +50,40 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
           }}
           className="!pb-10"
         >
-        {collectionsData?.map((item: any) => {
-          const { title, handle, image, path, products } = item;
-          return (
-            <SwiperSlide key={handle}>
-              <div className="text-center relative group">
-                <div className="relative overflow-hidden rounded-xl">
-                  <ImageFallback
-                    src={image?.url || "/images/image-placeholder.png"}
-                    fallback="/images/image-placeholder.png"
-                    width={424}
-                    height={306}
-                    alt={image?.altText || `${title} collection`}
-                    className="h-[200px] md:h-[250px] lg:h-[306px] object-cover w-full transition-transform duration-300 group-hover:scale-105"
-                  />
-                  {/* Overlay scuro su hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {collectionsData?.map((item: any) => {
+            const { title, handle, image, path, products } = item;
+            return (
+              <SwiperSlide key={handle}>
+                <div className="text-center relative group">
+                  <div className="relative overflow-hidden rounded-2xl">
+                    <ImageFallback
+                      src={image?.url || "/images/image-placeholder.png"}
+                      fallback="/images/image-placeholder.png"
+                      width={424}
+                      height={306}
+                      alt={image?.altText || `${title} collection`}
+                      className="h-[200px] md:h-[250px] lg:h-[306px] object-cover w-full transition-transform duration-300 group-hover:scale-105"
+                    />
+                    {/* Overlay scuro su hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <div className="py-4 md:py-6">
+                    <h3 className="mb-1 md:mb-2 font-bold text-lg md:text-xl text-text-dark dark:text-darkmode-text-dark">
+                      <Link
+                        className="after:absolute after:inset-0 hover:text-primary dark:hover:text-darkmode-primary transition-colors"
+                        href={`/products?c=${handle}`}
+                      >
+                        {title}
+                      </Link>
+                    </h3>
+                    <p className="text-text dark:text-darkmode-text text-sm md:text-base">
+                      {item.products?.edges.length} prodotti
+                    </p>
+                  </div>
                 </div>
-                <div className="py-4 md:py-6">
-                  <h3 className="mb-1 md:mb-2 font-bold text-lg md:text-xl text-text-dark dark:text-darkmode-text-dark">
-                    <Link
-                      className="after:absolute after:inset-0 hover:text-primary dark:hover:text-darkmode-primary transition-colors"
-                      href={`/products?c=${handle}`}
-                    >
-                      {title}
-                    </Link>
-                  </h3>
-                  <p className="text-text dark:text-darkmode-text text-sm md:text-base">
-                    {item.products?.edges.length} prodotti
-                  </p>
-                </div>
-              </div>
-            </SwiperSlide>
-          );
-        })}
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
 
@@ -93,7 +93,7 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
           const { title, handle, image, path, products } = item;
           return (
             <div key={handle} className="text-center relative group">
-              <div className="relative overflow-hidden rounded-xl">
+              <div className="relative overflow-hidden rounded-2xl">
                 <ImageFallback
                   src={image?.url || "/images/image-placeholder.png"}
                   fallback="/images/image-placeholder.png"

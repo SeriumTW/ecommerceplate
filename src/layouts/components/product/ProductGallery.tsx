@@ -132,7 +132,7 @@ const CustomZoomImage = ({
 
   return (
     <div
-      className={`relative w-full h-full overflow-hidden rounded-md ${
+      className={`relative w-full h-full overflow-hidden rounded-2xl ${
         !isZoomed && showMagnifier
           ? "cursor-zoom-in"
           : isZoomed
@@ -271,7 +271,7 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
         >
           {filteredImages.map((item: ImageItem) => (
             <SwiperSlide key={item.url}>
-              <div className="mb-6 border border-border dark:border-border/40 rounded-md max-h-[623px] overflow-hidden">
+              <div className="mb-6 border border-border dark:border-border/40 rounded-2xl max-h-[623px] overflow-hidden">
                 <CustomZoomImage
                   src={item.url}
                   alt={item.altText}
@@ -290,13 +290,13 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
           >
             <div
               ref={prevRef}
-              className="p-2 lg:p-4 rounded-md bg-body cursor-pointer shadow-sm absolute left-4"
+              className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm absolute left-4"
             >
               <HiOutlineArrowNarrowLeft size={24} />
             </div>
             <div
               ref={nextRef}
-              className="p-2 lg:p-4 rounded-md bg-body cursor-pointer shadow-sm absolute right-4"
+              className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm absolute right-4"
             >
               <HiOutlineArrowNarrowRight size={24} />
             </div>
@@ -315,7 +315,7 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
           <SwiperSlide key={item.url}>
             <div
               onClick={() => handleThumbSlideClick(item.url)}
-              className={`rounded-md cursor-pointer overflow-hidden ${
+              className={`rounded-2xl cursor-pointer overflow-hidden ${
                 picUrl === item.url
                   ? "border border-darkmode-border dark:border-yellow-500"
                   : "border border-border dark:border-border/40"

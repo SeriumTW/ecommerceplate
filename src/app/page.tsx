@@ -43,7 +43,8 @@ const Home = () => {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=2400&auto=format&fit=crop')",
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=2400&auto=format&fit=crop')",
             }}
           />
           {/* Overlay ottimizzato: più leggibile a sinistra, sfuma a destra */}
@@ -80,7 +81,8 @@ const Home = () => {
           <div className="text-center mb-6 md:mb-14">
             <h2 className="mb-3">Prodotti in Evidenza</h2>
             <p className="text-lg text-text dark:text-darkmode-text max-w-2xl mx-auto">
-              I preferiti dai nostri clienti, selezionati per qualità e convenienza
+              I preferiti dai nostri clienti, selezionati per qualità e
+              convenienza
             </p>
           </div>
           <Suspense fallback={<SkeletonFeaturedProducts />}>

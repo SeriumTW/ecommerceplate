@@ -53,14 +53,15 @@ function SortFilterItem({ item }: { item: SortFilterItemType }) {
   const DynamicTag = active ? "p" : Link;
 
   return (
-    <li
-      className="flex text-sm text-text-dark hover:bg-dark/50 hover:text-white"
-      key={item.title}
-    >
+    <li className="flex text-sm" key={item.title}>
       <DynamicTag
         prefetch={!active ? false : undefined}
         href={href}
-        className={`w-full pl-4 py-2 ${active ? "bg-dark text-white" : ""}`}
+        className={`w-full px-4 py-2.5 transition-colors ${
+          active
+            ? "bg-primary text-white font-semibold"
+            : "text-text dark:text-darkmode-text hover:bg-light dark:hover:bg-darkmode-light"
+        }`}
       >
         {item.title}
       </DynamicTag>

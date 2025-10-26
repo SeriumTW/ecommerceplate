@@ -56,7 +56,7 @@ const Testimonials = ({
             >
               {testimonials.map((item: Testimonial, index: number) => (
                 <SwiperSlide key={index}>
-                  <div className="rounded-lg relative flex flex-col items-center bg-light px-7 py-10 dark:bg-darkmode-light">
+                  <div className="rounded-2xl relative flex flex-col items-center bg-light px-7 py-10 dark:bg-darkmode-light">
                     <div className="text-text-dark dark:text-white absolute opacity-25">
                       <svg
                         width="160"
@@ -112,13 +112,13 @@ const Testimonials = ({
               >
                 <div
                   ref={prevRef}
-                  className="p-2 lg:p-4 rounded-md bg-body cursor-pointer shadow-sm"
+                  className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm"
                 >
                   <HiOutlineArrowNarrowLeft size={24} />
                 </div>
                 <div
                   ref={nextRef}
-                  className="p-2 lg:p-4 rounded-md bg-body cursor-pointer shadow-sm"
+                  className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm"
                 >
                   <HiOutlineArrowNarrowRight size={24} />
                 </div>

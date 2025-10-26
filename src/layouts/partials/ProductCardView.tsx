@@ -1,20 +1,22 @@
 "use client";
 
-import { AddToCart } from "@/components/cart/AddToCart";
 import SkeletonCards from "@/components/loadings/skeleton/SkeletonCards";
-import config from "@/config/config.json";
-import ImageFallback from "@/layouts/helpers/ImageFallback";
+import ProductCard from "@/components/ProductCard";
 import useLoadMore from "@/hooks/useLoadMore";
 import { defaultSort, sorting } from "@/lib/constants";
-import { getCollectionProducts, getProducts } from "@/lib/shopify";
-import { PageInfo, Product } from "@/lib/shopify/types";
+import { getCart, getCollectionProducts, getProducts } from "@/lib/shopify";
+import { Cart, PageInfo, Product } from "@/lib/shopify/types";
+import {
+  buildProductQuery,
+  extractFiltersFromSearchParams,
+} from "@/lib/utils/productQueryBuilder";
 import { titleify } from "@/lib/utils/textConverter";
-import Link from "next/link";
-import { Suspense, useEffect, useRef, useState } from "react";
+import ImageFallback from "@/helpers/ImageFallback";
+import { useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
+import Cookies from "js-cookie";
 
 const ProductCardView = ({ searchParams }: { searchParams: any }) => {
-  const { currencySymbol } = config.shopify;
   const [isLoading, setIsLoading] = useState(true);
   const targetElementRef = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<{
@@ -24,6 +26,7 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
     products: [],
     pageInfo: { endCursor: "", hasNextPage: false, hasPreviousPage: false },
   });
+  const [cart, setCart] = useState<Cart | null>(null);
 
   const {
     sort,
@@ -40,6 +43,26 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
 
   const { sortKey, reverse } =
     sorting.find((item) => item.slug === sort) || defaultSort;
+
+  // Fetch cart function (reusable)
+  const fetchCart = async () => {
+    const cartId = Cookies.get("cartId");
+    if (cartId) {
+      const cartData = await getCart(cartId);
+      setCart(cartData || null);
+    }
+  };
+
+  // Auto-refresh cart every 2 seconds to sync state
+  useEffect(() => {
+    fetchCart(); // Initial fetch
+
+    const interval = setInterval(() => {
+      fetchCart();
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -224,83 +247,32 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
         </div>
       )}
 
-      <div className="row gap-y-8 md:gap-y-14">
-        {products.map((product, index) => {
-          const defaultVariantId =
-            product?.variants.length > 0 ? product?.variants[0].id : undefined;
-          return (
-            <div
-              key={index}
-              className="text-center col-12 sm:col-6 md:col-4 group relative"
-            >
-              <div className="md:relative overflow-hidden">
-                <ImageFallback
-                  src={
-                    product.featuredImage?.url || "/images/product_image404.jpg"
-                  }
-                  width={312}
-                  height={269}
-                  alt={product.featuredImage?.altText || "fallback image"}
-                  className="w-full h-[200px] sm:w-[312px] md:h-[269px] object-cover rounded-lg border mx-auto"
-                />
+      {products.map((product, index) => {
+        // Check if product variant is in cart
+        const defaultVariantId =
+          product?.variants.length > 0 ? product?.variants[0].id : undefined;
+        const isInCart =
+          cart?.lines.some(
+            (line) => line.merchandise.id === defaultVariantId,
+          ) || false;
 
-                <Suspense>
-                  <AddToCart
-                    variants={product?.variants}
-                    availableForSale={product?.availableForSale}
-                    handle={product?.handle}
-                    defaultVariantId={defaultVariantId}
-                    stylesClass={
-                      "btn btn-primary max-md:btn-sm z-10 absolute bottom-24 md:bottom-0 left-1/2 transform -translate-x-1/2 md:translate-y-full md:group-hover:-translate-y-6 duration-300 ease-in-out whitespace-nowrap drop-shadow-md"
-                    }
-                  />
-                </Suspense>
-              </div>
-              <div className="py-2 md:py-4 text-center z-20">
-                <h2 className="font-medium text-base md:text-xl">
-                  <Link
-                    className="after:absolute after:inset-0"
-                    href={`/products/${product?.handle}`}
-                  >
-                    {product?.title}
-                  </Link>
-                </h2>
-                <div className="flex flex-wrap justify-center items-center gap-x-2 mt-2 md:mt-4">
-                  <span className="text-base md:text-xl font-bold text-text-dark dark:text-darkmode-text-dark">
-                    {currencySymbol}{" "}
-                    {product?.priceRange?.minVariantPrice?.amount}{" "}
-                    {product?.priceRange?.minVariantPrice?.currencyCode}
-                  </span>
-                  {parseFloat(
-                    product?.compareAtPriceRange?.maxVariantPrice?.amount,
-                  ) > 0 ? (
-                    <s className="text-text-light dark:text-darkmode-text-light text-xs md:text-base font-medium">
-                      {currencySymbol}{" "}
-                      {product?.compareAtPriceRange?.maxVariantPrice?.amount}{" "}
-                      {
-                        product?.compareAtPriceRange?.maxVariantPrice
-                          ?.currencyCode
-                      }
-                    </s>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+        return (
+          <ProductCard
+            key={product.id || index}
+            product={product}
+            isInCart={isInCart}
+          />
+        );
+      })}
 
-      <p
-        className={
-          hasNextPage || isLoading
-            ? "opacity-100 flex justify-center"
-            : "opacity-0 hidden"
-        }
-      >
-        <BiLoaderAlt className={`animate-spin`} size={30} />
-      </p>
+      {(hasNextPage || isLoading) && (
+        <div className="flex justify-center mt-12">
+          <BiLoaderAlt
+            className="animate-spin text-primary dark:text-darkmode-primary"
+            size={40}
+          />
+        </div>
+      )}
     </div>
   );
 };

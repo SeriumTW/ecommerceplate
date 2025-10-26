@@ -13,21 +13,20 @@ const ValueProposition = () => {
               <span className="inline-block px-4 py-2 mb-4 text-sm font-semibold rounded-full bg-primary/10 text-primary dark:bg-darkmode-primary/10 dark:text-darkmode-primary">
                 Chi Siamo
               </span>
-              <h2 className="mb-4">
-                La Qualità che il Tuo Animale Merita
-              </h2>
+              <h2 className="mb-4">La Qualità che il Tuo Animale Merita</h2>
               <p className="text-lg text-text dark:text-darkmode-text mb-6 leading-relaxed">
-                <strong>LoveBirdsLand</strong> nasce dalla passione per gli animali e dall&apos;impegno
-                nel offrire solo prodotti di eccellenza. Ogni articolo del nostro
-                catalogo è <strong>selezionato con cura</strong> e testato dal
-                nostro team di esperti.
+                <strong>LoveBirdsLand</strong> nasce dalla passione per gli
+                animali e dall&apos;impegno nel offrire solo prodotti di
+                eccellenza. Ogni articolo del nostro catalogo è{" "}
+                <strong>selezionato con cura</strong> e testato dal nostro team
+                di esperti.
               </p>
               <p className="text-lg text-text dark:text-darkmode-text mb-8 leading-relaxed">
                 Crediamo che i nostri amici a quattro zampe meritino il meglio:
-                alimenti naturali, giochi sicuri e accessori durevoli. Per questo
-                lavoriamo solo con <strong>fornitori certificati</strong> e
-                garantiamo la massima trasparenza su origine e composizione dei
-                prodotti.
+                alimenti naturali, giochi sicuri e accessori durevoli. Per
+                questo lavoriamo solo con <strong>fornitori certificati</strong>{" "}
+                e garantiamo la massima trasparenza su origine e composizione
+                dei prodotti.
               </p>
 
               {/* Value points */}
@@ -123,7 +122,7 @@ const ValueProposition = () => {
                 height={800}
                 className="w-full h-auto object-cover"
               />
-              <div className="absolute bottom-6 left-6 right-6 bg-white/95 dark:bg-darkmode-body/95 backdrop-blur-sm p-4 rounded-xl">
+              <div className="absolute bottom-6 left-6 right-6 bg-white/95 dark:bg-darkmode-body/95 backdrop-blur-sm p-4 rounded-2xl">
                 <p className="text-sm font-bold text-text-dark dark:text-darkmode-text-dark mb-1">
                   💚 Il nostro impegno
                 </p>
