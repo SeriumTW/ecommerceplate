@@ -66,20 +66,26 @@ const SignUp = () => {
         <div className="row">
           <div className="col-11 sm:col-9 md:col-7 mx-auto">
             <div className="mb-14 text-center">
-              <h2 className="max-md:h1 md:mb-2">Create an account</h2>
-              <p className="md:text-lg">Create an account and start using...</p>
+              <h2 className="max-md:h1 md:mb-2">Crea un Account</h2>
+              <p className="md:text-lg text-text-light dark:text-darkmode-text-light">
+                Registrati per iniziare a fare acquisti
+              </p>
             </div>
 
-            <form onSubmit={handleSignUp} noValidate>
+            <form
+              onSubmit={handleSignUp}
+              noValidate
+              className="border border-border dark:border-darkmode-border rounded-2xl p-10"
+            >
               <div>
                 <label htmlFor="firstName" className="form-label">
-                  Name
+                  Nome
                 </label>
                 <input
                   id="firstName"
                   name="firstName"
                   className={`form-input ${errorMessages.some((e) => e.field?.includes("firstName")) ? "border-error focus:ring-error/50" : ""}`}
-                  placeholder="Enter your name"
+                  placeholder="Il tuo nome"
                   type="text"
                   onChange={handleChange}
                   value={formData.firstName}
@@ -95,13 +101,13 @@ const SignUp = () => {
 
               <div>
                 <label htmlFor="signup-email" className="form-label mt-8">
-                  Email Address
+                  Indirizzo Email
                 </label>
                 <input
                   id="signup-email"
                   name="email"
                   className={`form-input ${errorMessages.some((e) => e.field?.includes("email")) ? "border-error focus:ring-error/50" : ""}`}
-                  placeholder="Type your email"
+                  placeholder="esempio@email.com"
                   type="email"
                   onChange={handleChange}
                   value={formData.email}
@@ -124,7 +130,7 @@ const SignUp = () => {
                   id="signup-password"
                   name="password"
                   className={`form-input ${errorMessages.some((e) => e.field?.includes("password")) ? "border-error focus:ring-error/50" : ""}`}
-                  placeholder="********"
+                  placeholder="Crea una password sicura"
                   type="password"
                   onChange={handleChange}
                   value={formData.password}
@@ -174,33 +180,35 @@ const SignUp = () => {
                     <span className="sr-only">Registrazione in corso...</span>
                   </>
                 ) : (
-                  "Sign Up"
+                  "Registrati"
                 )}
               </button>
             </form>
 
-            <div className="flex gap-x-2 text-sm md:text-base mt-6">
-              <p className="text-text-light dark:text-darkmode-text-light">
-                I have read and agree to the
-              </p>
-              <Link
-                className="underline font-medium text-text-dark dark:text-darkmode-text-dark"
-                href={"/terms-services"}
-              >
-                Terms & Conditions
-              </Link>
-            </div>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm md:text-base mt-6">
+              <div className="flex gap-x-2">
+                <p className="text-text-light dark:text-darkmode-text-light">
+                  Hai già un account?
+                </p>
+                <Link
+                  className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
+                  href={"/login"}
+                >
+                  Accedi
+                </Link>
+              </div>
 
-            <div className="flex gap-x-2 text-sm md:text-base mt-2">
-              <p className="text-text-light dark:text-darkmode-text-light">
-                Have an account?
-              </p>
-              <Link
-                className="underline font-medium text-text-dark dark:text-darkmode-text-dark"
-                href={"/login"}
-              >
-                Login
-              </Link>
+              <div className="md:text-right">
+                <p className="text-text-light dark:text-darkmode-text-light">
+                  Ho letto e accetto i{" "}
+                  <Link
+                    className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
+                    href={"/terms-services"}
+                  >
+                    Termini e Condizioni
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>

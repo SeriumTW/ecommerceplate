@@ -54,12 +54,12 @@ const Contact = async () => {
             >
               <div className="mb-6 md:grid grid-cols-2 gap-x-8 max-md:space-y-6">
                 <div>
-                  <label htmlFor="name" className="form-label">
+                  <label htmlFor="firstName" className="form-label">
                     First Name <span className="text-red-500">*</span>
                   </label>
                   <input
-                    id="name"
-                    name="name"
+                    id="firstName"
+                    name="firstName"
                     className="form-input"
                     placeholder="John"
                     type="text"
@@ -68,12 +68,12 @@ const Contact = async () => {
                 </div>
 
                 <div>
-                  <label htmlFor="name" className="form-label">
+                  <label htmlFor="lastName" className="form-label">
                     Last Name
                   </label>
                   <input
-                    id="name"
-                    name="name"
+                    id="lastName"
+                    name="lastName"
                     className="form-input"
                     placeholder="Doe"
                     type="text"
@@ -97,12 +97,12 @@ const Contact = async () => {
                 </div>
 
                 <div>
-                  <label htmlFor="name" className="form-label">
+                  <label htmlFor="subject" className="form-label">
                     Subject <span className="text-red-500">*</span>
                   </label>
                   <input
-                    id="name"
-                    name="name"
+                    id="subject"
+                    name="subject"
                     className="form-input"
                     placeholder="Enquiry About"
                     type="text"

@@ -10,7 +10,7 @@ import LoadingDots from "../loadings/LoadingDots";
 type EditButtonProps = {
   action: (
     prevState: CartActionResult | null,
-    payload: { lineId: string; variantId: string; quantity: number },
+    formData: FormData,
   ) => Promise<CartActionResult>;
   item: CartItem;
   type: "plus" | "minus";
@@ -54,24 +54,9 @@ const EditItemQuantityButtonClient = ({
   item,
   type,
 }: EditButtonProps) => {
-  const [state, formAction] = useActionState<CartActionResult | null>(
-    action,
-    null,
-  );
+  const [state, formAction] = useActionState(action, null);
 
-  const payload = useMemo(
-    () => ({
-      lineId: item.id,
-      variantId: item.merchandise.id,
-      quantity: type === "plus" ? item.quantity + 1 : item.quantity - 1,
-    }),
-    [item.id, item.merchandise.id, item.quantity, type],
-  );
-
-  const boundAction = useMemo(
-    () => formAction.bind(null, payload),
-    [formAction, payload],
-  );
+  const quantity = type === "plus" ? item.quantity + 1 : item.quantity - 1;
 
   useEffect(() => {
     if (state?.status === "success" && typeof window !== "undefined") {
@@ -80,7 +65,10 @@ const EditItemQuantityButtonClient = ({
   }, [state]);
 
   return (
-    <form action={boundAction}>
+    <form action={formAction}>
+      <input type="hidden" name="lineId" value={item.id} />
+      <input type="hidden" name="variantId" value={item.merchandise.id} />
+      <input type="hidden" name="quantity" value={quantity} />
       <SubmitButton type={type} />
       {state?.status === "error" && (
         <div role="alert" aria-live="assertive" className="sr-only">

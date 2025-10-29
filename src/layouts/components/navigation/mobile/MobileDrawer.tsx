@@ -6,7 +6,6 @@ import SearchBar from "@/components/SearchBar";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import type config from "@/config/config.json";
 import type { NavigationLink } from "@/types/navigation";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { Suspense, useEffect, useMemo, useState } from "react";
@@ -71,12 +70,19 @@ const MobileDrawerUserSection: React.FC<{
   const { customer, setCustomer, loading } = useDrawerCustomer(open);
 
   const handleLogout = () => {
-    Cookies.remove("token");
-    if (typeof window !== "undefined") {
-      window.localStorage.removeItem("user");
-    }
-    setCustomer(null);
-    onClose();
+    const logout = async () => {
+      try {
+        await fetch("/api/customer/logout", {
+          method: "POST",
+          credentials: "same-origin",
+        });
+      } finally {
+        setCustomer(null);
+        onClose();
+      }
+    };
+
+    void logout();
   };
 
   const greetingName = useMemo(

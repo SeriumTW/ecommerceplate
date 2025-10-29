@@ -1,6 +1,6 @@
 export interface ShopifyErrorLike {
   status: number;
-  message: Error;
+  message: string;
   cause?: Error;
 }
 

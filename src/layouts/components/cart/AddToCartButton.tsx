@@ -75,25 +75,28 @@ function SubmitButton({
           : "Aggiungi al carrello"
       }
       aria-disabled={pending ? "true" : "false"}
-      className={`${buttonClasses} ${showSuccess ? "!bg-success !text-white" : ""} transition-colors duration-200`}
+      disabled={pending}
+      className={`${buttonClasses} ${
+        showSuccess ? "!bg-success !text-white" : ""
+      } flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none min-h-[44px]`}
     >
       {pending ? (
         <>
-          <BiLoaderAlt className="animate-spin" size={18} />
-          <span>Aggiungendo...</span>
+          <BiLoaderAlt className="animate-spin flex-shrink-0" size={20} />
+          <span className="font-semibold">Aggiungendo...</span>
         </>
       ) : showSuccess ? (
         <>
-          <HiCheck size={18} />
-          <span>Nel carrello</span>
+          <HiCheck className="flex-shrink-0" size={20} />
+          <span className="font-semibold">Nel carrello</span>
         </>
       ) : buttonClasses.includes("w-9 h-9") ||
         buttonClasses.includes("rounded-full") ? (
-        <HiPlus size={18} />
+        <HiPlus size={20} />
       ) : (
         <>
-          <HiPlus size={18} />
-          <span>Aggiungi</span>
+          <HiPlus className="flex-shrink-0" size={20} />
+          <span className="font-semibold">Aggiungi</span>
         </>
       )}
     </button>
@@ -109,7 +112,7 @@ type AddToCartButtonProps = {
   isInCart?: boolean;
   action: (
     prevState: CartActionResult | null,
-    selectedVariantId: string | undefined,
+    formData: FormData,
   ) => Promise<CartActionResult>;
 };
 
@@ -125,10 +128,7 @@ const AddToCartButton = ({
   action,
 }: AddToCartButtonProps) => {
   const searchParams = useSearchParams();
-  const [actionState, formAction] = useActionState<CartActionResult | null>(
-    action,
-    null,
-  );
+  const [actionState, formAction] = useActionState(action, null);
   const [showSuccess, setShowSuccess] = useState(isInCart);
 
   const selectedOptions = useMemo(
@@ -150,10 +150,6 @@ const AddToCartButton = ({
   );
 
   const selectedVariantId = variant?.id ?? defaultVariantId;
-  const boundAction = useMemo(
-    () => formAction.bind(null, selectedVariantId),
-    [formAction, selectedVariantId],
-  );
 
   useEffect(() => {
     setShowSuccess(isInCart);
@@ -170,7 +166,8 @@ const AddToCartButton = ({
   }, [actionState]);
 
   return (
-    <form action={boundAction}>
+    <form action={formAction}>
+      <input type="hidden" name="variantId" value={selectedVariantId} />
       <SubmitButton
         availableForSale={availableForSale}
         selectedVariantId={selectedVariantId}

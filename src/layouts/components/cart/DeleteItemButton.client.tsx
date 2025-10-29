@@ -10,7 +10,7 @@ import LoadingDots from "../loadings/LoadingDots";
 type DeleteButtonProps = {
   action: (
     prevState: CartActionResult | null,
-    lineId: string,
+    formData: FormData,
   ) => Promise<CartActionResult>;
   item: CartItem;
 };
@@ -43,15 +43,7 @@ function SubmitButton() {
 }
 
 const DeleteItemButtonClient = ({ action, item }: DeleteButtonProps) => {
-  const [state, formAction] = useActionState<CartActionResult | null>(
-    action,
-    null,
-  );
-
-  const boundAction = useMemo(
-    () => formAction.bind(null, item.id),
-    [formAction, item.id],
-  );
+  const [state, formAction] = useActionState(action, null);
 
   useEffect(() => {
     if (state?.status === "success" && typeof window !== "undefined") {
@@ -60,7 +52,8 @@ const DeleteItemButtonClient = ({ action, item }: DeleteButtonProps) => {
   }, [state]);
 
   return (
-    <form action={boundAction}>
+    <form action={formAction}>
+      <input type="hidden" name="lineId" value={item.id} />
       <SubmitButton />
       {state?.status === "error" && (
         <div role="alert" aria-live="assertive" className="sr-only">

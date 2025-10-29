@@ -44,3 +44,70 @@ export const getUserDetailsQuery = /* GraphQL */ `
     }
   }
 `;
+
+export const getCustomerOrdersQuery = /* GraphQL */ `
+  query getCustomerOrders($input: String!) {
+    customer(customerAccessToken: $input) {
+      id
+      firstName
+      lastName
+      email
+      orders(first: 250) {
+        edges {
+          node {
+            id
+            name
+            orderNumber
+            processedAt
+            financialStatus
+            fulfillmentStatus
+            totalPrice {
+              amount
+              currencyCode
+            }
+            subtotalPrice {
+              amount
+              currencyCode
+            }
+            totalTax {
+              amount
+              currencyCode
+            }
+            totalShippingPrice {
+              amount
+              currencyCode
+            }
+            lineItems(first: 100) {
+              edges {
+                node {
+                  id
+                  title
+                  quantity
+                  variant {
+                    id
+                    title
+                    image {
+                      url
+                      altText
+                      width
+                      height
+                    }
+                    price {
+                      amount
+                      currencyCode
+                    }
+                  }
+                  product {
+                    id
+                    handle
+                    title
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

@@ -2,15 +2,7 @@
 
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import {
-  JSX,
-  MouseEvent,
-  TouchEvent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { FiZoomIn } from "react-icons/fi";
+import { JSX, useEffect, useRef, useState } from "react";
 import {
   HiOutlineArrowNarrowLeft,
   HiOutlineArrowNarrowRight,
@@ -23,6 +15,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import LoadingProductThumb from "../loadings/skeleton/SkeletonProductThumb";
+import ImageLightbox from "./ImageLightbox";
 
 export interface ImageItem {
   url: string;
@@ -30,172 +23,6 @@ export interface ImageItem {
   width: number;
   height: number;
 }
-
-interface Position {
-  x: number;
-  y: number;
-}
-
-interface CustomZoomImageProps {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-}
-
-const CustomZoomImage = ({
-  src,
-  alt,
-  width,
-  height,
-}: CustomZoomImageProps): JSX.Element => {
-  const [isZoomed, setIsZoomed] = useState<boolean>(false);
-  const [position, setPosition] = useState<Position>({ x: 0.5, y: 0.5 });
-  const [showMagnifier, setShowMagnifier] = useState<boolean>(false);
-  const [isTouchDevice, setIsTouchDevice] = useState<boolean>(false);
-  const [touchStartPosition, setTouchStartPosition] = useState<Position | null>(
-    null,
-  );
-  const [touchMoveCount, setTouchMoveCount] = useState<number>(0);
-  const imageRef = useRef<HTMLDivElement | null>(null);
-
-  // Detect touch device on component mount
-  useEffect(() => {
-    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
-  }, []);
-
-  const updatePosition = (clientX: number, clientY: number): void => {
-    if (!imageRef.current) return;
-
-    const { left, top, width, height } =
-      imageRef.current.getBoundingClientRect();
-
-    // Calculate position in percentage (0 to 1)
-    const x = Math.max(0, Math.min(1, (clientX - left) / width));
-    const y = Math.max(0, Math.min(1, (clientY - top) / height));
-
-    setPosition({ x, y });
-  };
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>): void => {
-    if (isTouchDevice) return;
-    updatePosition(e.clientX, e.clientY);
-  };
-
-  // Handle touch events
-  const handleTouchStart = (e: TouchEvent<HTMLDivElement>): void => {
-    if (e.touches.length === 1) {
-      const touch = e.touches[0];
-      updatePosition(touch.clientX, touch.clientY);
-
-      // Store touch start position to determine if it was a tap or pan
-      setTouchStartPosition({
-        x: touch.clientX,
-        y: touch.clientY,
-      });
-
-      setTouchMoveCount(0);
-
-      // Only show magnifier on first touch if not already zoomed
-      if (!isZoomed) {
-        setShowMagnifier(true);
-      }
-    }
-  };
-
-  const handleTouchMove = (e: TouchEvent<HTMLDivElement>): void => {
-    if (e.touches.length === 1) {
-      const touch = e.touches[0];
-      updatePosition(touch.clientX, touch.clientY);
-      setTouchMoveCount((prev) => prev + 1);
-    }
-  };
-
-  const handleTouchEnd = (e: TouchEvent<HTMLDivElement>): void => {
-    // If almost no movement (less than 5 position updates), consider it a tap
-    if (touchMoveCount < 5 && touchStartPosition) {
-      handleClick();
-    }
-
-    // Reset touch tracking
-    setTouchStartPosition(null);
-
-    // Hide magnifier on touch end if not zoomed
-    if (!isZoomed) {
-      setShowMagnifier(false);
-    }
-  };
-
-  const handleClick = (): void => {
-    setIsZoomed(!isZoomed);
-  };
-
-  return (
-    <div
-      className={`relative w-full h-full overflow-hidden rounded-2xl ${
-        !isZoomed && showMagnifier
-          ? "cursor-zoom-in"
-          : isZoomed
-            ? "cursor-zoom-out"
-            : ""
-      }`}
-      ref={imageRef}
-      onMouseEnter={() => !isTouchDevice && setShowMagnifier(true)}
-      onMouseLeave={() => !isTouchDevice && setShowMagnifier(false)}
-      onMouseMove={handleMouseMove}
-      onClick={!isTouchDevice ? handleClick : undefined}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className="w-full h-full object-contain"
-        draggable={false}
-      />
-
-      {/* Magnifying glass icon - shown on hover for desktop, shown on touch for mobile */}
-      {showMagnifier && !isZoomed && (
-        <div
-          className="absolute z-10 flex items-center justify-center bg-white opacity-70 rounded-full p-1 shadow-md"
-          style={{
-            left: `${position.x * 100}%`,
-            top: `${position.y * 100}%`,
-            transform: "translate(-50%, -50%)",
-            pointerEvents: "none",
-            width: isTouchDevice ? "40px" : "24px",
-            height: isTouchDevice ? "40px" : "24px",
-          }}
-        >
-          <FiZoomIn size={isTouchDevice ? 24 : 16} />
-        </div>
-      )}
-
-      {/* Zoomed view */}
-      {isZoomed && (
-        <div
-          className="absolute top-0 left-0 right-0 bottom-0 cursor-zoom-out"
-          style={{
-            backgroundImage: `url(${src})`,
-            backgroundSize: "200% 200%",
-            backgroundPosition: `${position.x * 100}% ${position.y * 100}%`,
-            zIndex: 10,
-          }}
-        />
-      )}
-
-      {/* Touch zoom instructions - only shown briefly on first touch */}
-      {isTouchDevice && isZoomed && (
-        <div className="absolute bottom-2 left-0 right-0 text-center bg-black opacity-50 text-white py-1 text-sm z-20">
-          Pan to move, tap to exit zoom
-        </div>
-      )}
-    </div>
-  );
-};
 
 interface ProductGalleryProps {
   images: ImageItem[];
@@ -208,6 +35,8 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
   const [loadingThumb, setLoadingThumb] = useState<boolean>(true);
   const [picUrl, setPicUrl] = useState<string>("");
   const [isTouchDevice, setIsTouchDevice] = useState<boolean>(false);
+  const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number>(0);
 
   // Detect touch device on component mount
   useEffect(() => {
@@ -247,6 +76,15 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
     }
   };
 
+  const handleImageClick = (index: number): void => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const handleCloseLightbox = (): void => {
+    setLightboxOpen(false);
+  };
+
   if (loadingThumb) {
     return <LoadingProductThumb />;
   }
@@ -267,17 +105,29 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
             nextEl: nextRef.current,
           }}
           onSlideChange={handleSlideChange}
-          allowTouchMove={!isHovered} // Disable Swiper touch when zooming is active
         >
           {filteredImages.map((item: ImageItem, index: number) => (
             <SwiperSlide key={item.url}>
-              <div className="mb-6 border border-border dark:border-border/40 rounded-2xl max-h-[623px] overflow-hidden">
-                <CustomZoomImage
-                  src={item.url}
-                  alt={item.altText || `Immagine prodotto ${index + 1}`}
-                  width={722}
-                  height={623}
-                />
+              <div className="mb-6 border border-border dark:border-border/40 rounded-2xl max-h-[623px] overflow-hidden cursor-zoom-in group">
+                <div
+                  onClick={() => handleImageClick(index)}
+                  className="relative w-full h-full"
+                >
+                  <Image
+                    src={item.url}
+                    alt={item.altText || `Immagine prodotto ${index + 1}`}
+                    width={722}
+                    height={623}
+                    className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                    draggable={false}
+                  />
+                  {/* Overlay on hover */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <div className="bg-white/90 dark:bg-darkmode-body/90 px-4 py-2 rounded-full text-sm font-medium text-text-dark dark:text-darkmode-text-dark">
+                      Clicca per ingrandire
+                    </div>
+                  </div>
+                </div>
               </div>
             </SwiperSlide>
           ))}
@@ -290,13 +140,15 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
           >
             <div
               ref={prevRef}
-              className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm absolute left-4"
+              className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm absolute left-4 hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label="Immagine precedente"
             >
               <HiOutlineArrowNarrowLeft size={24} />
             </div>
             <div
               ref={nextRef}
-              className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm absolute right-4"
+              className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm absolute right-4 hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label="Immagine successiva"
             >
               <HiOutlineArrowNarrowRight size={24} />
             </div>
@@ -315,10 +167,10 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
           <SwiperSlide key={item.url}>
             <div
               onClick={() => handleThumbSlideClick(item.url)}
-              className={`rounded-2xl cursor-pointer overflow-hidden ${
+              className={`rounded-2xl cursor-pointer overflow-hidden transition-all ${
                 picUrl === item.url
-                  ? "border border-darkmode-border dark:border-yellow-500"
-                  : "border border-border dark:border-border/40"
+                  ? "border-2 border-primary dark:border-darkmode-primary"
+                  : "border border-border dark:border-border/40 hover:border-primary/50 dark:hover:border-darkmode-primary/50"
               }`}
             >
               <Image
@@ -334,6 +186,14 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* Lightbox */}
+      <ImageLightbox
+        images={filteredImages}
+        initialIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={handleCloseLightbox}
+      />
     </>
   );
 };

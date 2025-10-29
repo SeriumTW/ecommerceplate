@@ -24,7 +24,7 @@
 }
 
 @utility form-label {
-  @apply mb-4 block font-secondary text-xl font-normal text-text-dark dark:text-darkmode-light;
+  @apply mb-4 block font-secondary text-xl font-normal text-text-dark dark:text-darkmode-text-dark;
 }
 
 /* Override space-y utilities to remove bottom margin */

@@ -57,7 +57,7 @@ export default function ProductCard({
   const colors = colorOption?.values || [];
 
   return (
-    <div className="col-12 sm:col-6 md:col-4">
+    <div className="w-full h-full">
       {/* Card Amazon-Style: Flat, Functional, Info-Dense */}
       <div
         className={`bg-white dark:bg-darkmode-body border rounded-2xl overflow-hidden h-full flex flex-col transition-all duration-300 ${

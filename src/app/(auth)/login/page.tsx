@@ -65,21 +65,25 @@ const Login = () => {
               <SeoMeta title="Login" />
             </Suspense>
             <div className="mb-14 text-center">
-              <h2 className="max-md:h1 md:mb-2">Login</h2>
-              <p className="md:text-lg">
-                Please fill your email and password to login
+              <h2 className="max-md:h1 md:mb-2">Accedi</h2>
+              <p className="md:text-lg text-text-light dark:text-darkmode-text-light">
+                Inserisci le tue credenziali per accedere al tuo account
               </p>
             </div>
 
-            <form onSubmit={handleLogin} noValidate>
+            <form
+              onSubmit={handleLogin}
+              noValidate
+              className="border border-border dark:border-darkmode-border rounded-2xl p-10"
+            >
               <div>
                 <label htmlFor="email" className="form-label">
-                  Email Address
+                  Indirizzo Email
                 </label>
                 <input
                   id="email"
                   className={`form-input ${errorMessages.some((e) => e.field?.includes("email")) ? "border-error focus:ring-error/50" : ""}`}
-                  placeholder="Type your email"
+                  placeholder="esempio@email.com"
                   type="email"
                   onChange={handleChange}
                   name="email"
@@ -102,7 +106,7 @@ const Login = () => {
                 <input
                   id="password"
                   className={`form-input ${errorMessages.some((e) => e.field?.includes("password")) ? "border-error focus:ring-error/50" : ""}`}
-                  placeholder="********"
+                  placeholder="Inserisci la tua password"
                   type="password"
                   onChange={handleChange}
                   name="password"
@@ -134,7 +138,7 @@ const Login = () => {
                       <span>
                         {error.code === "UNIDENTIFIED_CUSTOMER"
                           ? error.message
-                          : error.message || "Invalid Email or Password"}
+                          : error.message || "Email o password non validi"}
                       </span>
                     </p>
                   ))}
@@ -157,20 +161,20 @@ const Login = () => {
                     <span className="sr-only">Accesso in corso...</span>
                   </>
                 ) : (
-                  "Log In"
+                  "Accedi"
                 )}
               </button>
             </form>
 
             <div className="flex gap-x-2 text-sm md:text-base mt-4">
               <p className="text-text-light dark:text-darkmode-text-light">
-                Don&apos;t have an account?
+                Non hai un account?
               </p>
               <Link
-                className="underline font-medium text-text-dark dark:text-darkmode-text-dark"
+                className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
                 href={"/sign-up"}
               >
-                Register
+                Registrati
               </Link>
             </div>
           </div>

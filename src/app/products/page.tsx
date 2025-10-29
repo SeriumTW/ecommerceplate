@@ -1,4 +1,4 @@
-import LoadingProducts from "@/components/loadings/skeleton/SkeletonProducts";
+import LoadingProducts from "@/layouts/components/loadings/skeleton/SkeletonProducts";
 import ActiveFilters from "@/components/ActiveFilters";
 import CategoryHeader from "@/components/CategoryHeader";
 import EmptyState from "@/components/EmptyState";
@@ -61,7 +61,7 @@ const ShowProducts = async ({
   );
   const hasFilters = hasActiveFilters(filters);
 
-  let productsData: any;
+  let productsData: { pageInfo: PageInfo | null; products: Product[] };
   let vendorsWithCounts: { vendor: string; productCount: number }[] = [];
   let categoriesWithCounts: { category: string; productCount: number }[] = [];
   let currentCategory: Collection | undefined;
@@ -136,9 +136,7 @@ const ShowProducts = async ({
 
   const tags = [
     ...new Set(
-      (
-        productsData as { pageInfo: PageInfo; products: Product[] }
-      )?.products.flatMap((product: Product) => product.tags),
+      productsData?.products.flatMap((product: Product) => product.tags),
     ),
   ];
 
@@ -178,9 +176,17 @@ const ShowProducts = async ({
           {!hasProducts ? (
             <EmptyState />
           ) : layout === "list" ? (
-            <ProductListView searchParams={searchParams} />
+            <ProductListView
+              searchParams={searchParams as Record<string, string | undefined>}
+              initialProducts={productsData.products}
+              initialPageInfo={productsData.pageInfo}
+            />
           ) : (
-            <ProductCardView searchParams={searchParams} />
+            <ProductCardView
+              searchParams={searchParams as Record<string, string | undefined>}
+              initialProducts={productsData.products}
+              initialPageInfo={productsData.pageInfo}
+            />
           )}
         </div>
       </div>

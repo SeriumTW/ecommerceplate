@@ -19,6 +19,7 @@ import {
   createCustomerMutation,
   getCustomerAccessTokenMutation,
   getUserDetailsQuery,
+  getCustomerOrdersQuery,
 } from "./mutations/customer";
 import { getCartQuery } from "./queries/cart";
 import {
@@ -65,6 +66,8 @@ import {
   registerOperation,
   user,
   userOperation,
+  CustomerOrdersOperation,
+  Order,
 } from "./types";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -76,6 +79,23 @@ const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 type ExtractVariables<T> = T extends { variables: object }
   ? T["variables"]
   : never;
+
+class ShopifyFetchError extends Error {
+  status: number;
+  query: string;
+  reason?: string;
+
+  constructor(
+    message: string,
+    options: { status?: number; query: string; reason?: string },
+  ) {
+    super(message);
+    this.name = "ShopifyFetchError";
+    this.status = options.status ?? 500;
+    this.query = options.query;
+    this.reason = options.reason;
+  }
+}
 
 export async function shopifyFetch<T>({
   cache = "no-store",
@@ -109,21 +129,37 @@ export async function shopifyFetch<T>({
     const body = await result.json();
 
     if (body.errors) {
-      throw body.errors[0];
+      const firstError = body.errors[0];
+      const errorMessage =
+        firstError?.message || firstError?.extensions?.code || "GraphQL error";
+      const errorReason = firstError?.extensions?.reason || firstError?.message;
+
+      throw new ShopifyFetchError(errorMessage, {
+        status: result.status,
+        reason: errorReason,
+        query,
+      });
     }
 
     return { status: result.status, body };
-  } catch (e) {
-    if (isShopifyError(e)) {
-      throw {
-        cause: e.cause?.toString() || "unknown",
-        status: e.status || 500,
-        message: e.message,
-        query,
-      };
+  } catch (error: unknown) {
+    // Se è già un ShopifyFetchError, rilanciarlo
+    if (error instanceof ShopifyFetchError) {
+      throw error;
     }
 
-    throw { error: e, query };
+    if (isShopifyError(error)) {
+      throw new ShopifyFetchError(error.message, {
+        status: error.status,
+        reason: error.cause?.toString(),
+        query,
+      });
+    }
+
+    const message =
+      error instanceof Error ? error.message : "Unexpected Shopify fetch error";
+
+    throw new ShopifyFetchError(message, { query });
   }
 }
 
@@ -168,11 +204,19 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
 const reshapeImages = (images: Connection<Image>, productTitle: string) => {
   const flattened = removeEdgesAndNodes(images);
 
-  return flattened.map((image) => {
-    const filename = image.url.match(/.*\/(.*)\..*/)[1];
+  return flattened.map((image, index) => {
+    if (!image) {
+      return image;
+    }
+
+    const match = image.url.match(/.*\/([^\/?#]+)(?:\.[^./?#]+)?/);
+    const derivedAlt = match?.[1]
+      ? `${productTitle} - ${match[1]}`
+      : `${productTitle}${flattened.length > 1 ? ` (${index + 1})` : ""}`;
+
     return {
       ...image,
-      altText: image.altText || `${productTitle} - ${filename}`,
+      altText: image.altText?.trim() || derivedAlt,
     };
   });
 };
@@ -371,6 +415,20 @@ export async function getUserDetails(accessToken: string): Promise<user> {
   });
 
   return response.body.data;
+}
+
+export async function getCustomerOrders(accessToken: string): Promise<Order[]> {
+  const response = await shopifyFetch<CustomerOrdersOperation>({
+    query: getCustomerOrdersQuery,
+    variables: { input: accessToken },
+    cache: "no-store",
+  });
+
+  if (!response.body.data.customer?.orders) {
+    return [];
+  }
+
+  return removeEdgesAndNodes(response.body.data.customer.orders);
 }
 
 export async function getCollections(): Promise<Collection[]> {

@@ -60,7 +60,8 @@ export function VariantSelector({
             .find((option) => option.name === "Size")
             ?.values.includes(color)
             ? color
-            : options.find((option) => option.name === "Color")?.values[0],
+            : (options.find((option) => option.name === "Color")?.values[0] ??
+              ""),
         size:
           options
             .find((option) => option.name === "Size")
@@ -69,11 +70,13 @@ export function VariantSelector({
             .find((option) => option.name === "Color")
             ?.values.includes(size)
             ? size
-            : options.find((option) => option.name === "Size")?.values[0],
+            : (options.find((option) => option.name === "Size")?.values[0] ??
+              ""),
       }
     : {
-        color: options.find((option) => option.name === "Color")?.values[0],
-        size: options.find((option) => option.name === "Size")?.values[0],
+        color:
+          options.find((option) => option.name === "Color")?.values[0] ?? "",
+        size: options.find((option) => option.name === "Size")?.values[0] ?? "",
       };
 
   const hasNoOptionsOrJustOneOption =

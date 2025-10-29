@@ -31,6 +31,59 @@ export type user = {
   };
 };
 
+export type OrderLineItem = {
+  id: string;
+  title: string;
+  quantity: number;
+  variant: {
+    id: string;
+    title: string;
+    image: {
+      url: string;
+      altText?: string;
+      width: number;
+      height: number;
+    } | null;
+    price: Money;
+  } | null;
+  product: {
+    id: string;
+    handle: string;
+    title: string;
+  } | null;
+};
+
+export type Order = {
+  id: string;
+  name: string;
+  orderNumber: number;
+  processedAt: string;
+  financialStatus: string;
+  fulfillmentStatus: string | null;
+  totalPrice: Money;
+  subtotalPrice: Money;
+  totalTax: Money;
+  totalShippingPrice: Money;
+  lineItems: Connection<OrderLineItem>;
+};
+
+export type CustomerOrders = {
+  customer: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    orders: Connection<Order>;
+  } | null;
+};
+
+export type CustomerOrdersOperation = {
+  data: CustomerOrders;
+  variables: {
+    input: string;
+  };
+};
+
 export type userOperation = {
   data: user;
   variables: {

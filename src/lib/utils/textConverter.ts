@@ -58,7 +58,11 @@ const sanitizeUrl = (rawHref: unknown): string => {
 
 const renderer = new marked.Renderer();
 
-renderer.link = (href, title, text) => {
+// Force synchronous parsing
+marked.use({ async: false });
+
+renderer.link = ({ href, title, tokens }) => {
+  const text = tokens.map((token: any) => token.text || "").join("");
   const safeHref = sanitizeUrl(href);
   const safeTitle = title ? ` title="${escapeHtml(title)}"` : "";
   const rel =
@@ -73,13 +77,13 @@ renderer.link = (href, title, text) => {
   return `<a href="${safeHref}"${safeTitle}${rel}>${escapeHtml(text)}</a>`;
 };
 
-renderer.image = (href, title, text) => {
+renderer.image = ({ href, title, text }) => {
   const safeSrc = sanitizeUrl(href);
   if (!safeSrc) {
     return "";
   }
 
-  const safeAlt = escapeHtml(text);
+  const safeAlt = escapeHtml(text || "");
   const safeTitle = title ? ` title="${escapeHtml(title)}"` : "";
 
   return `<img src="${safeSrc}" alt="${safeAlt}"${safeTitle} />`;
@@ -105,9 +109,11 @@ const renderMarkdown = (
 
   const parseOptions = { renderer, breaks: true, gfm: true } as const;
 
-  return options?.inline
-    ? marked.parseInline(trimmed, parseOptions)
-    : marked.parse(trimmed, parseOptions);
+  return (
+    options?.inline
+      ? marked.parseInline(trimmed, parseOptions)
+      : marked.parse(trimmed, parseOptions)
+  ) as string;
 };
 
 // markdownify

@@ -28,7 +28,7 @@ const MobileHeaderRow = ({
       </div>
     </div>
 
-    <div className="flex items-center justify-between gap-8">
+    <div className="flex items-center justify-between gap-4">
       <div className="flex items-center scale-125">
         <Suspense fallback={cartFallback}>{cartContent}</Suspense>
       </div>

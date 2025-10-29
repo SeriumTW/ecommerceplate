@@ -1,25 +1,42 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const useLoadMore = (
-  elementRef: React.RefObject<HTMLElement>,
+  elementRef: React.RefObject<HTMLElement | null>,
   callback: () => void,
+  options?: IntersectionObserverInit,
 ) => {
-  useEffect(() => {
-    const handleScroll = () => {
-      const element = elementRef.current;
-      if (
-        element &&
-        element.getBoundingClientRect().bottom <= window.innerHeight
-      ) {
-        callback();
-      }
-    };
+  const callbackRef = useRef(callback);
+  const rootMargin = options?.rootMargin ?? "200px";
+  const threshold = options?.threshold ?? 0;
+  const root = options?.root ?? null;
 
-    window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            callbackRef.current();
+          }
+        });
+      },
+      { root, rootMargin, threshold },
+    );
+
+    observer.observe(element);
+
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
     };
-  }, [elementRef, callback]);
+  }, [elementRef, root, rootMargin, threshold]);
 };
 
 export default useLoadMore;
