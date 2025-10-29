@@ -21,6 +21,12 @@ const SearchBar = ({
   const [isInputEditing, setInputEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
+  // Sincronizza inputValue con il parametro URL quando cambia
+  useEffect(() => {
+    const urlQuery = searchParams.get("q") || "";
+    setInputValue(urlQuery);
+  }, [searchParams]);
+
   useEffect(() => {
     const inputField = document.getElementById(
       inputId,
@@ -35,16 +41,7 @@ const SearchBar = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputEditing(true);
     setInputValue(e.target.value);
-
-    const newParams = new URLSearchParams(searchParams.toString());
-
-    if (e.target.value) {
-      newParams.set("q", e.target.value);
-    } else {
-      newParams.delete("q");
-    }
-
-    router.push(createUrl("/products", newParams), { scroll: false });
+    // Non eseguire ricerca durante la digitazione
   };
 
   const handleClear = () => {
@@ -59,13 +56,12 @@ const SearchBar = ({
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setInputEditing(false);
 
-    const val = e.target as HTMLFormElement;
-    const search = val.search as HTMLInputElement;
     const newParams = new URLSearchParams(searchParams.toString());
 
-    if (search.value) {
-      newParams.set("q", search.value);
+    if (inputValue.trim()) {
+      newParams.set("q", inputValue.trim());
     } else {
       newParams.delete("q");
     }
@@ -86,7 +82,6 @@ const SearchBar = ({
       <input
         id={inputId}
         className="bg-transparent border-none search-input focus:ring-0 focus:outline-none p-2 w-full"
-        key={searchParams?.get("q")}
         type="search"
         name="search"
         placeholder={placeholder}
