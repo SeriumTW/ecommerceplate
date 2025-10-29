@@ -39,12 +39,14 @@ const DropdownMenu = ({ list }: { list: ListItem[] }) => {
     <div className="relative inline-block text-left" ref={menuRef}>
       <button
         type="button"
-        className="inline-flex w-full justify-center items-center gap-2 rounded-2xl bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border px-4 py-2.5 text-sm font-semibold text-text dark:text-darkmode-text hover:border-primary dark:hover:border-darkmode-primary transition-colors cursor-pointer shadow-sm"
+        className="inline-flex w-full justify-center items-center gap-2 rounded-2xl bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border px-4 py-2.5 text-sm font-semibold text-text dark:text-darkmode-text hover:border-primary dark:hover:border-darkmode-primary focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 transition-colors cursor-pointer shadow-sm min-h-[44px]"
         onClick={() => {
           setOpenSelect(!openSelect);
         }}
         id="menu-button"
         aria-haspopup="true"
+        aria-expanded={openSelect}
+        aria-controls="filter-menu"
       >
         <div>{active}</div>
         <svg
@@ -65,6 +67,7 @@ const DropdownMenu = ({ list }: { list: ListItem[] }) => {
 
       {openSelect && (
         <div
+          id="filter-menu"
           className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-2xl bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border shadow-2xl focus:outline-none overflow-hidden"
           onClick={() => {
             setOpenSelect(false);

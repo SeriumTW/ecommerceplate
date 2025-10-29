@@ -269,12 +269,12 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
           onSlideChange={handleSlideChange}
           allowTouchMove={!isHovered} // Disable Swiper touch when zooming is active
         >
-          {filteredImages.map((item: ImageItem) => (
+          {filteredImages.map((item: ImageItem, index: number) => (
             <SwiperSlide key={item.url}>
               <div className="mb-6 border border-border dark:border-border/40 rounded-2xl max-h-[623px] overflow-hidden">
                 <CustomZoomImage
                   src={item.url}
-                  alt={item.altText}
+                  alt={item.altText || `Immagine prodotto ${index + 1}`}
                   width={722}
                   height={623}
                 />
@@ -311,7 +311,7 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
       >
-        {filteredImages.map((item: ImageItem) => (
+        {filteredImages.map((item: ImageItem, thumbIndex: number) => (
           <SwiperSlide key={item.url}>
             <div
               onClick={() => handleThumbSlideClick(item.url)}
@@ -323,9 +323,10 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
             >
               <Image
                 src={item.url}
-                alt={item.altText}
+                alt={item.altText || `Miniatura prodotto ${thumbIndex + 1}`}
                 width={168}
                 height={146}
+                loading="lazy"
                 className="max-h-[146px]"
                 draggable={false}
               />

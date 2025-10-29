@@ -35,7 +35,7 @@ export function VariantSelector({
 }: {
   options: ProductOption[];
   variants: ProductVariant[];
-  images: any;
+  images: ImageItem[];
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -50,7 +50,7 @@ export function VariantSelector({
   const hasColorAndSizeParams = color && size;
 
   // Set default option based on the existence of search parameters
-  const defaultOption: any = hasColorAndSizeParams
+  const defaultOption: Record<string, string> = hasColorAndSizeParams
     ? {
         color:
           options
@@ -144,15 +144,23 @@ export function VariantSelector({
                 <div key={value}>
                   <button
                     key={value}
+                    type="button"
                     aria-disabled={!isAvailableForSale}
                     disabled={!isAvailableForSale}
                     onClick={() => {
                       router.replace(optionUrl, { scroll: false });
                     }}
+                    aria-label={`${option.name} ${value}${
+                      !isAvailableForSale
+                        ? " (Non disponibile)"
+                        : isActive
+                          ? " (Selezionato)"
+                          : ""
+                    }`}
                     title={`${option.name} ${value}${
                       !isAvailableForSale ? " (Out of Stock)" : ""
                     }`}
-                    className={`flex min-w-[48px] items-center justify-center rounded-2xl border border-border text-sm cursor-pointer ${
+                    className={`flex min-w-[48px] min-h-[44px] items-center justify-center rounded-2xl border border-border text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 ${
                       isActive && option.name !== "Color"
                         ? "cursor-default ring-2 ring-dark dark:ring-darkmode-dark"
                         : ""

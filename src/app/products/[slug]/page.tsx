@@ -76,15 +76,17 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
 
             {/* left side contents  */}
             <div className="col-10 md:col-8 lg:col-5 md:ml-7 py-6 lg:py-0">
-              <h1 className="text-3xl md:h2 mb-2 md:mb-6">{title}</h1>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-text-dark dark:text-darkmode-text-dark">
+                {title}
+              </h1>
 
               <div className="flex gap-2 items-center">
-                <h4 className="text-text-light dark:text-darkmode-text-light max-md:h2">
+                <h4 className="text-xl md:text-2xl font-bold text-text-dark dark:text-darkmode-text-dark">
                   {currencySymbol} {priceRange?.minVariantPrice.amount}{" "}
                   {priceRange?.minVariantPrice?.currencyCode}
                 </h4>
                 {parseFloat(compareAtPriceRange?.maxVariantPrice.amount) > 0 ? (
-                  <s className="text-text-light max-md:h3 dark:text-darkmode-text-light">
+                  <s className="text-sm md:text-base text-text-light dark:text-darkmode-text-light">
                     {currencySymbol}{" "}
                     {compareAtPriceRange?.maxVariantPrice?.amount}{" "}
                     {compareAtPriceRange?.maxVariantPrice?.currencyCode}
@@ -94,7 +96,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
                 )}
               </div>
 
-              <div className="my-10 md:my-10 space-y-6 md:space-y-10">
+              <div className="my-8 md:my-10 space-y-6 md:space-y-8">
                 <div>
                   {options && (
                     <VariantSelector
@@ -106,7 +108,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
                 </div>
               </div>
 
-              <div className="flex gap-4 mt-8 md:mt-10 mb-6">
+              <div className="flex gap-4 mt-8 md:mt-10 mb-8">
                 <Suspense>
                   <AddToCart
                     variants={product?.variants}
@@ -118,41 +120,55 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
                 </Suspense>
               </div>
 
-              <div className="mb-8 md:mb-10">
-                <p className="p-2 max-md:text-sm rounded-2xl bg-light dark:bg-darkmode-light inline">
-                  {estimated_delivery}
+              <div className="mb-8 md:mb-10 bg-success/10 dark:bg-success/5 p-4 md:p-5 rounded-2xl border border-success/20">
+                <p className="text-sm md:text-base text-success dark:text-darkmode-success font-medium">
+                  🚚 {estimated_delivery}
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <h5 className="max-md:text-base">Payment: </h5>
-                {payment_methods?.map(
-                  (payment: { name: string; image_url: string }) => (
-                    <Image
-                      key={payment.name}
-                      src={payment.image_url}
-                      alt={payment.name}
-                      width={44}
-                      height={32}
-                      className="w-[44px] h-[32px]"
-                    />
-                  ),
-                )}
+              <div className="mb-8 md:mb-10 bg-light/50 dark:bg-darkmode-light/30 p-4 md:p-5 rounded-2xl">
+                <h5 className="text-sm md:text-base font-semibold text-text-dark dark:text-darkmode-text-dark mb-3">
+                  Metodi di Pagamento:
+                </h5>
+                <div className="flex flex-wrap items-center gap-3">
+                  {payment_methods?.map(
+                    (payment: { name: string; image_url: string }) => (
+                      <div
+                        key={payment.name}
+                        className="bg-white dark:bg-darkmode-body p-2 rounded-2xl border border-border/30 dark:border-darkmode-border/30"
+                        title={payment.name}
+                      >
+                        <Image
+                          src={payment.image_url}
+                          alt={`Logo ${payment.name}`}
+                          width={44}
+                          height={32}
+                          loading="lazy"
+                          className="w-[44px] h-[32px] object-contain"
+                        />
+                      </div>
+                    ),
+                  )}
+                </div>
               </div>
 
-              <hr className="my-6 border border-border dark:border-border/40" />
-
-              <div className="flex gap-3 items-center mb-6">
-                <h5 className="max-md:text-base">Share:</h5>
+              <div className="mb-8 md:mb-10 bg-light/50 dark:bg-darkmode-light/30 p-4 md:p-5 rounded-2xl">
+                <h5 className="text-sm md:text-base font-semibold text-text-dark dark:text-darkmode-text-dark mb-3">
+                  Condividi:
+                </h5>
                 <Social socialName={title} className="social-icons" />
               </div>
 
               {tags.length > 0 && (
-                <div className="flex flex-wrap gap-3 items-center">
-                  <h5 className="max-md:text-base">Tags:</h5>
-                  <Suspense>
-                    <ShowTags tags={tags} />
-                  </Suspense>
+                <div className="bg-light/50 dark:bg-darkmode-light/30 p-4 md:p-5 rounded-2xl">
+                  <h5 className="text-sm md:text-base font-semibold text-text-dark dark:text-darkmode-text-dark mb-3">
+                    Tag:
+                  </h5>
+                  <div className="flex flex-wrap gap-2">
+                    <Suspense>
+                      <ShowTags tags={tags} />
+                    </Suspense>
+                  </div>
                 </div>
               )}
             </div>

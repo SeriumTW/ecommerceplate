@@ -21,7 +21,7 @@ const SignUp = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [errorMessages, setErrorMessages] = useState([]);
+  const [errorMessages, setErrorMessages] = useState<CustomerError[]>([]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormData({
@@ -48,11 +48,9 @@ const SignUp = () => {
 
       if (response.ok) {
         setErrorMessages([]);
-        const data = responseData;
-        localStorage.setItem("user", JSON.stringify(data));
         router.push("/");
       } else {
-        const errors = responseData.errors || [];
+        const errors = (responseData.errors as CustomerError[]) || [];
         setErrorMessages(errors);
       }
     } catch (error) {
@@ -72,55 +70,109 @@ const SignUp = () => {
               <p className="md:text-lg">Create an account and start using...</p>
             </div>
 
-            <form onSubmit={handleSignUp}>
+            <form onSubmit={handleSignUp} noValidate>
               <div>
-                <label className="form-label">Name</label>
+                <label htmlFor="firstName" className="form-label">
+                  Name
+                </label>
                 <input
+                  id="firstName"
                   name="firstName"
-                  className="form-input"
+                  className={`form-input ${errorMessages.some((e) => e.field?.includes("firstName")) ? "border-error focus:ring-error/50" : ""}`}
                   placeholder="Enter your name"
                   type="text"
                   onChange={handleChange}
+                  value={formData.firstName}
+                  aria-invalid={errorMessages.some((e) =>
+                    e.field?.includes("firstName"),
+                  )}
+                  aria-describedby={
+                    errorMessages.length > 0 ? "signup-errors" : undefined
+                  }
+                  autoComplete="given-name"
                 />
               </div>
 
               <div>
-                <label className="form-label mt-8">Email Address</label>
+                <label htmlFor="signup-email" className="form-label mt-8">
+                  Email Address
+                </label>
                 <input
+                  id="signup-email"
                   name="email"
-                  className="form-input"
+                  className={`form-input ${errorMessages.some((e) => e.field?.includes("email")) ? "border-error focus:ring-error/50" : ""}`}
                   placeholder="Type your email"
                   type="email"
                   onChange={handleChange}
+                  value={formData.email}
+                  aria-invalid={errorMessages.some((e) =>
+                    e.field?.includes("email"),
+                  )}
+                  aria-describedby={
+                    errorMessages.length > 0 ? "signup-errors" : undefined
+                  }
+                  required
+                  autoComplete="email"
                 />
               </div>
 
               <div>
-                <label className="form-label mt-8">Password</label>
+                <label htmlFor="signup-password" className="form-label mt-8">
+                  Password
+                </label>
                 <input
+                  id="signup-password"
                   name="password"
-                  className="form-input"
+                  className={`form-input ${errorMessages.some((e) => e.field?.includes("password")) ? "border-error focus:ring-error/50" : ""}`}
                   placeholder="********"
                   type="password"
                   onChange={handleChange}
+                  value={formData.password}
+                  aria-invalid={errorMessages.some((e) =>
+                    e.field?.includes("password"),
+                  )}
+                  aria-describedby={
+                    errorMessages.length > 0 ? "signup-errors" : undefined
+                  }
+                  required
+                  autoComplete="new-password"
                 />
               </div>
 
-              {errorMessages.map((error: CustomerError) => (
-                <p
-                  key={error.code}
-                  className="ont-medium text-red-500 truncate mt-2"
+              {errorMessages.length > 0 && (
+                <div
+                  id="signup-errors"
+                  role="alert"
+                  aria-live="polite"
+                  className="mt-4 space-y-2"
                 >
-                  *{error.message}
-                </p>
-              ))}
+                  {errorMessages.map((error: CustomerError) => (
+                    <p
+                      key={error.code}
+                      className="font-medium text-error dark:text-darkmode-error text-sm flex items-start gap-2"
+                    >
+                      <span aria-hidden="true">*</span>
+                      <span>{error.message}</span>
+                    </p>
+                  ))}
+                </div>
+              )}
 
               <button
                 type="submit"
-                className="btn btn-primary md:text-lg md:font-medium w-full mt-10"
+                className="btn btn-primary md:text-lg md:font-medium w-full mt-10 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 min-h-[44px]"
+                disabled={loading}
+                aria-busy={loading}
               >
                 {loading ? (
-                  <BiLoaderAlt className={`animate-spin mx-auto`} size={26} />
+                  <>
+                    <BiLoaderAlt
+                      className="animate-spin mx-auto"
+                      size={26}
+                      aria-hidden="true"
+                    />
+                    <span className="sr-only">Registrazione in corso...</span>
+                  </>
                 ) : (
                   "Sign Up"
                 )}

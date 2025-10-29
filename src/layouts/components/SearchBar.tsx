@@ -76,11 +76,16 @@ const SearchBar = ({
   return (
     <form
       onSubmit={onSubmit}
-      className={`border border-border dark:border-darkmode-border rounded-full flex bg-light/90 dark:bg-dark/10 pl-4 relative`}
+      className={`border border-border dark:border-darkmode-border rounded-full flex bg-light/90 dark:bg-dark/10 pl-4 relative focus-within:ring-2 focus-within:ring-primary/50 dark:focus-within:ring-darkmode-primary/50 focus-within:border-primary dark:focus-within:border-darkmode-primary transition-all`}
+      role="search"
+      aria-label="Cerca prodotti"
     >
+      <label htmlFor={inputId} className="sr-only">
+        Cerca prodotti
+      </label>
       <input
         id={inputId}
-        className="bg-transparent border-none search-input focus:ring-transparent p-2 w-full"
+        className="bg-transparent border-none search-input focus:ring-0 focus:outline-none p-2 w-full"
         key={searchParams?.get("q")}
         type="search"
         name="search"
@@ -88,18 +93,24 @@ const SearchBar = ({
         autoComplete="off"
         value={inputValue}
         onChange={handleChange}
+        aria-label="Campo di ricerca prodotti"
       />
       {inputValue && (
         <button
           type="button"
-          className="p-2 m-1 rounded-full"
+          className="p-2 m-1 rounded-full hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
           onClick={handleClear}
+          aria-label="Cancella ricerca"
         >
-          <IoClose size={20} />
+          <IoClose size={20} aria-hidden="true" />
         </button>
       )}
-      <button className="search-icon p-2 m-1 rounded-full">
-        <IoSearch size={20} />
+      <button
+        type="submit"
+        className="search-icon p-2 m-1 rounded-full hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+        aria-label="Esegui ricerca"
+      >
+        <IoSearch size={20} aria-hidden="true" />
       </button>
     </form>
   );

@@ -102,6 +102,7 @@ export default function ProductCard({
               width={400}
               height={400}
               alt={product.title}
+              loading="lazy"
               className={`w-full h-full object-cover transition-all duration-300 group-hover:scale-105 ${
                 isHovered && hoverImage !== mainImage
                   ? "opacity-0"
@@ -115,7 +116,8 @@ export default function ProductCard({
                 src={hoverImage}
                 width={400}
                 height={400}
-                alt={`${product.title} - alt view`}
+                alt={`${product.title} - vista alternativa`}
+                loading="lazy"
                 className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:scale-105 ${
                   isHovered ? "opacity-100" : "opacity-0"
                 }`}

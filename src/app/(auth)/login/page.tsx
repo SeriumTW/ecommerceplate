@@ -17,7 +17,7 @@ const Login = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [errorMessages, setErrorMessages] = useState([]);
+  const [errorMessages, setErrorMessages] = useState<CustomerError[]>([]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormData({
@@ -44,11 +44,9 @@ const Login = () => {
 
       if (response.ok) {
         setErrorMessages([]);
-        const data = responseData;
-        localStorage.setItem("user", JSON.stringify(data));
         router.push("/");
       } else {
-        const errors = responseData.errors || [];
+        const errors = (responseData.errors as CustomerError[]) || [];
         setErrorMessages(errors);
       }
     } catch (error) {
@@ -73,47 +71,91 @@ const Login = () => {
               </p>
             </div>
 
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleLogin} noValidate>
               <div>
-                <label className="form-label">Email Address</label>
+                <label htmlFor="email" className="form-label">
+                  Email Address
+                </label>
                 <input
-                  className="form-input"
+                  id="email"
+                  className={`form-input ${errorMessages.some((e) => e.field?.includes("email")) ? "border-error focus:ring-error/50" : ""}`}
                   placeholder="Type your email"
                   type="email"
                   onChange={handleChange}
                   name="email"
+                  value={formData.email}
+                  aria-invalid={errorMessages.some((e) =>
+                    e.field?.includes("email"),
+                  )}
+                  aria-describedby={
+                    errorMessages.length > 0 ? "login-errors" : undefined
+                  }
+                  required
+                  autoComplete="email"
                 />
               </div>
 
               <div>
-                <label className="form-label mt-8">Password</label>
+                <label htmlFor="password" className="form-label mt-8">
+                  Password
+                </label>
                 <input
-                  className="form-input"
+                  id="password"
+                  className={`form-input ${errorMessages.some((e) => e.field?.includes("password")) ? "border-error focus:ring-error/50" : ""}`}
                   placeholder="********"
                   type="password"
                   onChange={handleChange}
                   name="password"
+                  value={formData.password}
+                  aria-invalid={errorMessages.some((e) =>
+                    e.field?.includes("password"),
+                  )}
+                  aria-describedby={
+                    errorMessages.length > 0 ? "login-errors" : undefined
+                  }
+                  required
+                  autoComplete="current-password"
                 />
               </div>
 
-              {errorMessages.map((error: CustomerError) => (
-                <p
-                  key={error.code}
-                  className="font-medium text-red-500 truncate mt-2"
+              {errorMessages.length > 0 && (
+                <div
+                  id="login-errors"
+                  role="alert"
+                  aria-live="polite"
+                  className="mt-4 space-y-2"
                 >
-                  *
-                  {error.code === "UNIDENTIFIED_CUSTOMER"
-                    ? `${error.message}`
-                    : "Invalid Email or Password"}
-                </p>
-              ))}
+                  {errorMessages.map((error: CustomerError) => (
+                    <p
+                      key={error.code}
+                      className="font-medium text-error dark:text-darkmode-error text-sm flex items-start gap-2"
+                    >
+                      <span aria-hidden="true">*</span>
+                      <span>
+                        {error.code === "UNIDENTIFIED_CUSTOMER"
+                          ? error.message
+                          : error.message || "Invalid Email or Password"}
+                      </span>
+                    </p>
+                  ))}
+                </div>
+              )}
 
               <button
                 type="submit"
-                className="btn btn-primary md:text-lg md:font-medium w-full mt-10"
+                className="btn btn-primary md:text-lg md:font-medium w-full mt-10 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 min-h-[44px]"
+                disabled={loading}
+                aria-busy={loading}
               >
                 {loading ? (
-                  <BiLoaderAlt className={`animate-spin mx-auto`} size={26} />
+                  <>
+                    <BiLoaderAlt
+                      className="animate-spin mx-auto"
+                      size={26}
+                      aria-hidden="true"
+                    />
+                    <span className="sr-only">Accesso in corso...</span>
+                  </>
                 ) : (
                   "Log In"
                 )}
