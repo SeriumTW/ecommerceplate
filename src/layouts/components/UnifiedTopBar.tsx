@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import type { TopBarLink } from "@/types/navigation";
+import { useTranslations } from "next-intl";
 
 interface Announcement {
   icon: React.ReactNode;
@@ -20,6 +21,7 @@ const UnifiedTopBar: React.FC<UnifiedTopBarProps> = ({ links }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const t = useTranslations("topbar");
 
   const announcements: Announcement[] = [
     {
@@ -29,8 +31,8 @@ const UnifiedTopBar: React.FC<UnifiedTopBarProps> = ({ links }) => {
           <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
         </svg>
       ),
-      text: "Spedizione gratuita",
-      highlight: "oltre 49€",
+      text: t("freeShipping"),
+      highlight: t("freeShippingThreshold"),
       badge: "FREE",
       badgeColor: "bg-success",
     },
@@ -40,8 +42,8 @@ const UnifiedTopBar: React.FC<UnifiedTopBarProps> = ({ links }) => {
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
         </svg>
       ),
-      text: "Offerta del giorno:",
-      highlight: "-20% cibo biologico",
+      text: t("dailyDeal"),
+      highlight: t("dailyDealHighlight"),
       badge: "HOT",
       badgeColor: "bg-error",
     },
@@ -51,8 +53,8 @@ const UnifiedTopBar: React.FC<UnifiedTopBarProps> = ({ links }) => {
           <path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
         </svg>
       ),
-      text: "Nuovi arrivi:",
-      highlight: "giochi interattivi",
+      text: t("newArrivals"),
+      highlight: t("newArrivalsHighlight"),
       badge: "NEW",
       badgeColor: "bg-primary-hover",
     },
@@ -119,7 +121,7 @@ const UnifiedTopBar: React.FC<UnifiedTopBarProps> = ({ links }) => {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className="group"
-                  aria-label={`Annuncio ${index + 1}`}
+                  aria-label={t("announcement", { number: index + 1 })}
                 >
                   <span
                     className={`block w-1.5 h-1.5 rounded-full transition-all duration-300 ${

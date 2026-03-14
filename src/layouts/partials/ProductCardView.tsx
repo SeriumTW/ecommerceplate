@@ -172,10 +172,7 @@ const ProductCardView = ({
 
         return (
           <div key={product.id || index} className="col-12 sm:col-6 md:col-4">
-            <ProductCard
-              product={product}
-              isInCart={isInCart}
-            />
+            <ProductCard product={product} isInCart={isInCart} />
           </div>
         );
       })}

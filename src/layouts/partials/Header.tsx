@@ -10,6 +10,7 @@ import type { NavigationLink, TopBarLink } from "@/types/navigation";
 import useHeaderState from "@/hooks/useHeaderState";
 import React, { Suspense, useMemo } from "react";
 import { LuMenu } from "react-icons/lu";
+import { useTranslations } from "next-intl";
 
 interface HeaderCartProps {
   cartFallback: React.ReactNode;
@@ -20,7 +21,11 @@ const MobileHeaderRow = ({
   onToggleDrawer,
   cartFallback,
   cartContent,
-}: HeaderCartProps & { onToggleDrawer: () => void }) => (
+  openNavigationLabel,
+}: HeaderCartProps & {
+  onToggleDrawer: () => void;
+  openNavigationLabel: string;
+}) => (
   <div className="flex items-center justify-between lg:hidden">
     <div className="flex items-center">
       <div className="origin-left scale-[0.80]">
@@ -35,7 +40,7 @@ const MobileHeaderRow = ({
       <button
         type="button"
         onClick={onToggleDrawer}
-        aria-label="Apri navigazione"
+        aria-label={openNavigationLabel}
         className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border text-2xl text-text-dark transition hover:border-primary/40 hover:text-primary dark:border-darkmode-border dark:text-darkmode-text dark:hover:border-darkmode-primary/40 dark:hover:text-darkmode-primary"
       >
         <LuMenu />
@@ -47,6 +52,7 @@ const MobileHeaderRow = ({
 const Header: React.FC<HeaderCartProps> = ({ cartFallback, cartContent }) => {
   const { main }: { main: NavigationLink[] } = menu;
   const { navigation_button, settings, header_topbar } = config;
+  const t = useTranslations("nav");
 
   const { pathname, isDrawerOpen, navbarShadow, toggleDrawer, closeDrawer } =
     useHeaderState();
@@ -68,6 +74,7 @@ const Header: React.FC<HeaderCartProps> = ({ cartFallback, cartContent }) => {
             onToggleDrawer={toggleDrawer}
             cartFallback={cartFallback}
             cartContent={cartContent}
+            openNavigationLabel={t("openNavigation")}
           />
 
           <div className="hidden items-center justify-between lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-8">

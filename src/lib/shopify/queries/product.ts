@@ -1,7 +1,11 @@
 import productFragment from "../fragments/product";
 
 export const getProductQuery = /* GraphQL */ `
-  query getProduct($handle: String!) {
+  query getProduct(
+    $handle: String!
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
       ...product
     }
@@ -15,7 +19,9 @@ export const getProductsQuery = /* GraphQL */ `
     $reverse: Boolean
     $query: String
     $cursor: String
-  ) {
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
     products(
       sortKey: $sortKey
       reverse: $reverse
@@ -39,7 +45,11 @@ export const getProductsQuery = /* GraphQL */ `
 `;
 
 export const getProductRecommendationsQuery = /* GraphQL */ `
-  query getProductRecommendations($productId: ID!) {
+  query getProductRecommendations(
+    $productId: ID!
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
     productRecommendations(productId: $productId) {
       ...product
     }
@@ -48,7 +58,8 @@ export const getProductRecommendationsQuery = /* GraphQL */ `
 `;
 
 export const getHighestProductPriceQuery = /* GraphQL */ `
-  query getHighestProductPrice {
+  query getHighestProductPrice($country: CountryCode, $language: LanguageCode)
+  @inContext(country: $country, language: $language) {
     products(first: 1, sortKey: PRICE, reverse: true) {
       edges {
         node {

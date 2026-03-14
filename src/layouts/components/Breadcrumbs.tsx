@@ -1,9 +1,10 @@
 "use client";
 
 import { humanize } from "@/lib/utils/textConverter";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
 import { HiChevronRight, HiHome } from "react-icons/hi";
+import { useTranslations } from "next-intl";
 
 interface BreadcrumbItem {
   label: string;
@@ -18,6 +19,7 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs = ({ className, items }: BreadcrumbsProps) => {
   const pathname = usePathname();
+  const t = useTranslations("common");
 
   // Se items custom sono forniti, usa quelli
   if (items && items.length > 0) {
@@ -31,7 +33,7 @@ const Breadcrumbs = ({ className, items }: BreadcrumbsProps) => {
               className="flex items-center gap-1 hover:text-primary dark:hover:text-darkmode-primary transition-colors"
             >
               <HiHome size={16} />
-              <span className="hidden sm:inline">Home</span>
+              <span className="hidden sm:inline">{t("home")}</span>
             </Link>
             <HiChevronRight
               size={14}
@@ -97,7 +99,10 @@ const Breadcrumbs = ({ className, items }: BreadcrumbsProps) => {
 
   return (
     <nav aria-label="Breadcrumb" className={className}>
-      <ol className="flex items-center justify-center gap-2 text-sm" role="list">
+      <ol
+        className="flex items-center justify-center gap-2 text-sm"
+        role="list"
+      >
         {parts.map(({ label, ...attrs }, index) => (
           <li
             className="flex items-center gap-2 capitalize"

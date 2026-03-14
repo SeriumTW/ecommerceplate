@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const Tabs = ({ descriptionHtml }: { descriptionHtml: string }) => {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
   const contentArray = description.split(`--- split content ---`);
+  const t = useTranslations("product");
 
   useEffect(() => {
     setDescription(descriptionHtml);
@@ -28,7 +30,7 @@ const Tabs = ({ descriptionHtml }: { descriptionHtml: string }) => {
               : "border-transparent"
           } cursor-pointer focus:outline-none px-6 rounded-tl-2xl rounded-tr-2xl h-12 py-2 text-sm md:text-base border-t border-l border-r border-b-0 font-medium transition-colors`}
         >
-          Description
+          {t("description")}
         </button>
         {contentArray[1] && (
           <button
@@ -39,7 +41,7 @@ const Tabs = ({ descriptionHtml }: { descriptionHtml: string }) => {
                 : "border-transparent"
             } cursor-pointer focus:outline-none px-6 rounded-tl-2xl rounded-tr-2xl h-12 py-2 text-sm md:text-base border-t border-l border-r border-b-0 ml-8 font-medium transition-colors`}
           >
-            More Info
+            {t("moreInfo")}
           </button>
         )}
       </div>

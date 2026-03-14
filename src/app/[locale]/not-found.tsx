@@ -1,12 +1,15 @@
 import SeoMeta from "@/partials/SeoMeta";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 
 const NotFound = async () => {
+  const t = await getTranslations("notFound");
+
   return (
     <>
       <Suspense fallback={null}>
-        <SeoMeta title={"Page Not Found"} />
+        <SeoMeta title={t("seoTitle")} />
       </Suspense>
       <style>{`
         header.header,
@@ -20,17 +23,16 @@ const NotFound = async () => {
             404
           </span>
           <h1 className="h2 mb-4 text-text-dark dark:text-darkmode-text">
-            Pagina non trovata
+            {t("title")}
           </h1>
           <p className="text-text-light dark:text-darkmode-text-light mb-8">
-            La pagina che stavi cercando potrebbe essere stata rimossa,
-            rinominata oppure è temporaneamente non disponibile.
+            {t("description")}
           </p>
           <Link
             href="/"
             className="btn btn-primary inline-flex items-center justify-center"
           >
-            Torna alla home
+            {t("backToHome")}
           </Link>
         </div>
       </main>

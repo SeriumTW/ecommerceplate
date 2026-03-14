@@ -1,11 +1,12 @@
 "use client";
 
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 import NavUser from "@/components/NavUser";
 import SearchBar from "@/components/SearchBar";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import type config from "@/config/config.json";
 import type { NavigationChildLink, NavigationLink } from "@/types/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import React, { Suspense } from "react";
 
 import { isMenuItemActive } from "./utils";
@@ -191,6 +192,8 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
             {navigationButton.label}
           </Link>
         ) : null}
+
+        <LocaleSwitcher />
 
         {settings.theme_switcher ? (
           <ThemeSwitcher className="hidden lg:inline-flex" />

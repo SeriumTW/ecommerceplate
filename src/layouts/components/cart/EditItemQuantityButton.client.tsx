@@ -6,6 +6,7 @@ import { FaMinus, FaPlus } from "react-icons/fa6";
 import type { CartItem } from "@/lib/shopify/types";
 import type { CartActionResult } from "@/lib/utils/cartActions";
 import LoadingDots from "../loadings/LoadingDots";
+import { useTranslations } from "next-intl";
 
 type EditButtonProps = {
   action: (
@@ -20,6 +21,7 @@ const CART_EVENT = "cart:changed";
 
 function SubmitButton({ type }: { type: "plus" | "minus" }) {
   const { pending } = useFormStatus();
+  const t = useTranslations("cart");
 
   return (
     <button
@@ -28,9 +30,7 @@ function SubmitButton({ type }: { type: "plus" | "minus" }) {
         if (pending) event.preventDefault();
       }}
       aria-label={
-        type === "plus"
-          ? "Aumenta quantità articolo"
-          : "Riduci quantità articolo"
+        type === "plus" ? t("increaseItemQuantity") : t("decreaseItemQuantity")
       }
       aria-disabled={pending}
       disabled={pending}
@@ -55,6 +55,7 @@ const EditItemQuantityButtonClient = ({
   type,
 }: EditButtonProps) => {
   const [state, formAction] = useActionState(action, null);
+  const t = useTranslations("cart");
 
   const quantity = type === "plus" ? item.quantity + 1 : item.quantity - 1;
 
@@ -72,12 +73,12 @@ const EditItemQuantityButtonClient = ({
       <SubmitButton type={type} />
       {state?.status === "error" && (
         <div role="alert" aria-live="assertive" className="sr-only">
-          {state.message || "Errore durante l'aggiornamento quantità"}
+          {state.message || t("updateQuantityError")}
         </div>
       )}
       {state?.status === "success" && (
         <p aria-live="polite" className="sr-only" role="status">
-          Quantità aggiornata con successo
+          {t("updateQuantitySuccess")}
         </p>
       )}
     </form>

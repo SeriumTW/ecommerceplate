@@ -1,5 +1,6 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Cart } from "@/lib/shopify/types";
+import { getTranslations } from "next-intl/server";
 import OpenCart from "./OpenCart";
 
 type CartTriggerProps = {
@@ -7,12 +8,13 @@ type CartTriggerProps = {
   className?: string;
 };
 
-const CartTrigger = ({ cart, className }: CartTriggerProps) => {
+const CartTrigger = async ({ cart, className }: CartTriggerProps) => {
+  const t = await getTranslations("cart");
   const quantity = cart?.totalQuantity ?? 0;
   const label =
     quantity > 0
-      ? `Apri il carrello (${quantity} ${quantity === 1 ? "articolo" : "articoli"})`
-      : "Apri il carrello (vuoto)";
+      ? t("openCartWithItems", { count: quantity })
+      : t("openCartEmpty");
 
   return (
     <Link

@@ -2,6 +2,7 @@
 
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Collection } from "@/lib/shopify/types";
+import { useTranslations } from "next-intl";
 
 interface CategoryHeaderProps {
   category?: Collection;
@@ -14,9 +15,11 @@ export default function CategoryHeader({
   searchValue,
   productCount,
 }: CategoryHeaderProps) {
+  const t = useTranslations("products");
+
   const title = searchValue
-    ? `Risultati per "${searchValue}"`
-    : category?.title || "Tutti i Prodotti";
+    ? t("resultsFor", { query: searchValue })
+    : category?.title || t("allProducts");
 
   const description = !searchValue && category?.description;
 
@@ -37,15 +40,15 @@ export default function CategoryHeader({
           <p className="text-sm md:text-base text-text dark:text-darkmode-text mb-6">
             {productCount === 0 ? (
               <span className="text-error dark:text-darkmode-error font-medium">
-                Nessun prodotto trovato
+                {t("noProductsFound")}
               </span>
             ) : (
               <>
                 <span className="font-semibold text-primary dark:text-darkmode-primary">
                   {productCount}
                 </span>{" "}
-                {productCount === 1 ? "prodotto" : "prodotti"}{" "}
-                {searchValue && "trovati"}
+                {productCount === 1 ? t("productSingular") : t("productPlural")}{" "}
+                {searchValue && t("found")}
               </>
             )}
           </p>

@@ -5,8 +5,9 @@ import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import social from "@/config/social.json";
 import DynamicIcon from "@/helpers/DynamicIcon";
+import { Link } from "@/i18n/navigation";
 import { markdownify } from "@/lib/utils/textConverter";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export interface ISocial {
   name: string;
@@ -16,6 +17,7 @@ export interface ISocial {
 
 const Footer = () => {
   const { copyright } = config.params;
+  const t = useTranslations("footer");
 
   return (
     <footer className="footer-grain border-t border-border/80 bg-primary_muted dark:border-darkmode-border/40 dark:bg-darkmode-light">
@@ -24,8 +26,7 @@ const Footer = () => {
           <div>
             <Logo />
             <p className="mt-4 max-w-md text-sm text-support-1 dark:text-support-1">
-              Prodotti coccola-pet selezionati con cura per cani e gatti felici,
-              consegnati con amore direttamente a casa tua.
+              {t("description")}
             </p>
             <ul className="mt-6 flex gap-3 social-icons social-icons-footer">
               {social?.main.map((item: ISocial) => (
@@ -44,9 +45,9 @@ const Footer = () => {
             </ul>
           </div>
 
-          <nav aria-label="Navigazione footer">
+          <nav aria-label={t("footerNavigation")}>
             <h2 className="text-xs font-semibold uppercase tracking-[0.35em] text-support-1 dark:text-support-1">
-              Scopri
+              {t("discover")}
             </h2>
             <ul className="mt-4 space-y-3 text-sm font-medium text-text dark:text-darkmode-text">
               {menu.footer.map((item) => (
@@ -64,7 +65,7 @@ const Footer = () => {
 
           <div>
             <h2 className="text-xs font-semibold uppercase tracking-[0.35em] text-support-1 dark:text-support-1">
-              Supporto
+              {t("support")}
             </h2>
             <ul className="mt-4 space-y-3 text-sm font-medium text-text dark:text-darkmode-text">
               {menu.footerCopyright.map((item) => (
@@ -85,7 +86,7 @@ const Footer = () => {
           {/* Payment methods */}
           <div className="flex flex-col items-center gap-4 mb-6">
             <p className="text-xs font-semibold uppercase tracking-wider text-support-1 dark:text-support-1">
-              Metodi di pagamento sicuri
+              {t("securePaymentMethods")}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 opacity-70">
               <svg className="h-8" viewBox="0 0 48 32" fill="none">
@@ -139,7 +140,10 @@ const Footer = () => {
 
           <div className="flex flex-col items-center justify-between gap-3 text-sm text-text dark:text-darkmode-text md:flex-row">
             <p className="order-2 text-center md:order-1 md:text-left">
-              {`© ${new Date().getFullYear()} ${config.site.title}. Tutti i diritti riservati.`}
+              {t("copyright", {
+                year: new Date().getFullYear(),
+                siteName: config.site.title,
+              })}
             </p>
             <p
               className="order-1 text-center font-light md:order-2 md:text-right"

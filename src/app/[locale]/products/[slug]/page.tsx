@@ -16,12 +16,16 @@ import ProductCard from "@/components/ProductCard";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { localeToShopify } from "@/lib/i18n/config";
+import type { Locale } from "@/lib/i18n/config";
 
 export const generateMetadata = async (props: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) => {
   const params = await props.params;
-  const product = await getProduct(params.slug);
+  const context = localeToShopify[params.locale as Locale];
+  const product = await getProduct(params.slug, context);
   if (!product) return notFound();
   return {
     title: product.seo.title || product.title,
@@ -29,7 +33,9 @@ export const generateMetadata = async (props: {
   };
 };
 
-const ProductSingle = async (props: { params: Promise<{ slug: string }> }) => {
+const ProductSingle = async (props: {
+  params: Promise<{ locale: string; slug: string }>;
+}) => {
   const params = await props.params;
   return (
     <Suspense fallback={<LoadingProductGallery />}>
@@ -40,13 +46,21 @@ const ProductSingle = async (props: { params: Promise<{ slug: string }> }) => {
 
 export default ProductSingle;
 
-const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
+const ShowProductSingle = async ({
+  params,
+}: {
+  params: { locale: string; slug: string };
+}) => {
+  setRequestLocale(params.locale);
+  const t = await getTranslations("product");
+  const context = localeToShopify[params.locale as Locale];
+
   const paymentsAndDelivery = getListPage("sections/payments-and-delivery.md");
   const { payment_methods, estimated_delivery } =
     paymentsAndDelivery.frontmatter;
 
   const { currencySymbol } = config.shopify;
-  const product = await getProduct(params.slug);
+  const product = await getProduct(params.slug, context);
 
   if (!product) return notFound();
   const {
@@ -62,13 +76,13 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
     tags,
   } = product;
 
-  const relatedProducts = await getProductRecommendations(id);
+  const relatedProducts = await getProductRecommendations(id, context);
 
   const defaultVariantId = variants.length > 0 ? variants[0].id : undefined;
 
   // Breadcrumbs items
   const breadcrumbItems = [
-    { label: "Prodotti", href: "/products" },
+    { label: t("products"), href: "/products" },
     { label: title, href: `/products/${params.slug}`, current: true },
   ];
 
@@ -146,7 +160,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
 
               <div className="mb-8 md:mb-10 bg-light/50 dark:bg-darkmode-light/30 p-4 md:p-5 rounded-2xl overflow-hidden">
                 <h5 className="text-sm md:text-base font-semibold text-text-dark dark:text-darkmode-text-dark mb-3">
-                  Condividi:
+                  {t("share")}:
                 </h5>
                 <div className="overflow-x-auto">
                   <Social socialName={title} className="social-icons" />
@@ -156,7 +170,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
               {tags.length > 0 && (
                 <div className="bg-light/50 dark:bg-darkmode-light/30 p-4 md:p-5 rounded-2xl overflow-hidden">
                   <h5 className="text-sm md:text-base font-semibold text-text-dark dark:text-darkmode-text-dark mb-3">
-                    Tag:
+                    {t("tags")}:
                   </h5>
                   <div className="flex flex-wrap gap-2 overflow-visible">
                     <Suspense>
@@ -188,7 +202,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
         <section className="pt-8 md:pt-12 pb-16 md:pb-20">
           <div className="container">
             <div className="text-center mb-6 md:mb-10">
-              <h2 className="mb-2">Prodotti Correlati</h2>
+              <h2 className="mb-2">{t("relatedProducts")}</h2>
             </div>
             <div className="row gy-5 justify-center items-stretch">
               {relatedProducts.slice(0, 4).map((product) => (
@@ -196,10 +210,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
                   key={product.id}
                   className="col-6 sm:col-4 md:col-4 lg:col-3 flex items-stretch"
                 >
-                  <ProductCard
-                    product={product}
-                    isInCart={false}
-                  />
+                  <ProductCard product={product} isInCart={false} />
                 </div>
               ))}
             </div>

@@ -52,4 +52,3 @@ const SkeletonAccount = () => {
 };
 
 export default SkeletonAccount;
-

@@ -1,14 +1,16 @@
 "use server";
 
 import { TAGS } from "@/lib/constants";
+import { localeToShopify, type Locale } from "@/lib/i18n/config";
 import {
   addToCart,
   createCart,
   getCart,
   removeFromCart,
   updateCart,
+  updateCartBuyerIdentity,
 } from "@/lib/shopify";
-import type { Cart } from "@/lib/shopify/types";
+import type { Cart, ShopifyContext } from "@/lib/shopify/types";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -30,12 +32,22 @@ const failure = (message: string): CartActionResult => ({
   message,
 });
 
+const getContextFromCookie = async (): Promise<ShopifyContext | undefined> => {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("NEXT_LOCALE")?.value as Locale | undefined;
+  if (locale && localeToShopify[locale]) {
+    return localeToShopify[locale];
+  }
+  return undefined;
+};
+
 const ensureCart = async (): Promise<{ cartId: string; cart: Cart }> => {
   const cookieStore = await cookies();
   const existingCartId = cookieStore.get("cartId")?.value;
+  const context = await getContextFromCookie();
 
   if (existingCartId) {
-    const existingCart = await getCart(existingCartId);
+    const existingCart = await getCart(existingCartId, context);
     if (existingCart) {
       cookieStore.set({
         name: "cartId",
@@ -46,7 +58,7 @@ const ensureCart = async (): Promise<{ cartId: string; cart: Cart }> => {
     }
   }
 
-  const newCart = await createCart();
+  const newCart = await createCart(context);
   cookieStore.set({
     name: "cartId",
     value: newCart.id,
@@ -68,10 +80,13 @@ export async function addItem(
 
   try {
     const { cartId } = await ensureCart();
+    const context = await getContextFromCookie();
 
-    await addToCart(cartId, [
-      { merchandiseId: selectedVariantId, quantity: 1 },
-    ]);
+    await addToCart(
+      cartId,
+      [{ merchandiseId: selectedVariantId, quantity: 1 }],
+      context,
+    );
     revalidateTag(TAGS.cart);
 
     return success();
@@ -99,7 +114,8 @@ export async function removeItem(
   }
 
   try {
-    await removeFromCart(cartId, [lineId]);
+    const context = await getContextFromCookie();
+    await removeFromCart(cartId, [lineId], context);
     revalidateTag(TAGS.cart);
     return success();
   } catch (cause) {
@@ -128,19 +144,48 @@ export async function updateItemQuantity(
   }
 
   try {
+    const context = await getContextFromCookie();
+
     if (quantity === 0) {
-      await removeFromCart(cartId, [lineId]);
+      await removeFromCart(cartId, [lineId], context);
       revalidateTag(TAGS.cart);
       return success();
     }
 
-    await updateCart(cartId, [
-      { id: lineId, merchandiseId: variantId, quantity },
-    ]);
+    await updateCart(
+      cartId,
+      [{ id: lineId, merchandiseId: variantId, quantity }],
+      context,
+    );
     revalidateTag(TAGS.cart);
     return success();
   } catch (cause) {
     console.error("Error updating item quantity", cause);
     return failure("Error updating item quantity");
+  }
+}
+
+export async function updateCartMarket(
+  locale: Locale,
+): Promise<CartActionResult> {
+  const cookieStore = await cookies();
+  const cartId = cookieStore.get("cartId")?.value;
+
+  if (!cartId) {
+    return success();
+  }
+
+  try {
+    const shopifyContext = localeToShopify[locale];
+    await updateCartBuyerIdentity(
+      cartId,
+      shopifyContext.country,
+      shopifyContext,
+    );
+    revalidateTag(TAGS.cart);
+    return success();
+  } catch (cause) {
+    console.error("Error updating cart market", cause);
+    return failure("Error updating cart market");
   }
 }

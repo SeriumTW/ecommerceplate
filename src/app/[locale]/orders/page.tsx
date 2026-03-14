@@ -5,15 +5,21 @@ import PageHeader from "@/layouts/partials/PageHeader";
 import SeoMeta from "@/layouts/partials/SeoMeta";
 import ImageFallback from "@/layouts/helpers/ImageFallback";
 import SkeletonOrders from "@/layouts/components/loadings/skeleton/SkeletonOrders";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { fetchUser } from "@/layouts/components/NavUser";
 import type { Order, OrderLineItem } from "@/lib/shopify/types";
 import { BsBox } from "react-icons/bs";
+import { useTranslations, useLocale } from "next-intl";
+import { localeToIntl } from "@/lib/i18n/config";
+import type { Locale } from "@/lib/i18n/config";
 
 const OrdersPage = () => {
   const router = useRouter();
+  const t = useTranslations("orders");
+  const locale = useLocale();
+  const intlLocale = localeToIntl[locale as Locale];
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +42,6 @@ const OrdersPage = () => {
         };
 
         if (!response.ok) {
-          // Se è un errore 401, reindirizza al login
           if (response.status === 401) {
             router.push("/login");
             return;
@@ -47,10 +52,6 @@ const OrdersPage = () => {
         setOrders(data.orders || []);
       } catch (error) {
         console.error("Error fetching orders:", error);
-        // Mostra un messaggio di errore all'utente se necessario
-        if (error instanceof Error && !error.message.includes("401")) {
-          // Qui potresti aggiungere uno stato per mostrare un toast o un messaggio di errore
-        }
       } finally {
         setLoading(false);
       }
@@ -61,7 +62,7 @@ const OrdersPage = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("it-IT", {
+    return date.toLocaleDateString(intlLocale, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -69,7 +70,7 @@ const OrdersPage = () => {
   };
 
   const formatCurrency = (amount: string, currencyCode: string) => {
-    return new Intl.NumberFormat("it-IT", {
+    return new Intl.NumberFormat(intlLocale, {
       style: "currency",
       currency: currencyCode,
     }).format(parseFloat(amount));
@@ -77,24 +78,24 @@ const OrdersPage = () => {
 
   const getFinancialStatusLabel = (status: string) => {
     const statusMap: Record<string, string> = {
-      PAID: "Pagato",
-      PENDING: "In attesa",
-      AUTHORIZED: "Autorizzato",
-      PARTIALLY_PAID: "Parzialmente pagato",
-      PARTIALLY_REFUNDED: "Parzialmente rimborsato",
-      REFUNDED: "Rimborsato",
-      VOIDED: "Annullato",
+      PAID: t("statusPaid"),
+      PENDING: t("statusPending"),
+      AUTHORIZED: t("statusAuthorized"),
+      PARTIALLY_PAID: t("statusPartiallyPaid"),
+      PARTIALLY_REFUNDED: t("statusPartiallyRefunded"),
+      REFUNDED: t("statusRefunded"),
+      VOIDED: t("statusVoided"),
     };
     return statusMap[status] || status;
   };
 
   const getFulfillmentStatusLabel = (status: string | null) => {
-    if (!status) return "Non spedito";
+    if (!status) return t("fulfillmentUnfulfilled");
     const statusMap: Record<string, string> = {
-      FULFILLED: "Spedito",
-      UNFULFILLED: "Non spedito",
-      PARTIAL: "Parzialmente spedito",
-      RESTOCKED: "Rimesso a magazzino",
+      FULFILLED: t("fulfillmentFulfilled"),
+      UNFULFILLED: t("fulfillmentUnfulfilled"),
+      PARTIAL: t("fulfillmentPartial"),
+      RESTOCKED: t("fulfillmentRestocked"),
     };
     return statusMap[status] || status;
   };
@@ -103,11 +104,11 @@ const OrdersPage = () => {
     return (
       <>
         <SeoMeta
-          title="I miei ordini"
-          meta_title="I miei ordini"
-          description="Visualizza la cronologia dei tuoi ordini"
+          title={t("pageTitle")}
+          meta_title={t("pageTitle")}
+          description={t("pageDescription")}
         />
-        <PageHeader title="I miei ordini" />
+        <PageHeader title={t("pageTitle")} />
         <SkeletonOrders />
       </>
     );
@@ -116,11 +117,11 @@ const OrdersPage = () => {
   return (
     <>
       <SeoMeta
-        title="I miei ordini"
-        meta_title="I miei ordini"
-        description="Visualizza la cronologia dei tuoi ordini"
+        title={t("pageTitle")}
+        meta_title={t("pageTitle")}
+        description={t("pageDescription")}
       />
-      <PageHeader title="I miei ordini" />
+      <PageHeader title={t("pageTitle")} />
       <section className="section">
         <div className="container">
           <div className="max-w-4xl mx-auto">
@@ -128,13 +129,13 @@ const OrdersPage = () => {
               <div className="bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl p-12 text-center">
                 <BsBox className="text-6xl text-text-light dark:text-darkmode-text-light mx-auto mb-4" />
                 <h2 className="text-2xl font-bold text-text-dark dark:text-darkmode-text-dark mb-2">
-                  Nessun ordine trovato
+                  {t("noOrders")}
                 </h2>
                 <p className="text-text-light dark:text-darkmode-text-light mb-6">
-                  Non hai ancora effettuato ordini. Inizia a fare acquisti!
+                  {t("noOrdersDescription")}
                 </p>
                 <Link href="/products" className="btn btn-primary inline-block">
-                  Vai allo shop
+                  {t("goToShop")}
                 </Link>
               </div>
             ) : (
@@ -149,11 +150,11 @@ const OrdersPage = () => {
                       key={order.id}
                       className="bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl p-6 hover:border-primary dark:hover:border-darkmode-primary transition-colors"
                     >
-                      {/* Header Ordine */}
+                      {/* Order Header */}
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 pb-6 border-b border-border/20 dark:border-darkmode-border/20">
                         <div>
                           <h3 className="text-lg font-semibold text-text-dark dark:text-darkmode-text-dark mb-1">
-                            Ordine {order.name}
+                            {t("orderNumber", { name: order.name })}
                           </h3>
                           <p className="text-sm text-text-light dark:text-darkmode-text-light">
                             {formatDate(order.processedAt)}
@@ -214,7 +215,7 @@ const OrdersPage = () => {
                               )}
                               <div className="flex items-center gap-4 mt-2">
                                 <span className="text-sm text-text-light dark:text-darkmode-text-light">
-                                  Quantità: {item.quantity}
+                                  {t("quantity")}: {item.quantity}
                                 </span>
                                 {item.variant?.price && (
                                   <span className="text-sm font-medium text-text-dark dark:text-darkmode-text-dark">

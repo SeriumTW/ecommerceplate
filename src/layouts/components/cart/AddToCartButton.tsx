@@ -2,12 +2,13 @@
 
 import { useActionState, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useFormStatus } from "react-dom";
 import { BiLoaderAlt } from "react-icons/bi";
 import { HiCheck, HiPlus } from "react-icons/hi";
 import type { ProductVariant } from "@/lib/shopify/types";
 import type { CartActionResult } from "@/lib/utils/cartActions";
+import { useTranslations } from "next-intl";
 
 type SubmitButtonProps = {
   availableForSale: boolean;
@@ -27,6 +28,7 @@ function SubmitButton({
   const { pending } = useFormStatus();
   const buttonClasses = stylesClass ?? "";
   const disabledClasses = "cursor-not-allowed flex";
+  const t = useTranslations("product");
 
   const DynamicTag = handle === null ? "button" : Link;
 
@@ -38,7 +40,7 @@ function SubmitButton({
         aria-disabled
         className={`${buttonClasses} ${disabledClasses}`}
       >
-        Out Of Stock
+        {t("outOfStock")}
       </button>
     );
   }
@@ -47,13 +49,13 @@ function SubmitButton({
     return (
       <DynamicTag
         href={`/products/${handle ?? ""}`}
-        aria-label="Please select an option"
+        aria-label={t("selectVariantAria")}
         aria-disabled
         className={`${buttonClasses} ${
           DynamicTag === "button" && disabledClasses
         }`}
       >
-        Select Variant
+        {t("selectVariant")}
       </DynamicTag>
     );
   }
@@ -64,16 +66,8 @@ function SubmitButton({
       onClick={(event: React.FormEvent<HTMLButtonElement>) => {
         if (pending) event.preventDefault();
       }}
-      aria-label={
-        showSuccess
-          ? "Nel carrello - Clicca per aggiungere +1"
-          : "Aggiungi al carrello"
-      }
-      title={
-        showSuccess
-          ? "Nel carrello - Clicca per aggiungere +1"
-          : "Aggiungi al carrello"
-      }
+      aria-label={showSuccess ? t("inCartClickToAddMore") : t("addToCartAria")}
+      title={showSuccess ? t("inCartClickToAddMore") : t("addToCartAria")}
       aria-disabled={pending ? "true" : "false"}
       disabled={pending}
       className={`${buttonClasses} ${
@@ -83,12 +77,12 @@ function SubmitButton({
       {pending ? (
         <>
           <BiLoaderAlt className="animate-spin flex-shrink-0" size={20} />
-          <span className="font-semibold">Aggiungendo...</span>
+          <span className="font-semibold">{t("adding")}</span>
         </>
       ) : showSuccess ? (
         <>
           <HiCheck className="flex-shrink-0" size={20} />
-          <span className="font-semibold">Nel carrello</span>
+          <span className="font-semibold">{t("inCart")}</span>
         </>
       ) : buttonClasses.includes("w-9 h-9") ||
         buttonClasses.includes("rounded-full") ? (
@@ -96,7 +90,7 @@ function SubmitButton({
       ) : (
         <>
           <HiPlus className="flex-shrink-0" size={20} />
-          <span className="font-semibold">Aggiungi</span>
+          <span className="font-semibold">{t("add")}</span>
         </>
       )}
     </button>
@@ -130,6 +124,7 @@ const AddToCartButton = ({
   const searchParams = useSearchParams();
   const [actionState, formAction] = useActionState(action, null);
   const [showSuccess, setShowSuccess] = useState(isInCart);
+  const t = useTranslations("product");
 
   const selectedOptions = useMemo(
     () => Array.from(searchParams.entries()),
@@ -181,12 +176,12 @@ const AddToCartButton = ({
           aria-live="assertive"
           className="mt-2 text-sm text-error dark:text-darkmode-error"
         >
-          {actionState.message || "Errore durante l'aggiunta al carrello"}
+          {actionState.message || t("addToCartError")}
         </div>
       )}
       {actionState?.status === "success" && (
         <p aria-live="polite" className="sr-only" role="status">
-          Prodotto aggiunto al carrello con successo
+          {t("addToCartSuccess")}
         </p>
       )}
     </form>

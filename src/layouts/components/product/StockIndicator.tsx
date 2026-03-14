@@ -1,4 +1,7 @@
+"use client";
+
 import { HiCheckCircle, HiXCircle } from "react-icons/hi";
+import { useTranslations } from "next-intl";
 
 interface StockIndicatorProps {
   availableForSale: boolean;
@@ -9,13 +12,17 @@ const StockIndicator = ({
   availableForSale,
   className = "",
 }: StockIndicatorProps) => {
+  const t = useTranslations("product");
+
   if (availableForSale) {
     return (
       <div
         className={`inline-flex items-center gap-1.5 text-success dark:text-darkmode-success ${className}`}
       >
         <HiCheckCircle size={18} />
-        <span className="text-sm md:text-base font-medium">Disponibile</span>
+        <span className="text-sm md:text-base font-medium">
+          {t("available")}
+        </span>
       </div>
     );
   }
@@ -25,7 +32,7 @@ const StockIndicator = ({
       className={`inline-flex items-center gap-1.5 text-error dark:text-darkmode-error ${className}`}
     >
       <HiXCircle size={18} />
-      <span className="text-sm md:text-base font-medium">Esaurito</span>
+      <span className="text-sm md:text-base font-medium">{t("soldOut")}</span>
     </div>
   );
 };

@@ -1,17 +1,23 @@
 "use client";
 
 import { CustomerError } from "@/lib/shopify/types";
-import Link from "next/link";
-import SeoMeta from "@/partials/SeoMeta";
-import { Suspense } from "react";
-import { useRouter } from "next/navigation";
+import { Link } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
-import { FormData } from "../sign-up/page";
+import { useTranslations } from "next-intl";
 
-const Login = () => {
+export interface FormData {
+  firstName?: string;
+  email: string;
+  password: string;
+}
+
+const SignUp = () => {
   const router = useRouter();
+  const t = useTranslations("auth");
   const [formData, setFormData] = useState<FormData>({
+    firstName: "",
     email: "",
     password: "",
   });
@@ -26,13 +32,13 @@ const Login = () => {
     });
   };
 
-  const handleLogin = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSignUp = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
     try {
       setLoading(true);
 
-      const response = await fetch("/api/customer/login", {
+      const response = await fetch("/api/customer/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +56,7 @@ const Login = () => {
         setErrorMessages(errors);
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("Error during sign-up:", error);
     } finally {
       setLoading(false);
     }
@@ -61,38 +67,57 @@ const Login = () => {
       <div className="container">
         <div className="row">
           <div className="col-11 sm:col-9 md:col-7 mx-auto">
-            <Suspense fallback={null}>
-              <SeoMeta title="Login" />
-            </Suspense>
             <div className="mb-14 text-center">
-              <h2 className="max-md:h1 md:mb-2">Accedi</h2>
+              <h2 className="max-md:h1 md:mb-2">{t("signUpTitle")}</h2>
               <p className="md:text-lg text-text-light dark:text-darkmode-text-light">
-                Inserisci le tue credenziali per accedere al tuo account
+                {t("signUpSubtitle")}
               </p>
             </div>
 
             <form
-              onSubmit={handleLogin}
+              onSubmit={handleSignUp}
               noValidate
               className="border border-border dark:border-darkmode-border rounded-2xl p-10"
             >
               <div>
-                <label htmlFor="email" className="form-label">
-                  Indirizzo Email
+                <label htmlFor="firstName" className="form-label">
+                  {t("firstNameLabel")}
                 </label>
                 <input
-                  id="email"
+                  id="firstName"
+                  name="firstName"
+                  className={`form-input ${errorMessages.some((e) => e.field?.includes("firstName")) ? "border-error focus:ring-error/50" : ""}`}
+                  placeholder={t("firstNamePlaceholder")}
+                  type="text"
+                  onChange={handleChange}
+                  value={formData.firstName}
+                  aria-invalid={errorMessages.some((e) =>
+                    e.field?.includes("firstName"),
+                  )}
+                  aria-describedby={
+                    errorMessages.length > 0 ? "signup-errors" : undefined
+                  }
+                  autoComplete="given-name"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="signup-email" className="form-label mt-8">
+                  {t("emailLabel")}
+                </label>
+                <input
+                  id="signup-email"
+                  name="email"
                   className={`form-input ${errorMessages.some((e) => e.field?.includes("email")) ? "border-error focus:ring-error/50" : ""}`}
-                  placeholder="esempio@email.com"
+                  placeholder={t("emailPlaceholder")}
                   type="email"
                   onChange={handleChange}
-                  name="email"
                   value={formData.email}
                   aria-invalid={errorMessages.some((e) =>
                     e.field?.includes("email"),
                   )}
                   aria-describedby={
-                    errorMessages.length > 0 ? "login-errors" : undefined
+                    errorMessages.length > 0 ? "signup-errors" : undefined
                   }
                   required
                   autoComplete="email"
@@ -100,31 +125,31 @@ const Login = () => {
               </div>
 
               <div>
-                <label htmlFor="password" className="form-label mt-8">
-                  Password
+                <label htmlFor="signup-password" className="form-label mt-8">
+                  {t("passwordLabel")}
                 </label>
                 <input
-                  id="password"
+                  id="signup-password"
+                  name="password"
                   className={`form-input ${errorMessages.some((e) => e.field?.includes("password")) ? "border-error focus:ring-error/50" : ""}`}
-                  placeholder="Inserisci la tua password"
+                  placeholder={t("createPasswordPlaceholder")}
                   type="password"
                   onChange={handleChange}
-                  name="password"
                   value={formData.password}
                   aria-invalid={errorMessages.some((e) =>
                     e.field?.includes("password"),
                   )}
                   aria-describedby={
-                    errorMessages.length > 0 ? "login-errors" : undefined
+                    errorMessages.length > 0 ? "signup-errors" : undefined
                   }
                   required
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                 />
               </div>
 
               {errorMessages.length > 0 && (
                 <div
-                  id="login-errors"
+                  id="signup-errors"
                   role="alert"
                   aria-live="polite"
                   className="mt-4 space-y-2"
@@ -135,11 +160,7 @@ const Login = () => {
                       className="font-medium text-error dark:text-darkmode-error text-sm flex items-start gap-2"
                     >
                       <span aria-hidden="true">*</span>
-                      <span>
-                        {error.code === "UNIDENTIFIED_CUSTOMER"
-                          ? error.message
-                          : error.message || "Email o password non validi"}
-                      </span>
+                      <span>{error.message}</span>
                     </p>
                   ))}
                 </div>
@@ -158,24 +179,38 @@ const Login = () => {
                       size={26}
                       aria-hidden="true"
                     />
-                    <span className="sr-only">Accesso in corso...</span>
+                    <span className="sr-only">{t("signingUp")}</span>
                   </>
                 ) : (
-                  "Accedi"
+                  t("signUpButton")
                 )}
               </button>
             </form>
 
-            <div className="flex gap-x-2 text-sm md:text-base mt-4">
-              <p className="text-text-light dark:text-darkmode-text-light">
-                Non hai un account?
-              </p>
-              <Link
-                className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
-                href={"/sign-up"}
-              >
-                Registrati
-              </Link>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm md:text-base mt-6">
+              <div className="flex gap-x-2">
+                <p className="text-text-light dark:text-darkmode-text-light">
+                  {t("hasAccount")}
+                </p>
+                <Link
+                  className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
+                  href={"/login"}
+                >
+                  {t("loginLink")}
+                </Link>
+              </div>
+
+              <div className="md:text-right">
+                <p className="text-text-light dark:text-darkmode-text-light">
+                  {t("termsAccept")}{" "}
+                  <Link
+                    className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
+                    href={"/terms-services"}
+                  >
+                    {t("termsLink")}
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -184,4 +219,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

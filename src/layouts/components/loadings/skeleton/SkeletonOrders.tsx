@@ -67,4 +67,3 @@ const SkeletonOrders = () => {
 };
 
 export default SkeletonOrders;
-

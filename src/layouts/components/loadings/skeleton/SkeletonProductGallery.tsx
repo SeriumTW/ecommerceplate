@@ -12,7 +12,9 @@ const SkeletonProductGallery = () => {
               <div className="mb-6 md:mb-8">
                 <div className="flex items-center gap-2">
                   <div className="h-4 w-20 rounded animate-pulse bg-neutral-200 dark:bg-neutral-700" />
-                  <span className="text-text-light dark:text-darkmode-text-light">/</span>
+                  <span className="text-text-light dark:text-darkmode-text-light">
+                    /
+                  </span>
                   <div className="h-4 w-32 rounded animate-pulse bg-neutral-200 dark:bg-neutral-700" />
                 </div>
               </div>

@@ -11,6 +11,7 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import {
   addToCartMutation,
+  cartBuyerIdentityUpdateMutation,
   createCartMutation,
   editCartItemsMutation,
   removeFromCartMutation,
@@ -48,11 +49,13 @@ import {
   Product,
   ShopifyAddToCartOperation,
   ShopifyCart,
+  ShopifyCartBuyerIdentityUpdateOperation,
   ShopifyCartOperation,
   ShopifyCollection,
   ShopifyCollectionOperation,
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
+  ShopifyContext,
   ShopifyCreateCartOperation,
   ShopifyMenuOperation,
   ShopifyPageOperation,
@@ -257,9 +260,16 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
   return reshapedProducts;
 };
 
-export async function createCart(): Promise<Cart> {
+export async function createCart(context?: ShopifyContext): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
+    variables: {
+      ...(context && {
+        buyerIdentity: { countryCode: context.country },
+        country: context.country,
+        language: context.language,
+      }),
+    },
     cache: "no-store",
   });
 
@@ -269,10 +279,15 @@ export async function createCart(): Promise<Cart> {
 export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[],
+  context?: ShopifyContext,
 ): Promise<Cart> {
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
-    variables: { cartId, lines },
+    variables: {
+      cartId,
+      lines,
+      ...(context && { country: context.country, language: context.language }),
+    },
     cache: "no-store",
   });
   return reshapeCart(res.body.data.cartLinesAdd.cart);
@@ -281,10 +296,15 @@ export async function addToCart(
 export async function removeFromCart(
   cartId: string,
   lineIds: string[],
+  context?: ShopifyContext,
 ): Promise<Cart> {
   const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
     query: removeFromCartMutation,
-    variables: { cartId, lineIds },
+    variables: {
+      cartId,
+      lineIds,
+      ...(context && { country: context.country, language: context.language }),
+    },
     cache: "no-store",
   });
 
@@ -294,20 +314,49 @@ export async function removeFromCart(
 export async function updateCart(
   cartId: string,
   lines: { id: string; merchandiseId: string; quantity: number }[],
+  context?: ShopifyContext,
 ): Promise<Cart> {
   const res = await shopifyFetch<ShopifyUpdateCartOperation>({
     query: editCartItemsMutation,
-    variables: { cartId, lines },
+    variables: {
+      cartId,
+      lines,
+      ...(context && { country: context.country, language: context.language }),
+    },
     cache: "no-store",
   });
 
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
 }
 
-export async function getCart(cartId: string): Promise<Cart | undefined> {
+export async function updateCartBuyerIdentity(
+  cartId: string,
+  countryCode: string,
+  context?: ShopifyContext,
+): Promise<Cart> {
+  const res = await shopifyFetch<ShopifyCartBuyerIdentityUpdateOperation>({
+    query: cartBuyerIdentityUpdateMutation,
+    variables: {
+      cartId,
+      buyerIdentity: { countryCode },
+      ...(context && { country: context.country, language: context.language }),
+    },
+    cache: "no-store",
+  });
+
+  return reshapeCart(res.body.data.cartBuyerIdentityUpdate.cart);
+}
+
+export async function getCart(
+  cartId: string,
+  context?: ShopifyContext,
+): Promise<Cart | undefined> {
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
-    variables: { cartId },
+    variables: {
+      cartId,
+      ...(context && { country: context.country, language: context.language }),
+    },
     tags: [TAGS.cart],
     cache: "no-store",
   });
@@ -322,11 +371,15 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
 
 export async function getCollection(
   handle: string,
+  context?: ShopifyContext,
 ): Promise<Collection | undefined> {
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
     tags: [TAGS.collections],
-    variables: { handle },
+    variables: {
+      handle,
+      ...(context && { country: context.country, language: context.language }),
+    },
   });
 
   return reshapeCollection(res.body.data.collection);
@@ -337,11 +390,13 @@ export async function getCollectionProducts({
   reverse,
   sortKey,
   filterCategoryProduct,
+  context,
 }: {
   collection: string;
   reverse?: boolean;
   sortKey?: string;
-  filterCategoryProduct?: any[]; // Update the type based on your GraphQL schema
+  filterCategoryProduct?: unknown[];
+  context?: ShopifyContext;
 }): Promise<{ pageInfo: PageInfo | null; products: Product[] }> {
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
@@ -350,21 +405,15 @@ export async function getCollectionProducts({
       handle: collection,
       reverse,
       sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
-      filterCategoryProduct, // Pass the filters variable to the query
-    } as {
-      handle: string;
-      reverse?: boolean;
-      sortKey?: string;
-      filterCategoryProduct?: any[];
+      filterCategoryProduct,
+      ...(context && { country: context.country, language: context.language }),
     },
   });
 
   if (!res.body.data.collection) {
-    // console.log(`No collection found for \`${collection}\``);
     return { pageInfo: null, products: [] };
   }
 
-  // return reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products));
   const pageInfo = res.body.data?.collection?.products?.pageInfo;
 
   return {
@@ -381,7 +430,6 @@ export async function createCustomer(input: CustomerInput): Promise<any> {
     variables: { input },
     cache: "no-store",
   });
-  // console.log(res.body.data.customerCreate.customerUserErrors)
 
   const customer = res.body.data?.customerCreate?.customer;
   const customerCreateErrors =
@@ -431,24 +479,18 @@ export async function getCustomerOrders(accessToken: string): Promise<Order[]> {
   return removeEdgesAndNodes(response.body.data.customer.orders);
 }
 
-export async function getCollections(): Promise<Collection[]> {
+export async function getCollections(
+  context?: ShopifyContext,
+): Promise<Collection[]> {
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery,
     tags: [TAGS.collections],
+    variables: {
+      ...(context && { country: context.country, language: context.language }),
+    },
   });
   const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
   const collections = [
-    // {
-    //   handle: '',
-    //   title: 'All',
-    //   description: 'All products',
-    //   seo: {
-    //     title: 'All',
-    //     description: 'All products'
-    //   },
-    //   path: '/products',
-    //   updatedAt: new Date().toISOString()
-    // },
     // Filter out the `hidden` collections.
     // Collections that start with `hidden-*` need to be hidden on the search page.
     ...reshapeCollections(shopifyCollections).filter(
@@ -459,11 +501,17 @@ export async function getCollections(): Promise<Collection[]> {
   return collections;
 }
 
-export async function getMenu(handle: string): Promise<Menu[]> {
+export async function getMenu(
+  handle: string,
+  context?: ShopifyContext,
+): Promise<Menu[]> {
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
     tags: [TAGS.collections],
-    variables: { handle },
+    variables: {
+      handle,
+      ...(context && { country: context.country, language: context.language }),
+    },
   });
 
   return (
@@ -477,28 +525,43 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   );
 }
 
-export async function getPage(handle: string): Promise<Page> {
+export async function getPage(
+  handle: string,
+  context?: ShopifyContext,
+): Promise<Page> {
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
-    variables: { handle },
+    variables: {
+      handle,
+      ...(context && { country: context.country, language: context.language }),
+    },
   });
 
   return res.body.data.pageByHandle;
 }
 
-export async function getPages(): Promise<Page[]> {
+export async function getPages(context?: ShopifyContext): Promise<Page[]> {
   const res = await shopifyFetch<ShopifyPagesOperation>({
     query: getPagesQuery,
+    variables: {
+      ...(context && { country: context.country, language: context.language }),
+    },
   });
 
   return removeEdgesAndNodes(res.body.data.pages);
 }
 
-export async function getProduct(handle: string): Promise<Product | undefined> {
+export async function getProduct(
+  handle: string,
+  context?: ShopifyContext,
+): Promise<Product | undefined> {
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     tags: [TAGS.products],
-    variables: { handle },
+    variables: {
+      handle,
+      ...(context && { country: context.country, language: context.language }),
+    },
   });
 
   return reshapeProduct(res.body.data.product, false);
@@ -506,11 +569,15 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
 
 export async function getProductRecommendations(
   productId: string,
+  context?: ShopifyContext,
 ): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     tags: [TAGS.products],
-    variables: { productId },
+    variables: {
+      productId,
+      ...(context && { country: context.country, language: context.language }),
+    },
   });
 
   return reshapeProducts(res.body.data.productRecommendations);
@@ -520,36 +587,38 @@ export async function getVendors({
   query,
   reverse,
   sortKey,
+  context,
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
+  context?: ShopifyContext;
 }): Promise<{ vendor: string; productCount: number }[]> {
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getVendorsQuery,
     tags: [TAGS.products],
-    variables: { query, reverse, sortKey },
+    variables: {
+      query,
+      reverse,
+      sortKey,
+      ...(context && { country: context.country, language: context.language }),
+    },
   });
 
   const products = removeEdgesAndNodes(res.body.data.products);
 
-  // Create an array to store objects with vendor names and product counts
   const vendorProductCounts: { vendor: string; productCount: number }[] = [];
 
-  // Process the products and count them by vendor
   products.forEach((product) => {
     const vendor = product.vendor;
     if (vendor) {
-      // Check if the vendor is already in the array
       const existingVendor = vendorProductCounts.find(
         (v) => v.vendor === vendor,
       );
 
       if (existingVendor) {
-        // Increment the product count for the existing vendor
         existingVendor.productCount++;
       } else {
-        // Add a new vendor entry
         vendorProductCounts.push({ vendor, productCount: 1 });
       }
     }
@@ -562,15 +631,22 @@ export async function getTags({
   query,
   reverse,
   sortKey,
+  context,
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
+  context?: ShopifyContext;
 }): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
     tags: [TAGS.products],
-    variables: { query, reverse, sortKey },
+    variables: {
+      query,
+      reverse,
+      sortKey,
+      ...(context && { country: context.country, language: context.language }),
+    },
   });
 
   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
@@ -581,16 +657,24 @@ export async function getProducts({
   reverse,
   sortKey,
   cursor,
+  context,
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
   cursor?: string;
+  context?: ShopifyContext;
 }): Promise<{ pageInfo: PageInfo; products: Product[] }> {
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
     tags: [TAGS.products],
-    variables: { query, reverse, sortKey, cursor },
+    variables: {
+      query,
+      reverse,
+      sortKey,
+      cursor,
+      ...(context && { country: context.country, language: context.language }),
+    },
   });
 
   const pageInfo = res.body.data?.products?.pageInfo;
@@ -601,14 +685,23 @@ export async function getProducts({
   };
 }
 
-export async function getHighestProductPrice(): Promise<{
+export async function getHighestProductPrice(
+  context?: ShopifyContext,
+): Promise<{
   amount: string;
   currencyCode: string;
 } | null> {
   try {
-    const res = await shopifyFetch<any>({ query: getHighestProductPriceQuery });
+    const res = await shopifyFetch<any>({
+      query: getHighestProductPriceQuery,
+      variables: {
+        ...(context && {
+          country: context.country,
+          language: context.language,
+        }),
+      },
+    });
 
-    // Extract and return the relevant data
     const highestProduct = res?.body?.data?.products?.edges[0]?.node;
     const highestProductPrice = highestProduct?.variants?.edges[0]?.node?.price;
 

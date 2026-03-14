@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { cookies } from "next/headers";
 import Price from "@/components/Price";
 import { DeleteItemButton } from "@/components/cart/DeleteItemButton";
@@ -8,6 +8,9 @@ import { DEFAULT_OPTION } from "@/lib/constants";
 import { getCart } from "@/lib/shopify";
 import type { Cart, CartItem } from "@/lib/shopify/types";
 import { createUrl } from "@/lib/utils";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { localeToShopify } from "@/lib/i18n/config";
+import type { Locale } from "@/lib/i18n/config";
 
 type MerchandiseSearchParams = {
   [key: string]: string;
@@ -28,24 +31,32 @@ const buildMerchandiseUrl = (item: CartItem) => {
   );
 };
 
-const EmptyCartState = () => (
+const EmptyCartState = ({
+  translations,
+}: {
+  translations: {
+    yourCart: string;
+    emptyTitle: string;
+    emptyDescription: string;
+    goToCatalog: string;
+  };
+}) => (
   <section className="container py-24">
     <div className="mx-auto max-w-xl rounded-2xl border border-border/60 bg-light/70 p-10 text-center shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-light/10">
       <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary/80 dark:text-darkmode-primary">
-        Il tuo carrello
+        {translations.yourCart}
       </p>
       <h1 className="mt-4 text-3xl font-semibold text-text-dark dark:text-white">
-        Ancora vuoto
+        {translations.emptyTitle}
       </h1>
       <p className="mt-3 text-text-light dark:text-darkmode-text">
-        Aggiungi i prodotti preferiti per animali domestici e torna qui per
-        completare l&apos;ordine.
+        {translations.emptyDescription}
       </p>
       <Link
         href="/products"
         className="btn btn-primary mt-8 inline-flex rounded-full px-6 py-3 text-sm"
       >
-        Vai al catalogo
+        {translations.goToCatalog}
       </Link>
     </div>
   </section>
@@ -117,14 +128,29 @@ const CartLine = ({ item }: { item: CartItem }) => {
   );
 };
 
-const CartSummary = ({ cart }: { cart: Cart }) => (
+const CartSummary = ({
+  cart,
+  translations,
+}: {
+  cart: Cart;
+  translations: {
+    orderSummary: string;
+    subtotal: string;
+    taxes: string;
+    shipping: string;
+    shippingCalculated: string;
+    total: string;
+    proceedToCheckout: string;
+    securePayments: string;
+  };
+}) => (
   <aside className="rounded-2xl border border-border/60 bg-body p-6 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
     <h2 className="text-lg font-semibold text-text-dark dark:text-white">
-      Riepilogo ordine
+      {translations.orderSummary}
     </h2>
     <div className="mt-4 space-y-3 text-sm text-text-light dark:text-darkmode-text">
       <div className="flex items-center justify-between">
-        <span>Subtotale</span>
+        <span>{translations.subtotal}</span>
         <Price
           className="text-base font-semibold text-text-dark dark:text-white"
           amount={cart.cost.subtotalAmount.amount}
@@ -132,7 +158,7 @@ const CartSummary = ({ cart }: { cart: Cart }) => (
         />
       </div>
       <div className="flex items-center justify-between">
-        <span>Imposte</span>
+        <span>{translations.taxes}</span>
         <Price
           className="text-base font-semibold text-text-dark dark:text-white"
           amount={cart.cost.totalTaxAmount.amount}
@@ -140,11 +166,11 @@ const CartSummary = ({ cart }: { cart: Cart }) => (
         />
       </div>
       <div className="flex items-center justify-between">
-        <span>Spedizione</span>
-        <span>Calcolata al checkout</span>
+        <span>{translations.shipping}</span>
+        <span>{translations.shippingCalculated}</span>
       </div>
       <div className="flex items-center justify-between border-t border-border/40 pt-3 text-base font-semibold text-text-dark dark:border-darkmode-border/60 dark:text-white">
-        <span>Totale</span>
+        <span>{translations.total}</span>
         <Price
           className="text-xl font-semibold"
           amount={cart.cost.totalAmount.amount}
@@ -156,36 +182,61 @@ const CartSummary = ({ cart }: { cart: Cart }) => (
       href={cart.checkoutUrl}
       className="btn btn-primary mt-6 flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold"
     >
-      Procedi al checkout
+      {translations.proceedToCheckout}
     </a>
     <p className="mt-3 text-xs text-text-light dark:text-darkmode-text">
-      Pagamenti sicuri con Shopify. Potrai aggiungere note o codici sconto nella
-      pagina successiva.
+      {translations.securePayments}
     </p>
   </aside>
 );
 
-export default async function CartPage() {
+export default async function CartPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("cart");
+  const context = localeToShopify[locale as Locale];
+
   const cookieStore = await cookies();
   const cartId = cookieStore.get("cartId")?.value;
-  const cart = cartId ? await getCart(cartId) : undefined;
+  const cart = cartId ? await getCart(cartId, context) : undefined;
+
+  const emptyTranslations = {
+    yourCart: t("yourCart"),
+    emptyTitle: t("emptyTitle"),
+    emptyDescription: t("emptyDescription"),
+    goToCatalog: t("goToCatalog"),
+  };
 
   if (!cart || !cart.lines.length) {
-    return <EmptyCartState />;
+    return <EmptyCartState translations={emptyTranslations} />;
   }
+
+  const summaryTranslations = {
+    orderSummary: t("orderSummary"),
+    subtotal: t("subtotal"),
+    taxes: t("taxes"),
+    shipping: t("shipping"),
+    shippingCalculated: t("shippingCalculated"),
+    total: t("total"),
+    proceedToCheckout: t("proceedToCheckout"),
+    securePayments: t("securePayments"),
+  };
 
   return (
     <section className="container py-16">
       <div className="max-w-3xl">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary/80 dark:text-darkmode-primary">
-          Il tuo carrello
+          {t("yourCart")}
         </p>
         <h1 className="mt-3 text-4xl font-semibold text-text-dark dark:text-white">
-          Pronto per il tuo pet
+          {t("readyForYourPet")}
         </h1>
         <p className="mt-2 text-text-light dark:text-darkmode-text">
-          Controlla gli articoli selezionati, aggiorna le quantità o rimuovi ciò
-          che non ti serve prima di procedere al pagamento.
+          {t("reviewItems")}
         </p>
       </div>
 
@@ -195,20 +246,19 @@ export default async function CartPage() {
             <CartLine key={item.id} item={item} />
           ))}
         </ul>
-        <CartSummary cart={cart} />
+        <CartSummary cart={cart} translations={summaryTranslations} />
       </div>
 
       <div className="mt-12 rounded-2xl border border-border/40 bg-light/60 p-6 text-sm text-text-light shadow-sm dark:border-darkmode-border/40 dark:bg-darkmode-light/10 dark:text-darkmode-text">
         <p>
-          Hai bisogno di assistenza?{" "}
+          {t("needHelp")}{" "}
           <Link
             href="/contact"
             className="font-semibold text-primary dark:text-darkmode-primary"
           >
-            Contattaci
+            {t("contactUs")}
           </Link>{" "}
-          e il nostro team ti guiderà nella scelta dei prodotti migliori per il
-          tuo animale domestico.
+          {t("helpDescription")}
         </p>
       </div>
     </section>

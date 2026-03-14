@@ -1,6 +1,7 @@
 "use client";
 
 import { HiMinus, HiPlus } from "react-icons/hi";
+import { useTranslations } from "next-intl";
 
 interface QuantitySelectorProps {
   quantity: number;
@@ -17,6 +18,8 @@ const QuantitySelector = ({
   min = 1,
   disabled = false,
 }: QuantitySelectorProps) => {
+  const t = useTranslations("product");
+
   const handleDecrease = () => {
     if (quantity > min && !disabled) {
       onQuantityChange(quantity - 1);
@@ -39,14 +42,14 @@ const QuantitySelector = ({
   return (
     <div className="flex items-center gap-3">
       <label className="text-sm md:text-base font-semibold text-text-dark dark:text-darkmode-text-dark">
-        Quantità:
+        {t("quantity")}
       </label>
       <div className="flex items-center border border-border dark:border-darkmode-border rounded-2xl overflow-hidden bg-light/30 dark:bg-darkmode-light/10">
         <button
           onClick={handleDecrease}
           disabled={quantity <= min || disabled}
           className="p-3 md:p-4 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent focus:outline-none active:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 dark:focus-visible:ring-darkmode-primary/50"
-          aria-label="Diminuisci quantità"
+          aria-label={t("decreaseQuantity")}
         >
           <HiMinus
             size={20}
@@ -68,7 +71,7 @@ const QuantitySelector = ({
           onClick={handleIncrease}
           disabled={quantity >= max || disabled}
           className="p-3 md:p-4 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent focus:outline-none active:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 dark:focus-visible:ring-darkmode-primary/50"
-          aria-label="Aumenta quantità"
+          aria-label={t("increaseQuantity")}
         >
           <HiPlus
             size={20}

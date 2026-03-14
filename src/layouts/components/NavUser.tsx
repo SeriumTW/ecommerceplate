@@ -1,11 +1,12 @@
 "use client";
 
 import type { user } from "@/lib/shopify/types";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Gravatar from "react-gravatar";
 import { BsPerson } from "react-icons/bs";
+import { useTranslations } from "next-intl";
 
 type Customer = user["customer"] | null;
 
@@ -42,6 +43,7 @@ const NavUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const t = useTranslations("nav");
 
   useEffect(() => {
     const getUser = async () => {
@@ -114,7 +116,7 @@ const NavUser = () => {
             aria-haspopup="true"
             aria-expanded={dropdownOpen}
             aria-controls={menuId}
-            aria-label="Menu account utente"
+            aria-label={t("userAccountMenu")}
           >
             <div className="h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border border-border dark:border-darkmode-border">
               <Gravatar
@@ -171,7 +173,7 @@ const NavUser = () => {
                   role="menuitem"
                   onClick={() => setDropdownOpen(false)}
                 >
-                  Il mio account
+                  {t("myAccount")}
                 </Link>
 
                 <Link
@@ -180,7 +182,7 @@ const NavUser = () => {
                   role="menuitem"
                   onClick={() => setDropdownOpen(false)}
                 >
-                  I miei ordini
+                  {t("myOrders")}
                 </Link>
 
                 <div className="border-t border-border/20 dark:border-darkmode-border/20 my-2" />
@@ -190,7 +192,7 @@ const NavUser = () => {
                   className="w-full text-left px-4 py-3 text-sm font-medium text-error dark:text-darkmode-error hover:bg-error/10 dark:hover:bg-darkmode-error/10 focus:bg-error/10 dark:focus:bg-darkmode-error/10 focus:outline-none transition-colors"
                   role="menuitem"
                 >
-                  Esci
+                  {t("logout")}
                 </button>
               </div>
             </div>
@@ -200,7 +202,7 @@ const NavUser = () => {
         <Link
           className="inline-flex items-center justify-center rounded-2xl border border-border dark:border-darkmode-border px-3 py-2 text-xl text-text-dark hover:text-primary dark:text-darkmode-text-dark dark:hover:text-darkmode-primary hover:border-primary dark:hover:border-darkmode-primary focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 transition-colors min-h-[44px] min-w-[44px]"
           href="/login"
-          aria-label="Accedi al tuo account"
+          aria-label={t("loginToAccount")}
         >
           <BsPerson />
         </Link>

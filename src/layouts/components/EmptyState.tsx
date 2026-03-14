@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { HiSearch, HiRefresh } from "react-icons/hi";
+import { useTranslations } from "next-intl";
 
 interface EmptyStateProps {
   title?: string;
@@ -11,11 +12,13 @@ interface EmptyStateProps {
 }
 
 export default function EmptyState({
-  title = "Nessun prodotto trovato",
-  description = "Prova a modificare i filtri o a cercare qualcos'altro",
+  title,
+  description,
   showClearFilters = true,
   clearFiltersHref = "/products",
 }: EmptyStateProps) {
+  const t = useTranslations("products");
+
   return (
     <div className="flex flex-col items-center justify-center py-16 md:py-24 px-4">
       {/* Icona */}
@@ -25,12 +28,12 @@ export default function EmptyState({
 
       {/* Titolo */}
       <h3 className="text-2xl md:text-3xl font-bold text-text-dark dark:text-darkmode-text-dark mb-3 text-center">
-        {title}
+        {title ?? t("noProductsFound")}
       </h3>
 
       {/* Descrizione */}
       <p className="text-base md:text-lg text-text dark:text-darkmode-text text-center max-w-md mb-8">
-        {description}
+        {description ?? t("tryModifyingFilters")}
       </p>
 
       {/* Actions */}
@@ -41,7 +44,7 @@ export default function EmptyState({
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-primary text-white hover:bg-primary-hover transition-colors font-medium"
           >
             <HiRefresh className="w-5 h-5" />
-            <span>Cancella filtri</span>
+            <span>{t("clearFilters")}</span>
           </Link>
         )}
 
@@ -49,7 +52,7 @@ export default function EmptyState({
           href="/products"
           className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl border-2 border-primary text-primary hover:bg-primary/10 dark:border-darkmode-primary dark:text-darkmode-primary dark:hover:bg-darkmode-primary/10 transition-colors font-medium"
         >
-          <span>Vedi tutti i prodotti</span>
+          <span>{t("viewAllProducts")}</span>
         </Link>
       </div>
     </div>

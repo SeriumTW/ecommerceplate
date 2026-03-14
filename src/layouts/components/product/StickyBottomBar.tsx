@@ -3,6 +3,7 @@
 import { AddToCart } from "@/components/cart/AddToCart";
 import config from "@/config/config.json";
 import { Product } from "@/lib/shopify/types";
+import { useTranslations } from "next-intl";
 
 interface StickyBottomBarProps {
   product: Product;
@@ -14,6 +15,7 @@ const StickyBottomBar = ({
   defaultVariantId,
 }: StickyBottomBarProps) => {
   const { currencySymbol } = config.shopify;
+  const t = useTranslations("product");
 
   const currentPrice = parseFloat(
     product?.priceRange?.minVariantPrice?.amount || "0",
@@ -43,7 +45,7 @@ const StickyBottomBar = ({
             </div>
             {hasDiscount && (
               <span className="text-xs text-success dark:text-darkmode-success font-medium">
-                Risparmi {currencySymbol}
+                {t("save")} {currencySymbol}
                 {(compareAtPrice - currentPrice).toFixed(2)}
               </span>
             )}

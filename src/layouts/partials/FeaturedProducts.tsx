@@ -3,10 +3,12 @@ import { AddToCart } from "@/components/cart/AddToCart";
 import config from "@/config/config.json";
 import ImageFallback from "@/layouts/helpers/ImageFallback";
 import { Product } from "@/lib/shopify/types";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 const FeaturedProducts = ({ products }: { products: Product[] }) => {
   const { currencySymbol } = config.shopify;
+  const t = useTranslations("products");
 
   return (
     <>
@@ -86,7 +88,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
           className="btn btn-sm md:btn-lg btn-primary font-medium"
           href={"/products"}
         >
-          + See All Products
+          {t("seeAllProducts")}
         </Link>
       </div>
     </>

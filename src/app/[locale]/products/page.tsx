@@ -22,6 +22,9 @@ import CallToAction from "@/partials/CallToAction";
 import ProductCardView from "@/partials/ProductCardView";
 import ProductListView from "@/partials/ProductListView";
 import { Suspense } from "react";
+import { setRequestLocale } from "next-intl/server";
+import { localeToShopify } from "@/lib/i18n/config";
+import type { Locale } from "@/lib/i18n/config";
 
 interface SearchParams {
   sort?: string;
@@ -35,8 +38,10 @@ interface SearchParams {
 
 const ShowProducts = async ({
   searchParams,
+  context,
 }: {
   searchParams: SearchParams;
+  context?: { country: string; language: string };
 }) => {
   const {
     sort,
@@ -55,7 +60,7 @@ const ShowProducts = async ({
   const { sortKey, reverse } =
     sorting.find((item) => item.slug === sort) || defaultSort;
 
-  // Estrai filtri usando utility
+  // Extract filters using utility
   const filters = extractFiltersFromSearchParams(
     searchParams as { [key: string]: string | undefined },
   );
@@ -67,7 +72,7 @@ const ShowProducts = async ({
   let currentCategory: Collection | undefined;
 
   if (hasFilters) {
-    // Usa utility per costruire query invece di duplicare logica
+    // Use utility to build query instead of duplicating logic
     const queryString = buildProductQuery(filters);
 
     const query = {
@@ -75,6 +80,7 @@ const ShowProducts = async ({
       reverse,
       query: queryString,
       cursor,
+      context,
     };
 
     productsData =
@@ -83,6 +89,7 @@ const ShowProducts = async ({
             collection: category,
             sortKey,
             reverse,
+            context,
           })
         : await getProducts(query);
 
@@ -123,13 +130,13 @@ const ShowProducts = async ({
     });
   } else {
     // Fetch all products
-    productsData = await getProducts({ sortKey, reverse, cursor });
+    productsData = await getProducts({ sortKey, reverse, cursor, context });
   }
 
-  const categories = await getCollections();
-  const vendors = await getVendors({});
+  const categories = await getCollections(context);
+  const vendors = await getVendors({ context });
 
-  // Trova categoria corrente se c'è
+  // Find current category if present
   if (category && category !== "all") {
     currentCategory = categories.find((cat) => cat.handle === category);
   }
@@ -140,27 +147,27 @@ const ShowProducts = async ({
     ),
   ];
 
-  const maxPriceData = await getHighestProductPrice();
+  const maxPriceData = await getHighestProductPrice(context);
 
   const productCount = productsData?.products?.length || 0;
   const hasProducts = productCount > 0;
 
   return (
     <>
-      {/* Hero Section con Breadcrumbs integrati */}
+      {/* Hero Section with integrated Breadcrumbs */}
       <CategoryHeader
         category={currentCategory}
         searchValue={searchValue}
         productCount={productCount}
       />
 
-      {/* Main Content con spacing verticale */}
+      {/* Main Content with vertical spacing */}
       <div className="py-12 md:py-16">
         <div className="container">
-          {/* Active Filters con chips removibili */}
+          {/* Active Filters with removable chips */}
           <ActiveFilters filters={filters} />
 
-          {/* Product Layouts (sort, view toggle, filtri drawer) */}
+          {/* Product Layouts (sort, view toggle, filter drawer) */}
           <Suspense>
             <ProductLayouts
               categories={categories}
@@ -172,7 +179,7 @@ const ShowProducts = async ({
             />
           </Suspense>
 
-          {/* Prodotti Grid/List */}
+          {/* Products Grid/List */}
           {!hasProducts ? (
             <EmptyState />
           ) : layout === "list" ? (
@@ -195,8 +202,12 @@ const ShowProducts = async ({
 };
 
 const ProductsListPage = async (props: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<SearchParams>;
 }) => {
+  const { locale } = await props.params;
+  setRequestLocale(locale);
+  const context = localeToShopify[locale as Locale];
   const searchParams = await props.searchParams;
   const callToAction = getListPage("sections/call-to-action.md");
 
@@ -204,7 +215,7 @@ const ProductsListPage = async (props: {
     <>
       {/* <PageHeader title={"Products"} /> */}
       <Suspense fallback={<LoadingProducts />}>
-        <ShowProducts searchParams={searchParams} />
+        <ShowProducts searchParams={searchParams} context={context} />
       </Suspense>
 
       <CallToAction data={callToAction} />

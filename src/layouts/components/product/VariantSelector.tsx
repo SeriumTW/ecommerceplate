@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import { ImageItem } from "./ProductGallery";
 import VariantDropDown from "./VariantDropDown";
+import { useTranslations } from "next-intl";
 
 type Combination = {
   id: string;
@@ -40,6 +41,7 @@ export function VariantSelector({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const t = useTranslations("product");
 
   const imageMap = generateImageMap(images);
 
@@ -155,13 +157,13 @@ export function VariantSelector({
                     }}
                     aria-label={`${option.name} ${value}${
                       !isAvailableForSale
-                        ? " (Non disponibile)"
+                        ? ` (${t("notAvailable")})`
                         : isActive
-                          ? " (Selezionato)"
+                          ? ` (${t("selected")})`
                           : ""
                     }`}
                     title={`${option.name} ${value}${
-                      !isAvailableForSale ? " (Out of Stock)" : ""
+                      !isAvailableForSale ? ` (${t("outOfStock")})` : ""
                     }`}
                     className={`flex min-w-[48px] min-h-[44px] items-center justify-center rounded-2xl border border-border text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 ${
                       isActive && option.name !== "Color"

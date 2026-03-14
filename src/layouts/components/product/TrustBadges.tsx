@@ -1,5 +1,8 @@
+"use client";
+
 import { HiShieldCheck, HiTruck } from "react-icons/hi";
 import { HiArrowPath } from "react-icons/hi2";
+import { useTranslations } from "next-intl";
 
 interface TrustBadge {
   icon: React.ReactNode;
@@ -12,42 +15,46 @@ interface TrustBadgesProps {
   badges?: TrustBadge[];
 }
 
-const defaultBadges: TrustBadge[] = [
-  {
-    icon: (
-      <HiTruck size={24} className="text-primary dark:text-darkmode-primary" />
-    ),
-    title: "Spedizione Veloce",
-    subtitle: "Consegna in 2-3 giorni",
-  },
-  {
-    icon: (
-      <HiShieldCheck
-        size={24}
-        className="text-success dark:text-darkmode-success"
-      />
-    ),
-    title: "Pagamenti Sicuri",
-    subtitle: "SSL e crittografia",
-  },
-  {
-    icon: (
-      <HiArrowPath size={24} className="text-info dark:text-darkmode-info" />
-    ),
-    title: "Resi Facili",
-    subtitle: "14 giorni per ripensarci",
-  },
-];
+const TrustBadges = ({ className = "", badges }: TrustBadgesProps) => {
+  const t = useTranslations("product");
 
-const TrustBadges = ({
-  className = "",
-  badges = defaultBadges,
-}: TrustBadgesProps) => {
+  const defaultBadges: TrustBadge[] = [
+    {
+      icon: (
+        <HiTruck
+          size={24}
+          className="text-primary dark:text-darkmode-primary"
+        />
+      ),
+      title: t("fastShipping"),
+      subtitle: t("deliveryTime"),
+    },
+    {
+      icon: (
+        <HiShieldCheck
+          size={24}
+          className="text-success dark:text-darkmode-success"
+        />
+      ),
+      title: t("securePayments"),
+      subtitle: t("sslEncryption"),
+    },
+    {
+      icon: (
+        <HiArrowPath size={24} className="text-info dark:text-darkmode-info" />
+      ),
+      title: t("easyReturns"),
+      subtitle: t("returnPolicy"),
+    },
+  ];
+
+  const displayBadges = badges ?? defaultBadges;
+
   return (
     <div
       className={`grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 ${className}`}
     >
-      {badges.map((badge, index) => (
+      {displayBadges.map((badge, index) => (
         <div
           key={index}
           className="flex items-start gap-3 bg-light/50 dark:bg-darkmode-light/30 p-3 md:p-4 rounded-2xl border border-border/20 dark:border-darkmode-border/20"

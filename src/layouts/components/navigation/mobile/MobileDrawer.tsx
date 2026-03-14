@@ -1,13 +1,15 @@
 "use client";
 
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 import Logo from "@/components/Logo";
 import { fetchUser } from "@/components/NavUser";
 import SearchBar from "@/components/SearchBar";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import type config from "@/config/config.json";
 import type { NavigationLink } from "@/types/navigation";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import React, { Suspense, useEffect, useMemo, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import { LuArrowRight, LuX } from "react-icons/lu";
@@ -167,6 +169,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
   navigationButton,
   settings,
 }) => {
+  const t = useTranslations("nav");
   const filteredMenuItems = menuItems.filter((item) => !item.hiddenOnMobile);
 
   return (
@@ -254,17 +257,20 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
           </div>
         </div>
 
-        {navigationButton?.enable ? (
-          <div className="border-t border-border/60 px-6 py-8 dark:border-darkmode-border/60">
-            <Link
-              href={navigationButton.link}
-              onClick={onClose}
-              className="btn btn-outline-primary w-full py-4 text-lg"
-            >
-              {navigationButton.label}
-            </Link>
+        <div className="border-t border-border/60 px-6 py-6 dark:border-darkmode-border/60">
+          <div className="flex items-center justify-between">
+            <LocaleSwitcher />
+            {navigationButton?.enable ? (
+              <Link
+                href={navigationButton.link}
+                onClick={onClose}
+                className="btn btn-outline-primary py-3 text-base"
+              >
+                {navigationButton.label}
+              </Link>
+            ) : null}
           </div>
-        ) : null}
+        </div>
       </div>
     </>
   );

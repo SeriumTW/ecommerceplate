@@ -15,23 +15,40 @@ import CallToAction from "@/partials/CallToAction";
 import FeaturedProducts from "@/partials/FeaturedProducts";
 import SeoMeta from "@/partials/SeoMeta";
 import { Suspense } from "react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { localeToShopify } from "@/lib/i18n/config";
+import type { Locale } from "@/lib/i18n/config";
 
 const { collections } = config.shopify;
 
-const ShowCollections = async () => {
-  const collections = await getCollections();
-  return <CollectionsSlider collections={collections} />;
+const ShowCollections = async ({
+  context,
+}: {
+  context?: { country: string; language: string };
+}) => {
+  const allCollections = await getCollections(context);
+  return <CollectionsSlider collections={allCollections} />;
 };
 
-const ShowFeaturedProducts = async () => {
+const ShowFeaturedProducts = async ({
+  context,
+}: {
+  context?: { country: string; language: string };
+}) => {
   const { pageInfo, products } = await getCollectionProducts({
     collection: collections.featured_products,
     reverse: false,
+    context,
   });
   return <FeaturedProducts products={products} />;
 };
 
-const Home = () => {
+const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("common");
+  const context = localeToShopify[locale as Locale];
+
   const callToAction = getListPage("sections/call-to-action.md");
 
   return (
@@ -47,7 +64,7 @@ const Home = () => {
                 "url('https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=2400&auto=format&fit=crop')",
             }}
           />
-          {/* Overlay ottimizzato: più leggibile a sinistra, sfuma a destra */}
+          {/* Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-white/98 via-white/85 to-white/40 dark:from-black/98 dark:via-black/85 dark:to-black/40" />
         </div>
 
@@ -64,13 +81,13 @@ const Home = () => {
       <section className="section">
         <div className="container">
           <div className="text-center mb-6 md:mb-14">
-            <h2 className="mb-3">Esplora per Categoria</h2>
+            <h2 className="mb-3">{t("exploreByCategory")}</h2>
             <p className="text-lg text-text dark:text-darkmode-text max-w-2xl mx-auto">
-              Trova tutto ciò di cui il tuo amico a quattro zampe ha bisogno
+              {t("exploreByCategoryDescription")}
             </p>
           </div>
           <Suspense fallback={<SkeletonCategory />}>
-            <ShowCollections />
+            <ShowCollections context={context} />
           </Suspense>
         </div>
       </section>
@@ -79,14 +96,13 @@ const Home = () => {
       <section className="pb-16">
         <div className="container">
           <div className="text-center mb-6 md:mb-14">
-            <h2 className="mb-3">Prodotti in Evidenza</h2>
+            <h2 className="mb-3">{t("featuredProducts")}</h2>
             <p className="text-lg text-text dark:text-darkmode-text max-w-2xl mx-auto">
-              I preferiti dai nostri clienti, selezionati per qualità e
-              convenienza
+              {t("featuredProductsDescription")}
             </p>
           </div>
           <Suspense fallback={<SkeletonFeaturedProducts />}>
-            <ShowFeaturedProducts />
+            <ShowFeaturedProducts context={context} />
           </Suspense>
         </div>
       </section>

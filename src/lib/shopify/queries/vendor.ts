@@ -1,5 +1,6 @@
 export const getVendorsQuery = /* GraphQL */ `
-  query getVendors {
+  query getVendors($country: CountryCode, $language: LanguageCode)
+  @inContext(country: $country, language: $language) {
     products(first: 250) {
       edges {
         node {
@@ -11,7 +12,8 @@ export const getVendorsQuery = /* GraphQL */ `
 `;
 
 export const getTagsQuery = /* GraphQL */ `
-  query getVendors {
+  query getTags($country: CountryCode, $language: LanguageCode)
+  @inContext(country: $country, language: $language) {
     products(first: 250) {
       edges {
         node {
