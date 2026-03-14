@@ -11,7 +11,11 @@
     "clearFilters": "Cancella filtri",
     "allRightsReserved": "Tutti i diritti riservati.",
     "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Termini di Servizio"
+    "termsOfService": "Termini di Servizio",
+    "exploreByCategory": "Esplora per Categoria",
+    "exploreByCategoryDescription": "Scopri i migliori prodotti organizzati per categoria, pensati per il benessere del tuo animale domestico.",
+    "featuredProducts": "Prodotti in Evidenza",
+    "featuredProductsDescription": "Una selezione dei nostri prodotti più amati, scelti con cura per i tuoi amici a quattro zampe."
   },
   "nav": {
     "openNavigation": "Apri navigazione",
@@ -147,28 +151,39 @@
     "discover": "Scopri",
     "support": "Supporto",
     "securePaymentMethods": "Metodi di pagamento sicuri",
-    "footerNav": "Navigazione footer"
+    "footerNav": "Navigazione footer",
+    "footerNavigation": "Navigazione footer",
+    "copyright": "© {year} {siteName}. Tutti i diritti riservati."
   },
   "topbar": {
     "freeShipping": "Spedizione gratuita",
     "freeShippingHighlight": "oltre 49€",
+    "freeShippingThreshold": "oltre 49€",
     "dealOfDay": "Offerta del giorno:",
+    "dailyDeal": "Offerta del giorno:",
     "dealHighlight": "-20% cibo biologico",
+    "dailyDealHighlight": "-20% cibo biologico",
     "newArrivals": "Nuovi arrivi:",
     "newArrivalsHighlight": "giochi interattivi",
-    "searchPlaceholder": "Cerca prodotti..."
+    "searchPlaceholder": "Cerca prodotti...",
+    "announcement": "Annuncio {number}"
   },
   "searchBar": {
     "placeholder": "Cerca prodotti",
     "label": "Cerca prodotti",
+    "searchProducts": "Cerca prodotti",
     "fieldLabel": "Campo di ricerca prodotti",
+    "searchInputField": "Campo di ricerca prodotti",
     "clearSearch": "Cancella ricerca",
-    "executeSearch": "Esegui ricerca"
+    "executeSearch": "Esegui ricerca",
+    "submitSearch": "Esegui ricerca"
   },
   "newsletter": {
     "exclusiveDiscount": "Sconto Esclusivo",
     "joinFamily": "Unisciti alla Famiglia LoveBirdsLand",
+    "title": "Unisciti alla Famiglia LoveBirdsLand",
     "description": "Ricevi 10% di sconto sul tuo primo ordine, consigli per il benessere del tuo animale e offerte esclusive direttamente nella tua casella email.",
+    "subtitle": "Ricevi <strong>10% di sconto</strong> sul tuo primo ordine, consigli per il benessere del tuo animale e offerte esclusive direttamente nella tua casella email.",
     "emailPlaceholder": "Inserisci la tua email",
     "getDiscount": "Ottieni lo Sconto",
     "sending": "Invio...",
@@ -177,6 +192,7 @@
     "subscriberCount": "Oltre 2.000 iscritti alla newsletter"
   },
   "notFound": {
+    "seoTitle": "Pagina non trovata",
     "title": "Pagina non trovata",
     "description": "La pagina che stavi cercando potrebbe essere stata rimossa, rinominata o potrebbe essere temporaneamente non disponibile.",
     "backToHome": "Torna alla Home"

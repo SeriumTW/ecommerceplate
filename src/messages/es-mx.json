@@ -11,7 +11,11 @@
     "clearFilters": "Borrar filtros",
     "allRightsReserved": "Todos los derechos reservados.",
     "privacyPolicy": "Política de Privacidad",
-    "termsOfService": "Términos de Servicio"
+    "termsOfService": "Términos de Servicio",
+    "exploreByCategory": "Explorar por Categoría",
+    "exploreByCategoryDescription": "Descubre los mejores productos organizados por categoría, pensados para el bienestar de tu mascota.",
+    "featuredProducts": "Productos Destacados",
+    "featuredProductsDescription": "Una selección de nuestros productos más populares, elegidos con cuidado para tus amigos de cuatro patas."
   },
   "nav": {
     "openNavigation": "Abrir navegación",
@@ -147,28 +151,39 @@
     "discover": "Descubrir",
     "support": "Soporte",
     "securePaymentMethods": "Métodos de pago seguros",
-    "footerNav": "Navegación pie de página"
+    "footerNav": "Navegación pie de página",
+    "footerNavigation": "Navegación pie de página",
+    "copyright": "© {year} {siteName}. Todos los derechos reservados."
   },
   "topbar": {
     "freeShipping": "Envío gratis",
     "freeShippingHighlight": "en pedidos mayores a $49",
+    "freeShippingThreshold": "en pedidos mayores a $49",
     "dealOfDay": "Oferta del día:",
+    "dailyDeal": "Oferta del día:",
     "dealHighlight": "-20% comida orgánica",
+    "dailyDealHighlight": "-20% comida orgánica",
     "newArrivals": "Novedades:",
     "newArrivalsHighlight": "juegos interactivos",
-    "searchPlaceholder": "Buscar productos..."
+    "searchPlaceholder": "Buscar productos...",
+    "announcement": "Anuncio {number}"
   },
   "searchBar": {
     "placeholder": "Buscar productos",
     "label": "Buscar productos",
+    "searchProducts": "Buscar productos",
     "fieldLabel": "Campo de búsqueda de productos",
+    "searchInputField": "Campo de búsqueda de productos",
     "clearSearch": "Borrar búsqueda",
-    "executeSearch": "Ejecutar búsqueda"
+    "executeSearch": "Ejecutar búsqueda",
+    "submitSearch": "Ejecutar búsqueda"
   },
   "newsletter": {
     "exclusiveDiscount": "Descuento Exclusivo",
     "joinFamily": "Únete a la Familia LoveBirdsLand",
+    "title": "Únete a la Familia LoveBirdsLand",
     "description": "Recibe 10% de descuento en tu primer pedido, consejos para el bienestar de tu mascota y ofertas exclusivas directamente en tu correo electrónico.",
+    "subtitle": "Recibe <strong>10% de descuento</strong> en tu primer pedido, consejos para el bienestar de tu mascota y ofertas exclusivas directamente en tu correo electrónico.",
     "emailPlaceholder": "Ingresa tu email",
     "getDiscount": "Obtener el Descuento",
     "sending": "Enviando...",
@@ -177,6 +192,7 @@
     "subscriberCount": "Más de 2,000 suscriptores al boletín"
   },
   "notFound": {
+    "seoTitle": "Página no encontrada",
     "title": "Página no encontrada",
     "description": "La página que buscabas pudo haber sido eliminada, renombrada o está temporalmente no disponible.",
     "backToHome": "Volver al Inicio"

@@ -11,7 +11,11 @@
     "clearFilters": "Clear Filters",
     "allRightsReserved": "All rights reserved.",
     "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service"
+    "termsOfService": "Terms of Service",
+    "exploreByCategory": "Explore by Category",
+    "exploreByCategoryDescription": "Discover the best products organized by category, designed for your pet's well-being.",
+    "featuredProducts": "Featured Products",
+    "featuredProductsDescription": "A selection of our most loved products, carefully chosen for your four-legged friends."
   },
   "nav": {
     "openNavigation": "Open navigation",
@@ -147,28 +151,39 @@
     "discover": "Discover",
     "support": "Support",
     "securePaymentMethods": "Secure payment methods",
-    "footerNav": "Footer navigation"
+    "footerNav": "Footer navigation",
+    "footerNavigation": "Footer navigation",
+    "copyright": "\u00a9 {year} {siteName}. All rights reserved."
   },
   "topbar": {
     "freeShipping": "Free shipping",
     "freeShippingHighlight": "over $49",
+    "freeShippingThreshold": "over $49",
     "dealOfDay": "Deal of the day:",
+    "dailyDeal": "Deal of the day:",
     "dealHighlight": "-20% organic food",
+    "dailyDealHighlight": "-20% organic food",
     "newArrivals": "New arrivals:",
     "newArrivalsHighlight": "interactive toys",
-    "searchPlaceholder": "Search products..."
+    "searchPlaceholder": "Search products...",
+    "announcement": "Announcement {number}"
   },
   "searchBar": {
     "placeholder": "Search products",
     "label": "Search products",
+    "searchProducts": "Search products",
     "fieldLabel": "Product search field",
+    "searchInputField": "Product search field",
     "clearSearch": "Clear search",
-    "executeSearch": "Search"
+    "executeSearch": "Search",
+    "submitSearch": "Search"
   },
   "newsletter": {
     "exclusiveDiscount": "Exclusive Discount",
     "joinFamily": "Join the LoveBirdsLand Family",
+    "title": "Join the LoveBirdsLand Family",
     "description": "Get 10% off your first order, pet wellness tips, and exclusive offers delivered directly to your inbox.",
+    "subtitle": "Get <strong>10% off</strong> your first order, pet wellness tips, and exclusive offers delivered directly to your inbox.",
     "emailPlaceholder": "Enter your email",
     "getDiscount": "Get the Discount",
     "sending": "Sending...",
@@ -177,6 +192,7 @@
     "subscriberCount": "Over 2,000 newsletter subscribers"
   },
   "notFound": {
+    "seoTitle": "Page Not Found",
     "title": "Page Not Found",
     "description": "The page you were looking for may have been removed, renamed, or is temporarily unavailable.",
     "backToHome": "Back to Home"
