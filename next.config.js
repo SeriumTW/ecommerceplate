@@ -13,6 +13,9 @@ const nextConfig = {
   trailingSlash: config.site.trailing_slash,
   transpilePackages: ["next-mdx-remote"],
   output: "standalone",
+  outputFileTracingIncludes: {
+    "/**": ["src/content/**/*"],
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "cdn.shopify.com", pathname: "/**" },
