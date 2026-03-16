@@ -24,9 +24,10 @@ import ProductCardView from "@/partials/ProductCardView";
 import ProductListView from "@/partials/ProductListView";
 import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { localeToShopify } from "@/lib/i18n/config";
+import { localeToShopify, resolveRouteLocale } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
 import { getMetadataAlternates } from "@/lib/i18n/metadata";
+import { notFound } from "next/navigation";
 
 interface SearchParams {
   sort?: string;
@@ -42,12 +43,21 @@ export const generateMetadata = async (props: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> => {
   const { locale } = await props.params;
-  const t = await getTranslations({ locale, namespace: "products" });
+  const normalizedLocale = resolveRouteLocale(locale);
+
+  if (!normalizedLocale) {
+    notFound();
+  }
+
+  const t = await getTranslations({
+    locale: normalizedLocale,
+    namespace: "products",
+  });
 
   return {
     title: t("allProducts"),
     description: t("seeAllProducts"),
-    alternates: getMetadataAlternates(locale as Locale, "/products"),
+    alternates: getMetadataAlternates(normalizedLocale as Locale, "/products"),
   };
 };
 
@@ -221,8 +231,14 @@ const ProductsListPage = async (props: {
   searchParams: Promise<SearchParams>;
 }) => {
   const { locale } = await props.params;
-  setRequestLocale(locale);
-  const context = localeToShopify[locale as Locale];
+  const normalizedLocale = resolveRouteLocale(locale);
+
+  if (!normalizedLocale) {
+    notFound();
+  }
+
+  setRequestLocale(normalizedLocale);
+  const context = localeToShopify[normalizedLocale as Locale];
   const searchParams = await props.searchParams;
   const callToAction = getListPage("sections/call-to-action.md");
 

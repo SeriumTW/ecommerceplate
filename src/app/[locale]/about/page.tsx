@@ -12,11 +12,19 @@ import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { FaBoxOpen, FaCheckCircle, FaHeadset } from "react-icons/fa";
+import { notFound } from "next/navigation";
+import { resolveRouteLocale } from "@/lib/i18n/config";
 
 export const generateMetadata = async (props: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> => {
   const { locale } = await props.params;
+  const normalizedLocale = resolveRouteLocale(locale);
+
+  if (!normalizedLocale) {
+    notFound();
+  }
+
   const data: RegularPage = getListPage("about/_index.md");
   const title = data.frontmatter.meta_title || data.frontmatter.title;
   const description = data.frontmatter.description || data.frontmatter.title;
@@ -24,7 +32,7 @@ export const generateMetadata = async (props: {
   return {
     title,
     description,
-    alternates: getMetadataAlternates(locale as Locale, "/about"),
+    alternates: getMetadataAlternates(normalizedLocale as Locale, "/about"),
     openGraph: {
       title,
       description,

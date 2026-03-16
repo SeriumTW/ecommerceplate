@@ -18,8 +18,9 @@ import { getMetadataAlternates } from "@/lib/i18n/metadata";
 import SeoMeta from "@/partials/SeoMeta";
 import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { localeToShopify } from "@/lib/i18n/config";
+import { localeToShopify, resolveRouteLocale } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
+import { notFound } from "next/navigation";
 
 const { collections } = config.shopify;
 
@@ -27,12 +28,21 @@ export const generateMetadata = async (props: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> => {
   const { locale } = await props.params;
-  const t = await getTranslations({ locale, namespace: "common" });
+  const normalizedLocale = resolveRouteLocale(locale);
+
+  if (!normalizedLocale) {
+    notFound();
+  }
+
+  const t = await getTranslations({
+    locale: normalizedLocale,
+    namespace: "common",
+  });
 
   return {
     title: config.site.title,
     description: t("featuredProductsDescription"),
-    alternates: getMetadataAlternates(locale as Locale, "/"),
+    alternates: getMetadataAlternates(normalizedLocale as Locale, "/"),
   };
 };
 
@@ -60,9 +70,15 @@ const ShowFeaturedProducts = async ({
 
 const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
   const { locale } = await params;
-  setRequestLocale(locale);
+  const normalizedLocale = resolveRouteLocale(locale);
+
+  if (!normalizedLocale) {
+    notFound();
+  }
+
+  setRequestLocale(normalizedLocale);
   const t = await getTranslations("common");
-  const context = localeToShopify[locale as Locale];
+  const context = localeToShopify[normalizedLocale as Locale];
 
   const callToAction = getListPage("sections/call-to-action.md");
 

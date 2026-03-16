@@ -1,10 +1,9 @@
 import { getRequestConfig } from "next-intl/server";
-import { hasLocale } from "next-intl";
-import { locales } from "@/lib/i18n/config";
+import { defaultLocale, resolveRouteLocale } from "@/lib/i18n/config";
 
 export default getRequestConfig(async ({ requestLocale }) => {
   const requested = await requestLocale;
-  const locale = hasLocale(locales, requested) ? requested : "es-mx";
+  const locale = resolveRouteLocale(requested) ?? defaultLocale;
 
   return {
     locale,

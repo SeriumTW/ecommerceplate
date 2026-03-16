@@ -19,7 +19,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { localeToShopify } from "@/lib/i18n/config";
+import { localeToShopify, resolveRouteLocale } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
 import { getMetadataAlternates } from "@/lib/i18n/metadata";
 
@@ -27,14 +27,18 @@ export const generateMetadata = async (props: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> => {
   const params = await props.params;
-  const context = localeToShopify[params.locale as Locale];
+  const normalizedLocale = resolveRouteLocale(params.locale);
+
+  if (!normalizedLocale) return notFound();
+
+  const context = localeToShopify[normalizedLocale as Locale];
   const product = await getProduct(params.slug, context);
   if (!product) return notFound();
   return {
     title: product.seo.title || product.title,
     description: product.seo.description || product.description,
     alternates: getMetadataAlternates(
-      params.locale as Locale,
+      normalizedLocale as Locale,
       `/products/${params.slug}`,
     ),
   };
@@ -58,12 +62,16 @@ const ShowProductSingle = async ({
 }: {
   params: { locale: string; slug: string };
 }) => {
-  setRequestLocale(params.locale);
+  const normalizedLocale = resolveRouteLocale(params.locale);
+
+  if (!normalizedLocale) return notFound();
+
+  setRequestLocale(normalizedLocale);
   const [t, tCommon] = await Promise.all([
     getTranslations("product"),
     getTranslations("common"),
   ]);
-  const context = localeToShopify[params.locale as Locale];
+  const context = localeToShopify[normalizedLocale as Locale];
 
   const paymentsAndDelivery = getListPage("sections/payments-and-delivery.md");
   const { payment_methods, estimated_delivery } =

@@ -3,19 +3,22 @@ import OpenCart from "@/components/cart/OpenCart";
 import config from "@/config/config.json";
 import theme from "@/config/theme.json";
 import TwSizeIndicator from "@/helpers/TwSizeIndicator";
-import { locales, localeToIntl } from "@/lib/i18n/config";
+import {
+  localeToIntl,
+  publicLocaleSegments,
+  resolveRouteLocale,
+} from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
 import Footer from "@/partials/Footer";
 import Header from "@/partials/Header";
 import Providers from "@/partials/Providers";
-import { hasLocale } from "next-intl";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return publicLocaleSegments.map((locale) => ({ locale }));
 }
 
 export default async function LocaleLayout({
@@ -26,12 +29,13 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const normalizedLocale = resolveRouteLocale(locale);
 
-  if (!hasLocale(locales, locale)) {
+  if (!normalizedLocale) {
     notFound();
   }
 
-  setRequestLocale(locale);
+  setRequestLocale(normalizedLocale);
 
   const messages = await getMessages();
   const cartTranslations = (await getMessages()).cart as {
@@ -40,7 +44,7 @@ export default async function LocaleLayout({
 
   const pf = theme.fonts.font_family.primary;
   const sf = theme.fonts.font_family.secondary;
-  const intlLocale = localeToIntl[locale as Locale];
+  const intlLocale = localeToIntl[normalizedLocale as Locale];
 
   return (
     <html suppressHydrationWarning={true} lang={intlLocale}>

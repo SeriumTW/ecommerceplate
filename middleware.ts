@@ -16,6 +16,15 @@ const hasLocalePrefix = (pathname: string) =>
   );
 
 export default function middleware(request: NextRequest) {
+  if (
+    request.nextUrl.pathname === "/es-mx" ||
+    request.nextUrl.pathname.startsWith("/es-mx/")
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = request.nextUrl.pathname.replace(/^\/es-mx/, "/mx");
+    return NextResponse.redirect(url, 308);
+  }
+
   if (hasLocalePrefix(request.nextUrl.pathname)) {
     return intlMiddleware(request);
   }

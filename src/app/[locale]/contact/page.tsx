@@ -8,11 +8,19 @@ import SeoMeta from "@/partials/SeoMeta";
 import { ContactUsItem, RegularPage } from "@/types";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { resolveRouteLocale } from "@/lib/i18n/config";
 
 export const generateMetadata = async (props: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> => {
   const { locale } = await props.params;
+  const normalizedLocale = resolveRouteLocale(locale);
+
+  if (!normalizedLocale) {
+    notFound();
+  }
+
   const data: RegularPage = getListPage("contact/_index.md");
   const title = data.frontmatter.meta_title || data.frontmatter.title;
   const description =
@@ -21,7 +29,7 @@ export const generateMetadata = async (props: {
   return {
     title,
     description,
-    alternates: getMetadataAlternates(locale as Locale, "/contact"),
+    alternates: getMetadataAlternates(normalizedLocale as Locale, "/contact"),
   };
 };
 

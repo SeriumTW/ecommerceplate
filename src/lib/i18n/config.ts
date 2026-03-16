@@ -15,6 +15,26 @@ export const pathPrefixToLocale = Object.fromEntries(
   ]),
 ) as Record<string, Locale>;
 
+export const publicLocaleSegments = Object.values(localeToPathPrefix).map(
+  (prefix) => prefix.slice(1),
+) as [string, ...string[]];
+
+export const resolveRouteLocale = (
+  segment?: string | null,
+): Locale | undefined => {
+  if (!segment) return undefined;
+
+  if ((locales as readonly string[]).includes(segment)) {
+    return segment as Locale;
+  }
+
+  const prefixedSegment = segment.startsWith("/") ? segment : `/${segment}`;
+  return pathPrefixToLocale[prefixedSegment];
+};
+
+export const getPublicLocaleSegment = (locale: Locale) =>
+  localeToPathPrefix[locale].slice(1);
+
 export const localeToShopify: Record<
   Locale,
   { country: string; language: string }

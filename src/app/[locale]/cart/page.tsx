@@ -11,10 +11,11 @@ import type { Cart, CartItem } from "@/lib/shopify/types";
 import { createUrl } from "@/lib/utils";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { localeToShopify } from "@/lib/i18n/config";
+import { localeToShopify, resolveRouteLocale } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
 import { resolveRequestMarket } from "@/lib/i18n/market";
 import { getMetadataAlternates } from "@/lib/i18n/metadata";
+import { notFound } from "next/navigation";
 
 type MerchandiseSearchParams = {
   [key: string]: string;
@@ -24,12 +25,21 @@ export const generateMetadata = async (props: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> => {
   const { locale } = await props.params;
-  const t = await getTranslations({ locale, namespace: "cart" });
+  const normalizedLocale = resolveRouteLocale(locale);
+
+  if (!normalizedLocale) {
+    notFound();
+  }
+
+  const t = await getTranslations({
+    locale: normalizedLocale,
+    namespace: "cart",
+  });
 
   return {
     title: t("yourCart"),
     description: t("cartDescription"),
-    alternates: getMetadataAlternates(locale as Locale, "/cart"),
+    alternates: getMetadataAlternates(normalizedLocale as Locale, "/cart"),
   };
 };
 
@@ -232,16 +242,22 @@ export default async function CartPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  const normalizedLocale = resolveRouteLocale(locale);
+
+  if (!normalizedLocale) {
+    notFound();
+  }
+
+  setRequestLocale(normalizedLocale);
   const t = await getTranslations("cart");
-  const context = localeToShopify[locale as Locale];
+  const context = localeToShopify[normalizedLocale as Locale];
 
   const headerStore = await headers();
   const cookieStore = await cookies();
   const marketState = resolveRequestMarket(
     headerStore,
     cookieStore,
-    locale as Locale,
+    normalizedLocale as Locale,
   );
   const cartId = cookieStore.get("cartId")?.value;
   const cart = cartId ? await getCart(cartId, context) : undefined;
