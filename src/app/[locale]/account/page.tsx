@@ -39,11 +39,11 @@ const AccountPage = () => {
     return (
       <>
         <SeoMeta
-          title={t("pageTitle")}
-          meta_title={t("pageTitle")}
-          description={t("pageDescription")}
+          title={t("title")}
+          meta_title={t("title")}
+          description={t("description")}
         />
-        <PageHeader title={t("pageTitle")} />
+        <PageHeader title={t("title")} />
         <SkeletonAccount />
       </>
     );
@@ -56,11 +56,11 @@ const AccountPage = () => {
   return (
     <>
       <SeoMeta
-        title={t("pageTitle")}
-        meta_title={t("pageTitle")}
-        description={t("pageDescription")}
+        title={t("title")}
+        meta_title={t("title")}
+        description={t("description")}
       />
-      <PageHeader title={t("pageTitle")} />
+      <PageHeader title={t("title")} />
       <section className="section">
         <div className="container">
           <div className="max-w-4xl mx-auto">
@@ -110,7 +110,7 @@ const AccountPage = () => {
                       {t("myOrders")}
                     </h3>
                     <p className="text-sm text-text-light dark:text-darkmode-text-light">
-                      {t("myOrdersDescription")}
+                      {t("myOrdersDesc")}
                     </p>
                   </div>
                 </div>
@@ -129,7 +129,7 @@ const AccountPage = () => {
                       {t("addresses")}
                     </h3>
                     <p className="text-sm text-text-light dark:text-darkmode-text-light">
-                      {t("addressesDescription")}
+                      {t("addressesDesc")}
                     </p>
                     <span className="text-xs text-text-light dark:text-darkmode-text-light mt-2 inline-block">
                       ({t("comingSoon")})
@@ -151,7 +151,7 @@ const AccountPage = () => {
                       {t("personalData")}
                     </h3>
                     <p className="text-sm text-text-light dark:text-darkmode-text-light">
-                      {t("personalDataDescription")}
+                      {t("personalDataDesc")}
                     </p>
                     <span className="text-xs text-text-light dark:text-darkmode-text-light mt-2 inline-block">
                       ({t("comingSoon")})
@@ -173,7 +173,7 @@ const AccountPage = () => {
                       {t("privacySecurity")}
                     </h3>
                     <p className="text-sm text-text-light dark:text-darkmode-text-light">
-                      {t("privacySecurityDescription")}
+                      {t("privacySecurityDesc")}
                     </p>
                     <span className="text-xs text-text-light dark:text-darkmode-text-light mt-2 inline-block">
                       ({t("comingSoon")})

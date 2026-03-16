@@ -1,7 +1,8 @@
 "use client";
 
+import { Link } from "@/i18n/navigation";
+import { getTopBarLinkLabel } from "@/lib/i18n/navigationLabels";
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import type { TopBarLink } from "@/types/navigation";
 import { useTranslations } from "next-intl";
 
@@ -140,11 +141,11 @@ const UnifiedTopBar: React.FC<UnifiedTopBarProps> = ({ links }) => {
             <div className="hidden lg:flex items-center gap-4 text-xs font-medium">
               {links.map(({ label, url }) => (
                 <Link
-                  key={label}
+                  key={url}
                   href={url}
                   className="hover:underline transition-all whitespace-nowrap"
                 >
-                  {label}
+                  {getTopBarLinkLabel({ label, url }, t)}
                 </Link>
               ))}
             </div>

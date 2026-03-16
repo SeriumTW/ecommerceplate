@@ -2,12 +2,14 @@
 
 import ShowTags from "@/components/product/ShowTags";
 import RangeSlider from "@/components/rangeSlider/RangeSlider";
+import { useRouter } from "@/i18n/navigation";
 import { ShopifyCollection } from "@/lib/shopify/types";
 import { createUrl } from "@/lib/utils";
 import { slugify } from "@/lib/utils/textConverter";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { BsCheckLg } from "react-icons/bs";
+import { useTranslations } from "next-intl";
 
 const ProductFilters = ({
   categories,
@@ -26,6 +28,7 @@ const ProductFilters = ({
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations("filters");
 
   const selectedBrands = searchParams.getAll("b");
   const selectedCategory = searchParams.get("c");
@@ -58,7 +61,7 @@ const ProductFilters = ({
   return (
     <div>
       <div>
-        <h5 className="mb-2 lg:text-xl">Select Price Range</h5>
+        <h5 className="mb-2 lg:text-xl">{t("priceRange")}</h5>
         <hr className="border-border dark:border-darkmode-border" />
         <div className="pt-4">
           <Suspense>
@@ -68,7 +71,9 @@ const ProductFilters = ({
       </div>
 
       <div>
-        <h5 className="mb-2 mt-4 lg:mt-6 lg:text-xl">Product Categories</h5>
+        <h5 className="mb-2 mt-4 lg:mt-6 lg:text-xl">
+          {t("productCategories")}
+        </h5>
         <hr className="border-border dark:border-darkmode-border" />
         <ul className="mt-4 space-y-4">
           {categories.map((category) => (
@@ -102,7 +107,7 @@ const ProductFilters = ({
 
       {vendors && (
         <div>
-          <h5 className="mb-2 mt-8 lg:mt-10 lg:text-xl">Brands</h5>
+          <h5 className="mb-2 mt-8 lg:mt-10 lg:text-xl">{t("brands")}</h5>
           <hr className="border-border dark:border-darkmode-border" />
           <ul className="mt-4 space-y-4">
             {vendors.map((vendor) => (
@@ -148,7 +153,7 @@ const ProductFilters = ({
 
       {tags.length > 0 && (
         <div>
-          <h5 className="mb-2 mt-8 lg:mt-10 lg:text-xl">Tags</h5>
+          <h5 className="mb-2 mt-8 lg:mt-10 lg:text-xl">{t("tagsLabel")}</h5>
           <hr className="border-border dark:border-darkmode-border" />
           <div className="mt-4">
             <Suspense>

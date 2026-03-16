@@ -34,11 +34,13 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   const messages = await getMessages();
+  const cartTranslations = (await getMessages()).cart as {
+    openCartEmpty: string;
+  };
 
   const pf = theme.fonts.font_family.primary;
   const sf = theme.fonts.font_family.secondary;
   const intlLocale = localeToIntl[locale as Locale];
-  const siteUrl = config.site.base_url.replace(/\/$/, "");
 
   return (
     <html suppressHydrationWarning={true} lang={intlLocale}>
@@ -65,17 +67,6 @@ export default async function LocaleLayout({
           content="#000"
         />
 
-        {/* hreflang tags */}
-        {locales.map((l) => (
-          <link
-            key={l}
-            rel="alternate"
-            hrefLang={localeToIntl[l]}
-            href={`${siteUrl}/${l}`}
-          />
-        ))}
-        <link rel="alternate" hrefLang="x-default" href={`${siteUrl}/es-mx`} />
-
         {/* google font css */}
         <link
           rel="preconnect"
@@ -98,7 +89,7 @@ export default async function LocaleLayout({
               cartFallback={
                 <Link
                   href="/cart"
-                  aria-label="Apri il carrello"
+                  aria-label={cartTranslations.openCartEmpty}
                   className="relative inline-flex items-center justify-center"
                 >
                   <OpenCart />

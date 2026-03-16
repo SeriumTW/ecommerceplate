@@ -1,7 +1,7 @@
 "use client";
 
 import { AddToCart } from "@/components/cart/AddToCart";
-import config from "@/config/config.json";
+import Price from "@/components/Price";
 import { Product } from "@/lib/shopify/types";
 import { useTranslations } from "next-intl";
 
@@ -14,7 +14,6 @@ const StickyBottomBar = ({
   product,
   defaultVariantId,
 }: StickyBottomBarProps) => {
-  const { currencySymbol } = config.shopify;
   const t = useTranslations("product");
 
   const currentPrice = parseFloat(
@@ -32,21 +31,32 @@ const StickyBottomBar = ({
           {/* Prezzo */}
           <div className="flex-shrink-0">
             <div className="flex items-center gap-2">
-              <span className="text-xl md:text-2xl font-bold text-text-dark dark:text-darkmode-text-dark">
-                {currencySymbol}
-                {currentPrice.toFixed(2)}
-              </span>
+              <Price
+                as="span"
+                amount={currentPrice.toFixed(2)}
+                currencyCode={product.priceRange.minVariantPrice.currencyCode}
+                className="text-xl md:text-2xl font-bold text-text-dark dark:text-darkmode-text-dark"
+              />
               {hasDiscount && (
-                <span className="text-xs md:text-sm text-text-light dark:text-darkmode-text-light line-through">
-                  {currencySymbol}
-                  {compareAtPrice.toFixed(2)}
-                </span>
+                <Price
+                  as="span"
+                  amount={compareAtPrice.toFixed(2)}
+                  currencyCode={
+                    product.compareAtPriceRange.maxVariantPrice.currencyCode
+                  }
+                  className="text-xs md:text-sm text-text-light dark:text-darkmode-text-light line-through"
+                />
               )}
             </div>
             {hasDiscount && (
               <span className="text-xs text-success dark:text-darkmode-success font-medium">
-                {t("save")} {currencySymbol}
-                {(compareAtPrice - currentPrice).toFixed(2)}
+                {t("save")}{" "}
+                <Price
+                  as="span"
+                  amount={(compareAtPrice - currentPrice).toFixed(2)}
+                  currencyCode={product.priceRange.minVariantPrice.currencyCode}
+                  className="inline font-medium"
+                />
               </span>
             )}
           </div>

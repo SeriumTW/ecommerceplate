@@ -1,14 +1,17 @@
 "use client";
 
+import { Link } from "@/i18n/navigation";
 import ImageFallback from "@/layouts/helpers/ImageFallback";
 import { Product } from "@/lib/shopify/types";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const HeroSlider = ({ products }: { products: Product[] }) => {
+  const t = useTranslations("common");
+
   return (
     <>
       <Swiper
@@ -39,7 +42,7 @@ const HeroSlider = ({ products }: { products: Product[] }) => {
                       className="btn btn-sm md:btn-lg btn-primary font-medium"
                       href={`products/${item.handle}`}
                     >
-                      Shop Now
+                      {t("shopNow")}
                     </Link>
                   )}
                 </div>

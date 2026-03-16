@@ -8,12 +8,27 @@ import { DEFAULT_OPTION } from "@/lib/constants";
 import { getCart } from "@/lib/shopify";
 import type { Cart, CartItem } from "@/lib/shopify/types";
 import { createUrl } from "@/lib/utils";
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { localeToShopify } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
+import { getMetadataAlternates } from "@/lib/i18n/metadata";
 
 type MerchandiseSearchParams = {
   [key: string]: string;
+};
+
+export const generateMetadata = async (props: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> => {
+  const { locale } = await props.params;
+  const t = await getTranslations({ locale, namespace: "cart" });
+
+  return {
+    title: t("yourCart"),
+    description: t("cartDescription"),
+    alternates: getMetadataAlternates(locale as Locale, "/cart"),
+  };
 };
 
 const buildMerchandiseUrl = (item: CartItem) => {
@@ -141,7 +156,7 @@ const CartSummary = ({
     shippingCalculated: string;
     total: string;
     proceedToCheckout: string;
-    securePayments: string;
+    securePayment: string;
   };
 }) => (
   <aside className="rounded-2xl border border-border/60 bg-body p-6 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
@@ -185,7 +200,7 @@ const CartSummary = ({
       {translations.proceedToCheckout}
     </a>
     <p className="mt-3 text-xs text-text-light dark:text-darkmode-text">
-      {translations.securePayments}
+      {translations.securePayment}
     </p>
   </aside>
 );
@@ -223,7 +238,7 @@ export default async function CartPage({
     shippingCalculated: t("shippingCalculated"),
     total: t("total"),
     proceedToCheckout: t("proceedToCheckout"),
-    securePayments: t("securePayments"),
+    securePayment: t("securePayment"),
   };
 
   return (
@@ -233,10 +248,10 @@ export default async function CartPage({
           {t("yourCart")}
         </p>
         <h1 className="mt-3 text-4xl font-semibold text-text-dark dark:text-white">
-          {t("readyForYourPet")}
+          {t("readyForPet")}
         </h1>
         <p className="mt-2 text-text-light dark:text-darkmode-text">
-          {t("reviewItems")}
+          {t("cartDescription")}
         </p>
       </div>
 

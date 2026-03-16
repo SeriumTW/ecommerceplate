@@ -1,19 +1,20 @@
 "use client";
 
 import { AddToCart } from "@/components/cart/AddToCart";
-import config from "@/config/config.json";
+import Price from "@/components/Price";
+import { Link } from "@/i18n/navigation";
 import ImageFallback from "@/layouts/helpers/ImageFallback";
 import { Product } from "@/lib/shopify/types";
-import Link from "next/link";
 import { Suspense, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface ProductListItemProps {
   product: Product;
 }
 
 export default function ProductListItem({ product }: ProductListItemProps) {
-  const { currencySymbol } = config.shopify;
   const [isHovered, setIsHovered] = useState(false);
+  const t = useTranslations("productCard");
 
   const defaultVariantId =
     product?.variants.length > 0 ? product?.variants[0].id : undefined;
@@ -58,7 +59,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
           <div className="absolute top-2 left-2 z-20 flex flex-col gap-1">
             {isNew() && (
               <span className="px-2 py-0.5 bg-success text-white text-[10px] font-semibold rounded-2xl shadow">
-                NUOVO
+                {t("newBadge")}
               </span>
             )}
             {hasDiscount && (
@@ -68,7 +69,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
             )}
             {!product?.availableForSale && (
               <span className="px-2 py-0.5 bg-text/70 dark:bg-darkmode-text/70 text-white text-[10px] font-semibold rounded-2xl shadow">
-                OUT
+                {t("outBadge")}
               </span>
             )}
           </div>
@@ -92,7 +93,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
               src={hoverImage}
               width={400}
               height={400}
-              alt={`${product.title} - vista alternativa`}
+              alt={t("alternativeImageAlt", { title: product.title })}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
                 isHovered ? "opacity-100" : "opacity-0"
               }`}
@@ -115,15 +116,21 @@ export default function ProductListItem({ product }: ProductListItemProps) {
 
             {/* Prezzo */}
             <div className="flex items-baseline gap-2 mb-4">
-              <span className="text-xl md:text-2xl font-bold text-text-dark dark:text-darkmode-text-dark">
-                {currencySymbol}
-                {currentPrice.toFixed(2)}
-              </span>
+              <Price
+                as="span"
+                amount={currentPrice.toFixed(2)}
+                currencyCode={product.priceRange.minVariantPrice.currencyCode}
+                className="text-xl md:text-2xl font-bold text-text-dark dark:text-darkmode-text-dark"
+              />
               {hasDiscount && (
-                <s className="text-sm md:text-base text-text-light dark:text-darkmode-text-light">
-                  {currencySymbol}
-                  {compareAtPrice.toFixed(2)}
-                </s>
+                <Price
+                  as="span"
+                  amount={compareAtPrice.toFixed(2)}
+                  currencyCode={
+                    product.compareAtPriceRange.maxVariantPrice.currencyCode
+                  }
+                  className="text-sm md:text-base text-text-light dark:text-darkmode-text-light line-through"
+                />
               )}
             </div>
 

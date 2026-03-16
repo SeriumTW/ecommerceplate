@@ -1,13 +1,13 @@
 "use client";
+
 import { AddToCart } from "@/components/cart/AddToCart";
-import config from "@/config/config.json";
+import Price from "@/components/Price";
 import ImageFallback from "@/layouts/helpers/ImageFallback";
 import { Product } from "@/lib/shopify/types";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 const FeaturedProducts = ({ products }: { products: Product[] }) => {
-  const { currencySymbol } = config.shopify;
   const t = useTranslations("products");
 
   return (
@@ -61,18 +61,23 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                   </Link>
                 </h2>
                 <div className="flex flex-wrap justify-center items-center gap-x-2 mt-3 md:mt-4">
-                  <span className="text-sm md:text-base font-bold text-text-dark dark:text-darkmode-text-dark">
-                    {currencySymbol} {priceRange.minVariantPrice.amount}{" "}
-                    {compareAtPriceRange?.maxVariantPrice?.currencyCode}
-                  </span>
+                  <Price
+                    as="span"
+                    amount={priceRange.minVariantPrice.amount}
+                    currencyCode={priceRange.minVariantPrice.currencyCode}
+                    className="text-sm md:text-base font-bold text-text-dark dark:text-darkmode-text-dark"
+                  />
 
                   {parseFloat(compareAtPriceRange?.maxVariantPrice.amount) >
                   0 ? (
-                    <s className="text-text-light dark:text-darkmode-text-light text-xs md:text-sm font-medium">
-                      {currencySymbol}{" "}
-                      {compareAtPriceRange?.maxVariantPrice.amount}{" "}
-                      {compareAtPriceRange?.maxVariantPrice?.currencyCode}
-                    </s>
+                    <Price
+                      as="span"
+                      amount={compareAtPriceRange.maxVariantPrice.amount}
+                      currencyCode={
+                        compareAtPriceRange.maxVariantPrice.currencyCode
+                      }
+                      className="text-text-light line-through dark:text-darkmode-text-light text-xs md:text-sm font-medium"
+                    />
                   ) : (
                     ""
                   )}

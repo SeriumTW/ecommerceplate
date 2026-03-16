@@ -11,11 +11,11 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import {
   addToCartMutation,
-  cartBuyerIdentityUpdateMutation,
   createCartMutation,
   editCartItemsMutation,
   removeFromCartMutation,
 } from "./mutations/cart";
+import { cartBuyerIdentityUpdateMutation } from "./mutations/cartBuyerIdentity";
 import {
   createCustomerMutation,
   getCustomerAccessTokenMutation,
@@ -172,7 +172,13 @@ const removeEdgesAndNodes = (array: Connection<any>) => {
 
 const reshapeCart = (cart: ShopifyCart): Cart => {
   if (!cart.cost?.totalTaxAmount) {
-    cart.cost.totalTaxAmount = { amount: "0.0", currencyCode: "USD" };
+    cart.cost.totalTaxAmount = {
+      amount: "0.0",
+      currencyCode:
+        cart.cost?.totalAmount?.currencyCode ||
+        cart.cost?.subtotalAmount?.currencyCode ||
+        "USD",
+    };
   }
 
   return { ...cart, lines: removeEdgesAndNodes(cart.lines) };

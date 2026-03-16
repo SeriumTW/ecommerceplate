@@ -1,12 +1,13 @@
 "use client";
 
 import { AddToCart } from "@/components/cart/AddToCart";
-import config from "@/config/config.json";
+import Price from "@/components/Price";
+import { Link } from "@/i18n/navigation";
 import ImageFallback from "@/layouts/helpers/ImageFallback";
 import { Product } from "@/lib/shopify/types";
-import Link from "next/link";
 import { useState } from "react";
 import { HiEye } from "react-icons/hi";
+import { useTranslations } from "next-intl";
 
 interface ProductCardProps {
   product: Product;
@@ -17,8 +18,8 @@ export default function ProductCard({
   product,
   isInCart = false,
 }: ProductCardProps) {
-  const { currencySymbol } = config.shopify;
   const [isHovered, setIsHovered] = useState(false);
+  const t = useTranslations("productCard");
 
   const defaultVariantId =
     product?.variants.length > 0 ? product?.variants[0].id : undefined;
@@ -87,7 +88,7 @@ export default function ProductCard({
           {/* Badge Nuovo top-right */}
           {isNew() && !hasDiscount && (
             <span className="absolute top-2 right-2 z-10 px-3 py-1.5 bg-success text-white text-sm md:text-base font-bold rounded-2xl shadow-md">
-              NUOVO
+              {t("newBadge")}
             </span>
           )}
 
@@ -116,7 +117,7 @@ export default function ProductCard({
                 src={hoverImage}
                 width={400}
                 height={400}
-                alt={`${product.title} - vista alternativa`}
+                alt={t("alternativeImageAlt", { title: product.title })}
                 loading="lazy"
                 className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:scale-105 ${
                   isHovered ? "opacity-100" : "opacity-0"
@@ -124,11 +125,11 @@ export default function ProductCard({
               />
             )}
 
-            {/* Overlay Hover - "Dettaglio" */}
+            {/* Overlay Hover - detail */}
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
               <div className="text-white text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                 <HiEye className="mx-auto mb-2" size={32} />
-                <span className="text-lg font-bold">Dettaglio</span>
+                <span className="text-lg font-bold">{t("details")}</span>
               </div>
             </div>
           </Link>
@@ -150,15 +151,21 @@ export default function ProductCard({
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             {/* Prezzo */}
             <div className="flex items-baseline gap-2 flex-wrap">
-              <span className="text-xl md:text-2xl font-bold text-error dark:text-darkmode-error">
-                {currencySymbol}
-                {currentPrice.toFixed(2)}
-              </span>
+              <Price
+                as="span"
+                amount={currentPrice.toFixed(2)}
+                currencyCode={product.priceRange.minVariantPrice.currencyCode}
+                className="text-xl md:text-2xl font-bold text-error dark:text-darkmode-error"
+              />
               {hasDiscount && (
-                <s className="text-xs md:text-sm text-text-light dark:text-darkmode-text-light">
-                  {currencySymbol}
-                  {compareAtPrice.toFixed(2)}
-                </s>
+                <Price
+                  as="span"
+                  amount={compareAtPrice.toFixed(2)}
+                  currencyCode={
+                    product.compareAtPriceRange.maxVariantPrice.currencyCode
+                  }
+                  className="text-xs md:text-sm text-text-light dark:text-darkmode-text-light line-through"
+                />
               )}
             </div>
 

@@ -1,8 +1,9 @@
 "use client";
 
 import DynamicIcon from "@/helpers/DynamicIcon";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const Social: React.FC<{ socialName: string; className: string }> = ({
   socialName,
@@ -14,6 +15,7 @@ const Social: React.FC<{ socialName: string; className: string }> = ({
   const pathname = usePathname();
   const [baseUrl, setBaseUrl] = useState("");
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const t = useTranslations("common");
 
   useEffect(() => {
     setBaseUrl(window.location.origin);
@@ -77,16 +79,16 @@ const Social: React.FC<{ socialName: string; className: string }> = ({
         <a
           className="cursor-pointer relative"
           onClick={handleCopyLink}
-          aria-label="Copy Link"
+          aria-label={t("copyLink")}
         >
-          <span className="sr-only">Copy Link</span>
+          <span className="sr-only">{t("copyLink")}</span>
           {isTooltipVisible && (
             <span className="text-xs absolute -right-16 text-text dark:text-darkmode-text whitespace-nowrap">
               <DynamicIcon
                 className="inline-block text-green-500"
                 icon={"FaLink"}
               />{" "}
-              copied!
+              {t("copied")}
             </span>
           )}
           <DynamicIcon className="inline-block" icon={"FaRegCopy"} />

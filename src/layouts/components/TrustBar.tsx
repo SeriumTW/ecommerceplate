@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 
 interface TrustItem {
   icon: React.ReactNode;
@@ -10,6 +11,7 @@ interface TrustItem {
 
 const TrustBar = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations("trustBar");
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -76,8 +78,8 @@ const TrustBar = () => {
           />
         </svg>
       ),
-      title: "Spedizione Gratuita",
-      description: "Ordini oltre 49€",
+      title: t("freeShippingTitle"),
+      description: t("freeShippingDescription"),
     },
     {
       icon: (
@@ -95,8 +97,8 @@ const TrustBar = () => {
           />
         </svg>
       ),
-      title: "Reso Facile",
-      description: "Entro 30 giorni",
+      title: t("easyReturnsTitle"),
+      description: t("easyReturnsDescription"),
     },
     {
       icon: (
@@ -114,8 +116,8 @@ const TrustBar = () => {
           />
         </svg>
       ),
-      title: "Pagamenti Sicuri",
-      description: "Certificati SSL",
+      title: t("securePaymentsTitle"),
+      description: t("securePaymentsDescription"),
     },
     {
       icon: (
@@ -133,8 +135,8 @@ const TrustBar = () => {
           />
         </svg>
       ),
-      title: "Prodotti Selezionati",
-      description: "Testati dal team",
+      title: t("selectedProductsTitle"),
+      description: t("selectedProductsDescription"),
     },
   ];
 

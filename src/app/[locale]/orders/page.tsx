@@ -78,24 +78,24 @@ const OrdersPage = () => {
 
   const getFinancialStatusLabel = (status: string) => {
     const statusMap: Record<string, string> = {
-      PAID: t("statusPaid"),
-      PENDING: t("statusPending"),
-      AUTHORIZED: t("statusAuthorized"),
-      PARTIALLY_PAID: t("statusPartiallyPaid"),
-      PARTIALLY_REFUNDED: t("statusPartiallyRefunded"),
-      REFUNDED: t("statusRefunded"),
-      VOIDED: t("statusVoided"),
+      PAID: t("paid"),
+      PENDING: t("pending"),
+      AUTHORIZED: t("authorized"),
+      PARTIALLY_PAID: t("partiallyPaid"),
+      PARTIALLY_REFUNDED: t("partiallyRefunded"),
+      REFUNDED: t("refunded"),
+      VOIDED: t("voided"),
     };
     return statusMap[status] || status;
   };
 
   const getFulfillmentStatusLabel = (status: string | null) => {
-    if (!status) return t("fulfillmentUnfulfilled");
+    if (!status) return t("unfulfilled");
     const statusMap: Record<string, string> = {
-      FULFILLED: t("fulfillmentFulfilled"),
-      UNFULFILLED: t("fulfillmentUnfulfilled"),
-      PARTIAL: t("fulfillmentPartial"),
-      RESTOCKED: t("fulfillmentRestocked"),
+      FULFILLED: t("fulfilled"),
+      UNFULFILLED: t("unfulfilled"),
+      PARTIAL: t("partiallyFulfilled"),
+      RESTOCKED: t("restocked"),
     };
     return statusMap[status] || status;
   };
@@ -104,11 +104,11 @@ const OrdersPage = () => {
     return (
       <>
         <SeoMeta
-          title={t("pageTitle")}
-          meta_title={t("pageTitle")}
-          description={t("pageDescription")}
+          title={t("title")}
+          meta_title={t("title")}
+          description={t("description")}
         />
-        <PageHeader title={t("pageTitle")} />
+        <PageHeader title={t("title")} />
         <SkeletonOrders />
       </>
     );
@@ -117,11 +117,11 @@ const OrdersPage = () => {
   return (
     <>
       <SeoMeta
-        title={t("pageTitle")}
-        meta_title={t("pageTitle")}
-        description={t("pageDescription")}
+        title={t("title")}
+        meta_title={t("title")}
+        description={t("description")}
       />
-      <PageHeader title={t("pageTitle")} />
+      <PageHeader title={t("title")} />
       <section className="section">
         <div className="container">
           <div className="max-w-4xl mx-auto">
@@ -132,7 +132,7 @@ const OrdersPage = () => {
                   {t("noOrders")}
                 </h2>
                 <p className="text-text-light dark:text-darkmode-text-light mb-6">
-                  {t("noOrdersDescription")}
+                  {t("noOrdersDesc")}
                 </p>
                 <Link href="/products" className="btn btn-primary inline-block">
                   {t("goToShop")}

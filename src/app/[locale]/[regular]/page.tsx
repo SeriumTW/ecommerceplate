@@ -1,8 +1,11 @@
 import MDXContent from "@/helpers/MDXContent";
+import type { Locale } from "@/lib/i18n/config";
 import { getSinglePage } from "@/lib/contentParser";
+import { getMetadataAlternates } from "@/lib/i18n/metadata";
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
 import { RegularPage } from "@/types";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 // Generate static params
@@ -11,6 +14,28 @@ export const generateStaticParams = () => {
     regular: page.slug,
   }));
   return regularPages;
+};
+
+export const generateMetadata = async (props: {
+  params: Promise<{ locale: string; regular: string }>;
+}): Promise<Metadata> => {
+  const { locale, regular } = await props.params;
+  const regularData = getSinglePage("pages");
+  const data = regularData.find((page: RegularPage) => page.slug === regular);
+
+  if (!data) {
+    return {};
+  }
+
+  const { frontmatter } = data;
+  const title = frontmatter.meta_title || frontmatter.title;
+  const description = frontmatter.description || frontmatter.title || "";
+
+  return {
+    title,
+    description,
+    alternates: getMetadataAlternates(locale as Locale, `/${regular}`),
+  };
 };
 
 // For all regular pages

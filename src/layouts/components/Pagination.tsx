@@ -1,5 +1,8 @@
-import Link from "next/link";
+"use client";
+
+import { Link } from "@/i18n/navigation";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 const Pagination = ({
   section,
@@ -10,6 +13,7 @@ const Pagination = ({
   currentPage: number;
   totalPages: number;
 }) => {
+  const t = useTranslations("common");
   const indexPageLink = currentPage === 2;
   const hasPrevPage = currentPage > 1;
   const hasNextPage = totalPages > currentPage;
@@ -24,7 +28,7 @@ const Pagination = ({
       {totalPages > 1 && (
         <nav
           className="flex items-center justify-center space-x-3"
-          aria-label="Pagination"
+          aria-label={t("pagination")}
         >
           {/* previous */}
           {hasPrevPage ? (
@@ -36,7 +40,7 @@ const Pagination = ({
               }
               className="rounded px-2 py-1.5 text-text-dark hover:bg-light dark:text-darkmode-text-dark dark:hover:bg-darkmode-light"
             >
-              <span className="sr-only">Previous</span>
+              <span className="sr-only">{t("previous")}</span>
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -53,7 +57,7 @@ const Pagination = ({
             </Link>
           ) : (
             <span className="rounded px-2 py-1.5 text-text-light">
-              <span className="sr-only">Previous</span>
+              <span className="sr-only">{t("previous")}</span>
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -112,7 +116,7 @@ const Pagination = ({
               href={`${section ? "/" + section : ""}/page/${currentPage + 1}`}
               className="rounded px-2 py-1.5 text-text-dark hover:bg-light dark:text-darkmode-dark dark:hover:bg-darkmode-theme-light"
             >
-              <span className="sr-only">Next</span>
+              <span className="sr-only">{t("next")}</span>
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -129,7 +133,7 @@ const Pagination = ({
             </Link>
           ) : (
             <span className="rounded px-2 py-1.5 text-text-light">
-              <span className="sr-only">Next</span>
+              <span className="sr-only">{t("next")}</span>
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"

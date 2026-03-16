@@ -15,7 +15,13 @@
     "exploreByCategory": "Esplora per Categoria",
     "exploreByCategoryDescription": "Scopri i migliori prodotti organizzati per categoria, pensati per il benessere del tuo animale domestico.",
     "featuredProducts": "Prodotti in Evidenza",
-    "featuredProductsDescription": "Una selezione dei nostri prodotti più amati, scelti con cura per i tuoi amici a quattro zampe."
+    "featuredProductsDescription": "Una selezione dei nostri prodotti più amati, scelti con cura per i tuoi amici a quattro zampe.",
+    "shopNow": "Acquista Ora",
+    "pagination": "Paginazione",
+    "previous": "Precedente",
+    "next": "Successivo",
+    "copyLink": "Copia link",
+    "copied": "copiato"
   },
   "nav": {
     "openNavigation": "Apri navigazione",
@@ -23,7 +29,9 @@
     "myAccount": "Il mio account",
     "myOrders": "I miei ordini",
     "logout": "Esci",
-    "loginToAccount": "Accedi al tuo account"
+    "loginToAccount": "Accedi al tuo account",
+    "pages": "Pagine",
+    "notFoundPage": "Pagina 404"
   },
   "cart": {
     "openCartWithItems": "Apri il carrello ({count} {count, plural, one {articolo} other {articoli}})",
@@ -51,7 +59,7 @@
   },
   "product": {
     "outOfStock": "Esaurito",
-    "selectVariant": "Seleziona Variante",
+    "selectVariant": "Seleziona variante",
     "addToCart": "Aggiungi",
     "adding": "Aggiungendo...",
     "inCart": "Nel carrello",
@@ -69,8 +77,8 @@
     "relatedProducts": "Prodotti Correlati",
     "description": "Descrizione",
     "moreInfo": "Maggiori informazioni",
-    "share": "Condividi:",
-    "tags": "Tag:",
+    "share": "Condividi",
+    "tags": "Tag",
     "freeShipping": "Spedizione Gratuita",
     "freeShippingDesc": "Su ordini superiori a 49€",
     "easyReturns": "Resi Facili",
@@ -78,7 +86,8 @@
     "securePayments": "Pagamenti Sicuri",
     "securePaymentsDesc": "Certificati SSL",
     "selectedProducts": "Prodotti Selezionati",
-    "selectedProductsDesc": "Testati dal team"
+    "selectedProductsDesc": "Testati dal team",
+    "maxQuantity": "Max: {max}"
   },
   "products": {
     "allProducts": "Tutti i Prodotti",
@@ -124,7 +133,7 @@
     "personalDataDesc": "Modifica le tue informazioni personali",
     "privacySecurity": "Privacy e sicurezza",
     "privacySecurityDesc": "Gestisci le impostazioni di privacy e password",
-    "comingSoon": "(Presto disponibile)"
+    "comingSoon": "Presto disponibile"
   },
   "orders": {
     "title": "I miei ordini",
@@ -133,7 +142,7 @@
     "noOrdersDesc": "Non hai ancora effettuato ordini. Inizia a fare acquisti!",
     "goToShop": "Vai allo shop",
     "orderNumber": "Ordine {name}",
-    "quantity": "Quantità: {count}",
+    "quantity": "Quantità",
     "paid": "Pagato",
     "pending": "In attesa",
     "authorized": "Autorizzato",
@@ -159,14 +168,14 @@
     "freeShipping": "Spedizione gratuita",
     "freeShippingHighlight": "oltre 49€",
     "freeShippingThreshold": "oltre 49€",
-    "dealOfDay": "Offerta del giorno:",
     "dailyDeal": "Offerta del giorno:",
-    "dealHighlight": "-20% cibo biologico",
     "dailyDealHighlight": "-20% cibo biologico",
     "newArrivals": "Nuovi arrivi:",
     "newArrivalsHighlight": "giochi interattivi",
     "searchPlaceholder": "Cerca prodotti...",
-    "announcement": "Annuncio {number}"
+    "announcement": "Annuncio {number}",
+    "supportLink": "Assistenza",
+    "orderTrackingLink": "Tracking ordine"
   },
   "searchBar": {
     "placeholder": "Cerca prodotti",
@@ -211,12 +220,118 @@
     "brand": "Marca: {value}",
     "category": "Categoria: {value}",
     "tag": "Tag: {value}",
-    "clearAll": "Cancella tutti i filtri"
+    "clearAll": "Cancella tutti i filtri",
+    "priceRange": "Seleziona fascia di prezzo",
+    "productCategories": "Categorie prodotto",
+    "brands": "Brand",
+    "tagsLabel": "Tag"
   },
   "localeSwitcher": {
     "label": "Lingua e mercato",
     "mexico": "Messico (Spagnolo)",
     "italy": "Italia (Italiano)",
     "usa": "USA (Inglese)"
+  },
+  "hero": {
+    "badge": "Spedizione Gratuita oltre 49€",
+    "title": "Il Meglio per i Tuoi Amici a Quattro Zampe",
+    "subtitle": "Prodotti naturali testati e selezionati con cura",
+    "reviewsCount": "500+ recensioni",
+    "cta": "Scopri i Prodotti"
+  },
+  "valueProposition": {
+    "badge": "Chi Siamo",
+    "title": "La Qualità che il Tuo Animale Merita",
+    "paragraphOne": "<strong>LoveBirdsLand</strong> nasce dalla passione per gli animali e dall'impegno nell'offrire solo prodotti di eccellenza. Ogni articolo del nostro catalogo è <strong>selezionato con cura</strong> e testato dal nostro team di esperti.",
+    "paragraphTwo": "Crediamo che i nostri amici a quattro zampe meritino il meglio: alimenti naturali, giochi sicuri e accessori durevoli. Per questo lavoriamo solo con <strong>fornitori certificati</strong> e garantiamo la massima trasparenza su origine e composizione dei prodotti.",
+    "naturalIngredientsTitle": "Ingredienti Naturali",
+    "naturalIngredientsDescription": "Solo prodotti con ingredienti selezionati, senza additivi dannosi.",
+    "teamTestedTitle": "Testati dal Team",
+    "teamTestedDescription": "Ogni prodotto è verificato da veterinari ed educatori cinofili.",
+    "sustainabilityTitle": "Sostenibilità",
+    "sustainabilityDescription": "Imballaggi eco-friendly e partnership con brand etici.",
+    "cta": "Scopri di Più sulla Nostra Storia",
+    "imageAlt": "Team LoveBirdsLand con animali felici",
+    "commitmentTitle": "Il nostro impegno",
+    "commitmentDescription": "Oltre 10 anni di esperienza nel benessere animale"
+  },
+  "trustBar": {
+    "freeShippingTitle": "Spedizione Gratuita",
+    "freeShippingDescription": "Ordini oltre 49€",
+    "easyReturnsTitle": "Reso Facile",
+    "easyReturnsDescription": "Entro 30 giorni",
+    "securePaymentsTitle": "Pagamenti Sicuri",
+    "securePaymentsDescription": "Certificati SSL",
+    "selectedProductsTitle": "Prodotti Selezionati",
+    "selectedProductsDescription": "Testati dal team"
+  },
+  "reviews": {
+    "title": "Cosa Dicono i Nostri Clienti",
+    "subtitle": "Oltre 500 recensioni positive da proprietari soddisfatti",
+    "reviewOneName": "Maria R.",
+    "reviewOneComment": "Prodotti di qualità eccellente! Il mio cane adora gli snack naturali e sono arrivati in tempi rapidissimi. Confezione curata nei minimi dettagli.",
+    "reviewOneProduct": "Snack Naturali per Cani",
+    "reviewOneDate": "2 giorni fa",
+    "reviewTwoName": "Luca T.",
+    "reviewTwoComment": "Finalmente un e-commerce serio per animali. Assistenza clienti disponibile e prodotti testati. La mia gatta è felicissima del nuovo tiragraffi!",
+    "reviewTwoProduct": "Tiragraffi Deluxe",
+    "reviewTwoDate": "1 settimana fa",
+    "reviewThreeName": "Giulia M.",
+    "reviewThreeComment": "Servizio impeccabile. Ho avuto un problema con la spedizione e mi hanno risposto in 10 minuti risolvendo tutto. Tornerò sicuramente!",
+    "reviewThreeProduct": "Cuccia Memory Foam",
+    "reviewThreeDate": "3 giorni fa",
+    "reviewFourName": "Alessandro P.",
+    "reviewFourComment": "Prezzi competitivi e prodotti top. Il cibo biologico che ho ordinato ha migliorato la digestione del mio cane. Consigliatissimo!",
+    "reviewFourProduct": "Cibo Biologico Premium",
+    "reviewFourDate": "5 giorni fa",
+    "productsSold": "Prodotti Venduti",
+    "averageRating": "Valutazione Media",
+    "satisfiedCustomers": "Clienti Soddisfatti"
+  },
+  "mobileDrawer": {
+    "greeting": "Ciao, {name}!",
+    "guestGreeting": "Area clienti",
+    "guestDescription": "Accedi per monitorare ordini e dati di consegna.",
+    "loadingProfile": "Recupero del profilo in corso...",
+    "goToAccount": "Vai all'account",
+    "logout": "Esci",
+    "login": "Accedi",
+    "createAccount": "Crea account",
+    "closeNavigation": "Chiudi navigazione",
+    "searchCatalog": "Cerca nel catalogo",
+    "searchPlaceholder": "Cerca tra prodotti e collezioni..."
+  },
+  "productCard": {
+    "newBadge": "NUOVO",
+    "outBadge": "OUT",
+    "details": "Dettaglio",
+    "alternativeImageAlt": "{title} - vista alternativa"
+  },
+  "rangeSlider": {
+    "apply": "Applica"
+  },
+  "aboutPage": {
+    "staffTitle": "Il Nostro Team",
+    "reasonsTitle": "Perché acquistare da noi",
+    "supportTitle": "Supporto Cordiale 24/7",
+    "supportDescription": "Il nostro team è sempre pronto ad aiutarti, sette giorni su sette.",
+    "returnsTitle": "Reso Facile in 7 Giorni",
+    "returnsDescription": "Se il prodotto presenta problemi, puoi richiedere rapidamente una sostituzione.",
+    "qualityTitle": "Qualità Garantita",
+    "qualityDescription": "Se il prodotto non è all'altezza, puoi richiedere un rimborso completo."
+  },
+  "contactPage": {
+    "title": "Ci farebbe piacere sentirti",
+    "firstName": "Nome",
+    "firstNamePlaceholder": "Mario",
+    "lastName": "Cognome",
+    "lastNamePlaceholder": "Rossi",
+    "email": "Indirizzo Email",
+    "emailPlaceholder": "mario.rossi@email.com",
+    "subject": "Oggetto",
+    "subjectPlaceholder": "Come possiamo aiutarti?",
+    "message": "Messaggio",
+    "messagePlaceholder": "Scrivi il tuo messaggio...",
+    "send": "Invia messaggio"
   }
 }

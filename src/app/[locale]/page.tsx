@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import CollectionsSlider from "@/components/CollectionsSlider";
 import HeroSection from "@/components/HeroSection";
 import TrustBar from "@/components/TrustBar";
@@ -13,6 +14,7 @@ import { getListPage } from "@/lib/contentParser";
 import { getCollectionProducts, getCollections } from "@/lib/shopify";
 import CallToAction from "@/partials/CallToAction";
 import FeaturedProducts from "@/partials/FeaturedProducts";
+import { getMetadataAlternates } from "@/lib/i18n/metadata";
 import SeoMeta from "@/partials/SeoMeta";
 import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -20,6 +22,19 @@ import { localeToShopify } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
 
 const { collections } = config.shopify;
+
+export const generateMetadata = async (props: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> => {
+  const { locale } = await props.params;
+  const t = await getTranslations({ locale, namespace: "common" });
+
+  return {
+    title: config.site.title,
+    description: t("featuredProductsDescription"),
+    alternates: getMetadataAlternates(locale as Locale, "/"),
+  };
+};
 
 const ShowCollections = async ({
   context,

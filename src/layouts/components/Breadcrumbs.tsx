@@ -2,7 +2,7 @@
 
 import { humanize } from "@/lib/utils/textConverter";
 import { Link } from "@/i18n/navigation";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { HiChevronRight, HiHome } from "react-icons/hi";
 import { useTranslations } from "next-intl";
 

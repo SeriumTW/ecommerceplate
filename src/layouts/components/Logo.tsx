@@ -1,9 +1,9 @@
 "use client";
 
 import config from "@/config/config.json";
+import { Link } from "@/i18n/navigation";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Logo = ({ src }: { src?: string }) => {
@@ -32,20 +32,20 @@ const Logo = ({ src }: { src?: string }) => {
       ? logo_darkmode
       : logo;
   const logoPath = src ? src : resolvedLogo;
+  const width = Number(String(logo_width).replace("px", "")) || 70;
+  const height = Number(String(logo_height).replace("px", "")) || 70;
 
   return (
     <Link href="/" className="navbar-brand inline-block">
       {logoPath ? (
         <Image
-          width={logo_width.replace("px", "") * 2}
-          height={logo_height.replace("px", "") * 2}
+          width={width}
+          height={height}
           src={logoPath}
           alt={title}
           priority
-          style={{
-            height: logo_height.replace("px", "") + "px",
-            width: logo_width.replace("px", "") + "px",
-          }}
+          className="h-auto w-auto object-contain"
+          style={{ maxWidth: `${width}px`, maxHeight: `${height}px` }}
         />
       ) : logo_text ? (
         logo_text

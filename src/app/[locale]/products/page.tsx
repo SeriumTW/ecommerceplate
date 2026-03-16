@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import LoadingProducts from "@/layouts/components/loadings/skeleton/SkeletonProducts";
 import ActiveFilters from "@/components/ActiveFilters";
 import CategoryHeader from "@/components/CategoryHeader";
@@ -22,9 +23,10 @@ import CallToAction from "@/partials/CallToAction";
 import ProductCardView from "@/partials/ProductCardView";
 import ProductListView from "@/partials/ProductListView";
 import { Suspense } from "react";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { localeToShopify } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
+import { getMetadataAlternates } from "@/lib/i18n/metadata";
 
 interface SearchParams {
   sort?: string;
@@ -35,6 +37,19 @@ interface SearchParams {
   c?: string;
   t?: string;
 }
+
+export const generateMetadata = async (props: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> => {
+  const { locale } = await props.params;
+  const t = await getTranslations({ locale, namespace: "products" });
+
+  return {
+    title: t("allProducts"),
+    description: t("seeAllProducts"),
+    alternates: getMetadataAlternates(locale as Locale, "/products"),
+  };
+};
 
 const ShowProducts = async ({
   searchParams,

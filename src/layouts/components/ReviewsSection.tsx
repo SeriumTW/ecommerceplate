@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -15,38 +16,35 @@ interface Review {
 }
 
 const ReviewsSection = () => {
+  const t = useTranslations("reviews");
   const reviews: Review[] = [
     {
-      name: "Maria R.",
+      name: t("reviewOneName"),
       rating: 5,
-      comment:
-        "Prodotti di qualità eccellente! Il mio cane adora gli snack naturali e sono arrivati in tempi rapidissimi. Confezione curata nei minimi dettagli.",
-      product: "Snack Naturali per Cani",
-      date: "2 giorni fa",
+      comment: t("reviewOneComment"),
+      product: t("reviewOneProduct"),
+      date: t("reviewOneDate"),
     },
     {
-      name: "Luca T.",
+      name: t("reviewTwoName"),
       rating: 5,
-      comment:
-        "Finalmente un e-commerce serio per animali. Assistenza clienti disponibile e prodotti testati. La mia gatta è felicissima del nuovo tiragraffi!",
-      product: "Tiragraffi Deluxe",
-      date: "1 settimana fa",
+      comment: t("reviewTwoComment"),
+      product: t("reviewTwoProduct"),
+      date: t("reviewTwoDate"),
     },
     {
-      name: "Giulia M.",
+      name: t("reviewThreeName"),
       rating: 5,
-      comment:
-        "Servizio impeccabile. Ho avuto un problema con la spedizione e mi hanno risposto in 10 minuti risolvendo tutto. Tornerò sicuramente!",
-      product: "Cuccia Memory Foam",
-      date: "3 giorni fa",
+      comment: t("reviewThreeComment"),
+      product: t("reviewThreeProduct"),
+      date: t("reviewThreeDate"),
     },
     {
-      name: "Alessandro P.",
+      name: t("reviewFourName"),
       rating: 5,
-      comment:
-        "Prezzi competitivi e prodotti top. Il cibo biologico che ho ordinato ha migliorato la digestione del mio cane. Consigliatissimo!",
-      product: "Cibo Biologico Premium",
-      date: "5 giorni fa",
+      comment: t("reviewFourComment"),
+      product: t("reviewFourProduct"),
+      date: t("reviewFourDate"),
     },
   ];
 
@@ -73,9 +71,9 @@ const ReviewsSection = () => {
     <section className="py-16 md:py-20 bg-gradient-to-b from-white to-light/30 dark:from-black dark:to-darkmode-light/10">
       <div className="container">
         <div className="text-center mb-10 md:mb-14">
-          <h2 className="mb-3">Cosa Dicono i Nostri Clienti</h2>
+          <h2 className="mb-3">{t("title")}</h2>
           <p className="text-lg text-text dark:text-darkmode-text max-w-2xl mx-auto">
-            Oltre 500 recensioni positive da proprietari soddisfatti
+            {t("subtitle")}
           </p>
         </div>
 
@@ -138,7 +136,7 @@ const ReviewsSection = () => {
               10.000+
             </div>
             <p className="text-sm text-text dark:text-darkmode-text">
-              Prodotti Venduti
+              {t("productsSold")}
             </p>
           </div>
           <div className="text-center">
@@ -146,7 +144,7 @@ const ReviewsSection = () => {
               4.9/5
             </div>
             <p className="text-sm text-text dark:text-darkmode-text">
-              Valutazione Media
+              {t("averageRating")}
             </p>
           </div>
           <div className="text-center">
@@ -154,7 +152,7 @@ const ReviewsSection = () => {
               98%
             </div>
             <p className="text-sm text-text dark:text-darkmode-text">
-              Clienti Soddisfatti
+              {t("satisfiedCustomers")}
             </p>
           </div>
         </div>

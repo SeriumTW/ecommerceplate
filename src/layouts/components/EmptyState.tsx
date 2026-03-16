@@ -17,6 +17,7 @@ export default function EmptyState({
   showClearFilters = true,
   clearFiltersHref = "/products",
 }: EmptyStateProps) {
+  const tCommon = useTranslations("common");
   const t = useTranslations("products");
 
   return (
@@ -33,7 +34,7 @@ export default function EmptyState({
 
       {/* Descrizione */}
       <p className="text-base md:text-lg text-text dark:text-darkmode-text text-center max-w-md mb-8">
-        {description ?? t("tryModifyingFilters")}
+        {description ?? t("noProductsDescription")}
       </p>
 
       {/* Actions */}
@@ -44,7 +45,7 @@ export default function EmptyState({
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-primary text-white hover:bg-primary-hover transition-colors font-medium"
           >
             <HiRefresh className="w-5 h-5" />
-            <span>{t("clearFilters")}</span>
+            <span>{tCommon("clearFilters")}</span>
           </Link>
         )}
 
@@ -52,7 +53,7 @@ export default function EmptyState({
           href="/products"
           className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl border-2 border-primary text-primary hover:bg-primary/10 dark:border-darkmode-primary dark:text-darkmode-primary dark:hover:bg-darkmode-primary/10 transition-colors font-medium"
         >
-          <span>{t("viewAllProducts")}</span>
+          <span>{t("seeAllProducts")}</span>
         </Link>
       </div>
     </div>

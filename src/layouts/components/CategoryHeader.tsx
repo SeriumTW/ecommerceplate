@@ -44,11 +44,8 @@ export default function CategoryHeader({
               </span>
             ) : (
               <>
-                <span className="font-semibold text-primary dark:text-darkmode-primary">
-                  {productCount}
-                </span>{" "}
-                {productCount === 1 ? t("productSingular") : t("productPlural")}{" "}
-                {searchValue && t("found")}
+                {t("productCount", { count: productCount })}{" "}
+                {searchValue ? t("found") : ""}
               </>
             )}
           </p>

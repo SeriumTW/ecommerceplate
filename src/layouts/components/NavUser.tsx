@@ -1,8 +1,7 @@
 "use client";
 
 import type { user } from "@/lib/shopify/types";
-import { Link } from "@/i18n/navigation";
-import { usePathname, useRouter } from "next/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import Gravatar from "react-gravatar";
 import { BsPerson } from "react-icons/bs";
@@ -116,7 +115,7 @@ const NavUser = () => {
             aria-haspopup="true"
             aria-expanded={dropdownOpen}
             aria-controls={menuId}
-            aria-label={t("userAccountMenu")}
+            aria-label={t("userMenu")}
           >
             <div className="h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border border-border dark:border-darkmode-border">
               <Gravatar

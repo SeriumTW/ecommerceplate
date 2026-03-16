@@ -68,9 +68,9 @@ const SignUp = () => {
         <div className="row">
           <div className="col-11 sm:col-9 md:col-7 mx-auto">
             <div className="mb-14 text-center">
-              <h2 className="max-md:h1 md:mb-2">{t("signUpTitle")}</h2>
+              <h2 className="max-md:h1 md:mb-2">{t("signupTitle")}</h2>
               <p className="md:text-lg text-text-light dark:text-darkmode-text-light">
-                {t("signUpSubtitle")}
+                {t("signupSubtitle")}
               </p>
             </div>
 
@@ -81,13 +81,13 @@ const SignUp = () => {
             >
               <div>
                 <label htmlFor="firstName" className="form-label">
-                  {t("firstNameLabel")}
+                  {t("nameLabel")}
                 </label>
                 <input
                   id="firstName"
                   name="firstName"
                   className={`form-input ${errorMessages.some((e) => e.field?.includes("firstName")) ? "border-error focus:ring-error/50" : ""}`}
-                  placeholder={t("firstNamePlaceholder")}
+                  placeholder={t("namePlaceholder")}
                   type="text"
                   onChange={handleChange}
                   value={formData.firstName}
@@ -132,7 +132,7 @@ const SignUp = () => {
                   id="signup-password"
                   name="password"
                   className={`form-input ${errorMessages.some((e) => e.field?.includes("password")) ? "border-error focus:ring-error/50" : ""}`}
-                  placeholder={t("createPasswordPlaceholder")}
+                  placeholder={t("createPassword")}
                   type="password"
                   onChange={handleChange}
                   value={formData.password}
@@ -182,7 +182,7 @@ const SignUp = () => {
                     <span className="sr-only">{t("signingUp")}</span>
                   </>
                 ) : (
-                  t("signUpButton")
+                  t("signupButton")
                 )}
               </button>
             </form>
@@ -196,7 +196,7 @@ const SignUp = () => {
                   className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
                   href={"/login"}
                 >
-                  {t("loginLink")}
+                  {t("login")}
                 </Link>
               </div>
 

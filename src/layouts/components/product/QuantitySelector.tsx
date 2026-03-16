@@ -81,7 +81,7 @@ const QuantitySelector = ({
       </div>
       {max < 99 && (
         <span className="text-xs text-text-light dark:text-darkmode-text-light">
-          Max: {max}
+          {t("maxQuantity", { max })}
         </span>
       )}
     </div>

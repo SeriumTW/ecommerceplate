@@ -1,7 +1,8 @@
 "use client";
 
+import { useRouter } from "@/i18n/navigation";
 import { createUrl } from "@/lib/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoClose, IoSearch } from "react-icons/io5";
 import { useTranslations } from "next-intl";

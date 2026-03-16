@@ -3,10 +3,11 @@
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import NavUser from "@/components/NavUser";
 import SearchBar from "@/components/SearchBar";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 import type config from "@/config/config.json";
+import { getNavigationItemLabel } from "@/lib/i18n/navigationLabels";
 import type { NavigationChildLink, NavigationLink } from "@/types/navigation";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import React, { Suspense } from "react";
 
 import { isMenuItemActive } from "./utils";
@@ -34,11 +35,13 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
   cartFallback,
   cartContent,
 }) => {
+  const tCommon = useTranslations("common");
+  const tNav = useTranslations("nav");
   const [openItem, setOpenItem] = React.useState<string | null>(null);
   const enableDropdown = false; // toggle rapido per riabilitare il dropdown desktop
 
   const baseItemClasses =
-    "rounded-full px-4 py-2 transition hover:bg-primary/10 hover:text-primary dark:hover:bg-darkmode-primary/20 dark:hover:text-darkmode-primary";
+    "rounded-full px-4 py-2 whitespace-nowrap transition hover:bg-primary/10 hover:text-primary dark:hover:bg-darkmode-primary/20 dark:hover:text-darkmode-primary";
   const activeItemClasses =
     "bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary";
   const inactiveItemClasses = "text-text-dark dark:text-darkmode-text";
@@ -62,7 +65,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
         href={item.url || "#"}
         className={getItemClassName(isActive)}
       >
-        {item.name}
+        {getNavigationItemLabel(item, tCommon, tNav)}
       </Link>
     );
   };
@@ -110,7 +113,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
           aria-haspopup="true"
           aria-expanded={isOpen}
         >
-          <span>{item.name}</span>
+          <span>{getNavigationItemLabel(item, tCommon, tNav)}</span>
           <svg
             aria-hidden="true"
             focusable="false"
@@ -149,7 +152,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
                       "block rounded-2xl text-left text-sm font-medium",
                     )}
                   >
-                    {child.name}
+                    {getNavigationItemLabel(child, tCommon, tNav)}
                   </Link>
                 </li>
               );
@@ -161,8 +164,8 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
   };
 
   return (
-    <div className="hidden items-center justify-between gap-6 lg:flex">
-      <nav className="flex items-center gap-2 text-sm font-semibold">
+    <div className="hidden items-center justify-between gap-4 lg:flex">
+      <nav className="flex items-center gap-1 text-sm font-semibold xl:gap-2">
         {menuItems.map((item) => {
           if (item.hasChildren) {
             return renderMenuWithChildren(item);
@@ -172,14 +175,11 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
         })}
       </nav>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 xl:gap-4">
         {settings.search ? (
-          <div className="hidden w-96 xl:w-[510px] lg:block">
+          <div className="hidden lg:block lg:w-64 xl:w-[420px]">
             <Suspense fallback={null}>
-              <SearchBar
-                placeholder="Cerca prodotti..."
-                inputId="header-search"
-              />
+              <SearchBar inputId="header-search" />
             </Suspense>
           </div>
         ) : null}
@@ -194,10 +194,6 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
         ) : null}
 
         <LocaleSwitcher />
-
-        {settings.theme_switcher ? (
-          <ThemeSwitcher className="hidden lg:inline-flex" />
-        ) : null}
 
         {settings.account ? <NavUser /> : null}
 

@@ -6,6 +6,7 @@ import menu from "@/config/menu.json";
 import social from "@/config/social.json";
 import DynamicIcon from "@/helpers/DynamicIcon";
 import { Link } from "@/i18n/navigation";
+import { getFooterLinkLabel } from "@/lib/i18n/navigationLabels";
 import { markdownify } from "@/lib/utils/textConverter";
 import { useTranslations } from "next-intl";
 
@@ -17,6 +18,7 @@ export interface ISocial {
 
 const Footer = () => {
   const { copyright } = config.params;
+  const tCommon = useTranslations("common");
   const t = useTranslations("footer");
 
   return (
@@ -56,7 +58,7 @@ const Footer = () => {
                     className="transition hover:text-support-1 dark:hover:text-support-1"
                     href={item.url}
                   >
-                    {item.name}
+                    {getFooterLinkLabel(item.url, item.name, tCommon)}
                   </Link>
                 </li>
               ))}
@@ -74,7 +76,7 @@ const Footer = () => {
                     className="transition hover:text-support-1 dark:hover:text-support-1"
                     href={item.url}
                   >
-                    {item.name}
+                    {getFooterLinkLabel(item.url, item.name, tCommon)}
                   </Link>
                 </li>
               ))}

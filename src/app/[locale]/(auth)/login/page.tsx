@@ -176,7 +176,7 @@ const Login = () => {
                 className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
                 href={"/sign-up"}
               >
-                {t("signUpLink")}
+                {t("register")}
               </Link>
             </div>
           </div>

@@ -26,8 +26,8 @@ const TrustBadges = ({ className = "", badges }: TrustBadgesProps) => {
           className="text-primary dark:text-darkmode-primary"
         />
       ),
-      title: t("fastShipping"),
-      subtitle: t("deliveryTime"),
+      title: t("freeShipping"),
+      subtitle: t("freeShippingDesc"),
     },
     {
       icon: (
@@ -37,14 +37,14 @@ const TrustBadges = ({ className = "", badges }: TrustBadgesProps) => {
         />
       ),
       title: t("securePayments"),
-      subtitle: t("sslEncryption"),
+      subtitle: t("securePaymentsDesc"),
     },
     {
       icon: (
         <HiArrowPath size={24} className="text-info dark:text-darkmode-info" />
       ),
       title: t("easyReturns"),
-      subtitle: t("returnPolicy"),
+      subtitle: t("easyReturnsDesc"),
     },
   ];
 

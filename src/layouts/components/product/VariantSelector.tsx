@@ -1,9 +1,10 @@
 "use client";
 
 import { ProductOption, ProductVariant } from "@/lib/shopify/types";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { createUrl } from "@/lib/utils";
 import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import { ImageItem } from "./ProductGallery";

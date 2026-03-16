@@ -1,9 +1,9 @@
 "use client";
 
 import { SortFilterItem as SortFilterItemType } from "@/lib/constants";
+import { Link, usePathname } from "@/i18n/navigation";
 import { createUrl } from "@/lib/utils";
-import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import {
   ListItem,
   PathFilterItem as PathFilterItemType,

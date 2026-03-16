@@ -1,5 +1,5 @@
 import { humanize } from "@/lib/utils/textConverter";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 const PostSidebar = ({
   tags,

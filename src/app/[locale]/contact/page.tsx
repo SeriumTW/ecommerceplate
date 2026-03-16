@@ -1,15 +1,36 @@
 import config from "@/config/config.json";
+import type { Locale } from "@/lib/i18n/config";
 import { getListPage } from "@/lib/contentParser";
+import { getMetadataAlternates } from "@/lib/i18n/metadata";
 import { markdownify } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
 import { ContactUsItem, RegularPage } from "@/types";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+
+export const generateMetadata = async (props: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> => {
+  const { locale } = await props.params;
+  const data: RegularPage = getListPage("contact/_index.md");
+  const title = data.frontmatter.meta_title || data.frontmatter.title;
+  const description =
+    data.frontmatter.description || data.frontmatter.title || "";
+
+  return {
+    title,
+    description,
+    alternates: getMetadataAlternates(locale as Locale, "/contact"),
+  };
+};
 
 const Contact = async () => {
   const data: RegularPage = getListPage("contact/_index.md");
   const { frontmatter } = data;
   const { title, description, meta_title, image, contact_meta } = frontmatter;
   const { contact_form_action } = config.params;
+  const t = await getTranslations("contactPage");
 
   return (
     <>
@@ -43,9 +64,7 @@ const Contact = async () => {
       <section className="section">
         <div className="container">
           <div className="mx-auto lg:col-10">
-            <h2 className="mb-14 text-center">
-              We would love to hear from you!
-            </h2>
+            <h2 className="mb-14 text-center">{t("title")}</h2>
 
             <form
               className="border border-border dark:border-darkmode-border rounded-2xl p-10"
@@ -55,13 +74,13 @@ const Contact = async () => {
               <div className="mb-6 md:grid grid-cols-2 gap-x-8 max-md:space-y-6">
                 <div>
                   <label htmlFor="firstName" className="form-label">
-                    First Name <span className="text-red-500">*</span>
+                    {t("firstName")} <span className="text-red-500">*</span>
                   </label>
                   <input
                     id="firstName"
                     name="firstName"
                     className="form-input"
-                    placeholder="John"
+                    placeholder={t("firstNamePlaceholder")}
                     type="text"
                     required
                   />
@@ -69,13 +88,13 @@ const Contact = async () => {
 
                 <div>
                   <label htmlFor="lastName" className="form-label">
-                    Last Name
+                    {t("lastName")}
                   </label>
                   <input
                     id="lastName"
                     name="lastName"
                     className="form-input"
-                    placeholder="Doe"
+                    placeholder={t("lastNamePlaceholder")}
                     type="text"
                   />
                 </div>
@@ -84,13 +103,13 @@ const Contact = async () => {
               <div className="mb-6 md:grid grid-cols-2 gap-x-8 max-md:space-y-6">
                 <div>
                   <label htmlFor="email" className="form-label">
-                    Email Address <span className="text-red-500">*</span>
+                    {t("email")} <span className="text-red-500">*</span>
                   </label>
                   <input
                     id="email"
                     name="email"
                     className="form-input"
-                    placeholder="john.doe@email.com"
+                    placeholder={t("emailPlaceholder")}
                     type="email"
                     required
                   />
@@ -98,13 +117,13 @@ const Contact = async () => {
 
                 <div>
                   <label htmlFor="subject" className="form-label">
-                    Subject <span className="text-red-500">*</span>
+                    {t("subject")} <span className="text-red-500">*</span>
                   </label>
                   <input
                     id="subject"
                     name="subject"
                     className="form-input"
-                    placeholder="Enquiry About"
+                    placeholder={t("subjectPlaceholder")}
                     type="text"
                     required
                   />
@@ -113,13 +132,13 @@ const Contact = async () => {
 
               <div className="mb-6">
                 <label htmlFor="message" className="form-label">
-                  Message <span className="text-red-500">*</span>
+                  {t("message")} <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   className="form-input"
-                  placeholder="Type your message..."
+                  placeholder={t("messagePlaceholder")}
                   rows={8}
                   required
                 ></textarea>
@@ -127,7 +146,7 @@ const Contact = async () => {
 
               <div className="flex justify-end">
                 <button type="submit" className="btn btn-primary">
-                  Send Message
+                  {t("send")}
                 </button>
               </div>
             </form>

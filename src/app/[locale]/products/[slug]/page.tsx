@@ -3,6 +3,7 @@ import Breadcrumbs from "@/layouts/components/Breadcrumbs";
 import LoadingProductGallery from "@/layouts/components/loadings/skeleton/SkeletonProductGallery";
 import ProductActions from "@/components/product/ProductActions";
 import ProductGallery from "@/components/product/ProductGallery";
+import Price from "@/components/Price";
 import ShowTags from "@/components/product/ShowTags";
 import StockIndicator from "@/components/product/StockIndicator";
 import StickyBottomBar from "@/components/product/StickyBottomBar";
@@ -14,15 +15,17 @@ import { getListPage } from "@/lib/contentParser";
 import { getProduct, getProductRecommendations } from "@/lib/shopify";
 import ProductCard from "@/components/ProductCard";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { localeToShopify } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
+import { getMetadataAlternates } from "@/lib/i18n/metadata";
 
 export const generateMetadata = async (props: {
   params: Promise<{ locale: string; slug: string }>;
-}) => {
+}): Promise<Metadata> => {
   const params = await props.params;
   const context = localeToShopify[params.locale as Locale];
   const product = await getProduct(params.slug, context);
@@ -30,6 +33,10 @@ export const generateMetadata = async (props: {
   return {
     title: product.seo.title || product.title,
     description: product.seo.description || product.description,
+    alternates: getMetadataAlternates(
+      params.locale as Locale,
+      `/products/${params.slug}`,
+    ),
   };
 };
 
@@ -52,14 +59,15 @@ const ShowProductSingle = async ({
   params: { locale: string; slug: string };
 }) => {
   setRequestLocale(params.locale);
-  const t = await getTranslations("product");
+  const [t, tCommon] = await Promise.all([
+    getTranslations("product"),
+    getTranslations("common"),
+  ]);
   const context = localeToShopify[params.locale as Locale];
 
   const paymentsAndDelivery = getListPage("sections/payments-and-delivery.md");
   const { payment_methods, estimated_delivery } =
     paymentsAndDelivery.frontmatter;
-
-  const { currencySymbol } = config.shopify;
   const product = await getProduct(params.slug, context);
 
   if (!product) return notFound();
@@ -82,7 +90,7 @@ const ShowProductSingle = async ({
 
   // Breadcrumbs items
   const breadcrumbItems = [
-    { label: t("products"), href: "/products" },
+    { label: tCommon("products"), href: "/products" },
     { label: title, href: `/products/${params.slug}`, current: true },
   ];
 
@@ -112,16 +120,21 @@ const ShowProductSingle = async ({
               </h1>
 
               <div className="flex gap-2 items-center mb-4">
-                <h4 className="text-xl md:text-2xl font-bold text-text-dark dark:text-darkmode-text-dark">
-                  {currencySymbol} {priceRange?.minVariantPrice.amount}{" "}
-                  {priceRange?.minVariantPrice?.currencyCode}
-                </h4>
+                <Price
+                  as="span"
+                  amount={priceRange.minVariantPrice.amount}
+                  currencyCode={priceRange.minVariantPrice.currencyCode}
+                  className="text-xl md:text-2xl font-bold text-text-dark dark:text-darkmode-text-dark"
+                />
                 {parseFloat(compareAtPriceRange?.maxVariantPrice.amount) > 0 ? (
-                  <s className="text-sm md:text-base text-text-light dark:text-darkmode-text-light">
-                    {currencySymbol}{" "}
-                    {compareAtPriceRange?.maxVariantPrice?.amount}{" "}
-                    {compareAtPriceRange?.maxVariantPrice?.currencyCode}
-                  </s>
+                  <Price
+                    as="span"
+                    amount={compareAtPriceRange.maxVariantPrice.amount}
+                    currencyCode={
+                      compareAtPriceRange.maxVariantPrice.currencyCode
+                    }
+                    className="text-sm md:text-base text-text-light dark:text-darkmode-text-light line-through"
+                  />
                 ) : (
                   ""
                 )}

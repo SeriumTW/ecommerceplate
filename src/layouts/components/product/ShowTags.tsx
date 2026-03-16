@@ -1,7 +1,9 @@
 "use client";
+
+import { useRouter } from "@/i18n/navigation";
 import { createUrl } from "@/lib/utils";
 import { slugify } from "@/lib/utils/textConverter";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 type ShowTagsProps = {
   tags: string[];

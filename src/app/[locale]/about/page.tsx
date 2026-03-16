@@ -1,16 +1,40 @@
 import Expandable from "@/components/Expandable";
 import ImageFallback from "@/layouts/helpers/ImageFallback";
+import type { Locale } from "@/lib/i18n/config";
 import { getListPage } from "@/lib/contentParser";
+import { getMetadataAlternates } from "@/lib/i18n/metadata";
 import { markdownify } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
 import Testimonials from "@/partials/Testimonials";
 import { AboutUsItem, RegularPage } from "@/types";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { FaBoxOpen, FaCheckCircle, FaHeadset } from "react-icons/fa";
 
-const About = () => {
+export const generateMetadata = async (props: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> => {
+  const { locale } = await props.params;
   const data: RegularPage = getListPage("about/_index.md");
+  const title = data.frontmatter.meta_title || data.frontmatter.title;
+  const description = data.frontmatter.description || data.frontmatter.title;
+
+  return {
+    title,
+    description,
+    alternates: getMetadataAlternates(locale as Locale, "/about"),
+    openGraph: {
+      title,
+      description,
+    },
+  };
+};
+
+const About = async () => {
+  const data: RegularPage = getListPage("about/_index.md");
+  const t = await getTranslations("aboutPage");
 
   const { frontmatter } = data;
   const {
@@ -90,7 +114,7 @@ const About = () => {
       <section>
         <div className="container">
           <div className="text-center">
-            <h2>Our Staff</h2>
+            <h2>{t("staffTitle")}</h2>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-14">
               {staff_section_enable &&
@@ -121,35 +145,31 @@ const About = () => {
       <section className="section">
         <div className="container">
           <div className="bg-light px-7 py-20 dark:bg-darkmode-light text-center rounded-2xl">
-            <h2>Reasons to shop with us</h2>
+            <h2>{t("reasonsTitle")}</h2>
 
             <div className="row justify-center gap-6 mt-14">
               <div className="col-6 md:col-5 lg:col-3">
                 <div className="flex justify-center">
                   <FaHeadset size={48} />
                 </div>
-                <h3 className="md:h4 mt-6 mb-4">24/7 Friendly Support</h3>
-                <p>Our support team always ready for you to 7 days a week</p>
+                <h3 className="md:h4 mt-6 mb-4">{t("supportTitle")}</h3>
+                <p>{t("supportDescription")}</p>
               </div>
 
               <div className="col-6 md:col-5 lg:col-3">
                 <div className="flex justify-center">
                   <FaBoxOpen size={48} />
                 </div>
-                <h3 className="md:h4 mt-6 mb-4">7 Days Easy Return</h3>
-                <p>
-                  Product any fault within 7 days for an immediately exchange.
-                </p>
+                <h3 className="md:h4 mt-6 mb-4">{t("returnsTitle")}</h3>
+                <p>{t("returnsDescription")}</p>
               </div>
 
               <div className="col-6 md:col-5 lg:col-3">
                 <div className="flex justify-center">
                   <FaCheckCircle size={48} />
                 </div>
-                <h3 className="md:h4 mt-6 mb-4">Quality Guaranteed</h3>
-                <p>
-                  If your product are not perfect, return them for a full refund
-                </p>
+                <h3 className="md:h4 mt-6 mb-4">{t("qualityTitle")}</h3>
+                <p>{t("qualityDescription")}</p>
               </div>
             </div>
           </div>

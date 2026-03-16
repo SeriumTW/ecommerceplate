@@ -1,9 +1,11 @@
 "use client";
 
-import config from "@/config/config.json";
+import Price from "@/components/Price";
+import { useRouter } from "@/i18n/navigation";
 import { createUrl } from "@/lib/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import "./rangeSlider.css";
 
 const RangeSlider = ({
@@ -11,8 +13,8 @@ const RangeSlider = ({
 }: {
   maxPriceData: { amount: string; currencyCode: string };
 }) => {
-  const { currencyCode, currencySymbol } = config.shopify;
   const maxAmount = parseInt(maxPriceData?.amount);
+  const t = useTranslations("rangeSlider");
 
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(maxAmount);
@@ -124,14 +126,18 @@ const RangeSlider = ({
   return (
     <div className="range-slider-container">
       <div className="flex justify-between">
-        <p>
-          {currencySymbol}
-          {minValue} {maxPriceData?.currencyCode || currencyCode}
-        </p>
-        <p>
-          {currencySymbol}
-          {maxValue} {maxPriceData?.currencyCode || currencyCode}
-        </p>
+        <Price
+          as="span"
+          amount={String(minValue)}
+          currencyCode={maxPriceData.currencyCode}
+          className="text-sm font-medium"
+        />
+        <Price
+          as="span"
+          amount={String(maxValue)}
+          currencyCode={maxPriceData.currencyCode}
+          className="text-sm font-medium"
+        />
       </div>
 
       <div className="range-slider" ref={rangeRef}>
@@ -156,7 +162,7 @@ const RangeSlider = ({
             priceChange(minValue, maxValue);
           }}
         >
-          Submit
+          {t("apply")}
         </button>
       )}
     </div>

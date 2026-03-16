@@ -1,8 +1,8 @@
 "use client";
 
 import config from "@/config/config.json";
+import { usePathname } from "@/i18n/navigation";
 import { plainify } from "@/lib/utils/textConverter";
-import { usePathname } from "next/navigation";
 import { Suspense } from "react";
 
 const SeoMeta = ({

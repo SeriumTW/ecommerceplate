@@ -6,29 +6,36 @@ import type { Locale } from "@/lib/i18n/config";
 
 const Price = ({
   amount,
+  as = "p",
   className,
   currencyCode = "USD",
   currencyCodeClassName,
+  showCurrencyCode = true,
 }: {
   amount: string;
+  as?: "p" | "span";
   className?: string;
   currencyCode: string;
   currencyCodeClassName?: string;
+  showCurrencyCode?: boolean;
 } & React.ComponentProps<"p">) => {
   const locale = useLocale();
   const intlLocale = localeToIntl[locale as Locale] || locale;
+  const Component = as;
 
   return (
-    <p suppressHydrationWarning={true} className={className}>
+    <Component suppressHydrationWarning={true} className={className}>
       {`${new Intl.NumberFormat(intlLocale, {
         style: "currency",
         currency: currencyCode,
         currencyDisplay: "narrowSymbol",
       }).format(parseFloat(amount))}`}
-      <span className={`ml-1 inline ${currencyCodeClassName}`}>
-        {currencyCode}
-      </span>
-    </p>
+      {showCurrencyCode ? (
+        <span className={`ml-1 inline ${currencyCodeClassName}`}>
+          {currencyCode}
+        </span>
+      ) : null}
+    </Component>
   );
 };
 

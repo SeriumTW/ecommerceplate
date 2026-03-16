@@ -1,8 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 const HeroSection = () => {
+  const t = useTranslations("hero");
+
   return (
     <div className="container">
       <div className="row items-center min-h-[500px] md:min-h-[600px]">
@@ -17,17 +20,17 @@ const HeroSection = () => {
                 clipRule="evenodd"
               />
             </svg>
-            Spedizione Gratuita oltre 49€
+            {t("badge")}
           </div>
 
           {/* Headline UVP */}
           <h1 className="mb-4 text-5xl md:text-6xl lg:text-7xl font-bold text-text-dark dark:text-darkmode-text-dark leading-[1.1]">
-            Il Meglio per i Tuoi Amici a Quattro Zampe
+            {t("title")}
           </h1>
 
           {/* Subheadline breve */}
           <p className="mb-6 text-xl md:text-2xl text-text dark:text-darkmode-text max-w-xl mx-auto lg:mx-0 font-medium">
-            Prodotti naturali testati e selezionati con cura
+            {t("subtitle")}
           </p>
 
           {/* Social proof inline minimale */}
@@ -39,7 +42,7 @@ const HeroSection = () => {
               </span>
             </div>
             <span className="text-text/60 dark:text-darkmode-text/60 text-sm">
-              • 500+ recensioni
+              • {t("reviewsCount")}
             </span>
           </div>
 
@@ -59,7 +62,7 @@ const HeroSection = () => {
               e.currentTarget.style.backgroundColor = "#FF7A59";
             }}
           >
-            Scopri i Prodotti
+            {t("cta")}
             <svg
               className="w-5 h-5"
               fill="none"

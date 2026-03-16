@@ -1,8 +1,9 @@
 "use client";
 
 import ImageFallback from "@/layouts/helpers/ImageFallback";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -12,6 +13,7 @@ import LoadingCategory from "./loadings/skeleton/SkeletonCategory";
 const CollectionsSlider = ({ collections }: { collections: any }) => {
   const [collectionsData, setCollectionsData] = useState([]);
   const [loadingCollectionsData, setLoadingCollectionsData] = useState(true);
+  const t = useTranslations("products");
 
   useEffect(() => {
     setCollectionsData(collections);
@@ -77,7 +79,9 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
                       </Link>
                     </h3>
                     <p className="text-text dark:text-darkmode-text text-sm md:text-base">
-                      {item.products?.edges.length} prodotti
+                      {t("productCount", {
+                        count: item.products?.edges.length || 0,
+                      })}
                     </p>
                   </div>
                 </div>
@@ -115,7 +119,9 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
                   </Link>
                 </h3>
                 <p className="text-text dark:text-darkmode-text text-sm md:text-base">
-                  {item.products?.edges.length} prodotti
+                  {t("productCount", {
+                    count: item.products?.edges.length || 0,
+                  })}
                 </p>
               </div>
             </div>

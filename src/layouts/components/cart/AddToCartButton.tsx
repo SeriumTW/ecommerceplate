@@ -1,8 +1,8 @@
 "use client";
 
 import { useActionState, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import { useFormStatus } from "react-dom";
 import { BiLoaderAlt } from "react-icons/bi";
 import { HiCheck, HiPlus } from "react-icons/hi";
@@ -49,7 +49,7 @@ function SubmitButton({
     return (
       <DynamicTag
         href={`/products/${handle ?? ""}`}
-        aria-label={t("selectVariantAria")}
+        aria-label={t("selectVariant")}
         aria-disabled
         className={`${buttonClasses} ${
           DynamicTag === "button" && disabledClasses
@@ -66,8 +66,8 @@ function SubmitButton({
       onClick={(event: React.FormEvent<HTMLButtonElement>) => {
         if (pending) event.preventDefault();
       }}
-      aria-label={showSuccess ? t("inCartClickToAddMore") : t("addToCartAria")}
-      title={showSuccess ? t("inCartClickToAddMore") : t("addToCartAria")}
+      aria-label={showSuccess ? t("inCartClickMore") : t("addToCart")}
+      title={showSuccess ? t("inCartClickMore") : t("addToCart")}
       aria-disabled={pending ? "true" : "false"}
       disabled={pending}
       className={`${buttonClasses} ${
@@ -90,7 +90,7 @@ function SubmitButton({
       ) : (
         <>
           <HiPlus className="flex-shrink-0" size={20} />
-          <span className="font-semibold">{t("add")}</span>
+          <span className="font-semibold">{t("addToCart")}</span>
         </>
       )}
     </button>
@@ -176,12 +176,12 @@ const AddToCartButton = ({
           aria-live="assertive"
           className="mt-2 text-sm text-error dark:text-darkmode-error"
         >
-          {actionState.message || t("addToCartError")}
+          {actionState.message || t("addError")}
         </div>
       )}
       {actionState?.status === "success" && (
         <p aria-live="polite" className="sr-only" role="status">
-          {t("addToCartSuccess")}
+          {t("addedSuccess")}
         </p>
       )}
     </form>

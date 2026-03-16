@@ -4,7 +4,7 @@ import {
   ProductFilters,
   countActiveFilters,
 } from "@/lib/utils/productQueryBuilder";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { HiX } from "react-icons/hi";
 import { useTranslations } from "next-intl";
@@ -50,7 +50,7 @@ export default function ActiveFilters({ filters }: ActiveFiltersProps) {
         {/* Chip filtro ricerca */}
         {filters.searchValue && (
           <FilterChip
-            label={t("searchChip", { query: filters.searchValue })}
+            label={t("search", { value: filters.searchValue })}
             href={removeFilter("q")}
           />
         )}
@@ -58,7 +58,7 @@ export default function ActiveFilters({ filters }: ActiveFiltersProps) {
         {/* Chip filtro prezzo */}
         {(filters.minPrice || filters.maxPrice) && (
           <FilterChip
-            label={t("priceChip", {
+            label={t("price", {
               min: filters.minPrice || "0",
               max: filters.maxPrice || "\u221E",
             })}
@@ -74,8 +74,8 @@ export default function ActiveFilters({ filters }: ActiveFiltersProps) {
         {/* Chip filtro brand */}
         {filters.brand && (
           <FilterChip
-            label={t("brandChip", {
-              brand: Array.isArray(filters.brand)
+            label={t("brand", {
+              value: Array.isArray(filters.brand)
                 ? filters.brand.join(", ")
                 : filters.brand,
             })}
@@ -86,7 +86,7 @@ export default function ActiveFilters({ filters }: ActiveFiltersProps) {
         {/* Chip filtro categoria */}
         {filters.category && filters.category !== "all" && (
           <FilterChip
-            label={t("categoryChip", { category: filters.category })}
+            label={t("category", { value: filters.category })}
             href={removeFilter("c")}
           />
         )}
@@ -94,7 +94,7 @@ export default function ActiveFilters({ filters }: ActiveFiltersProps) {
         {/* Chip filtro tag */}
         {filters.tag && (
           <FilterChip
-            label={t("tagChip", { tag: filters.tag })}
+            label={t("tag", { value: filters.tag })}
             href={removeFilter("t")}
           />
         )}

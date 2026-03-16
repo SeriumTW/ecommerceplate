@@ -15,15 +15,23 @@
     "exploreByCategory": "Explorar por Categoría",
     "exploreByCategoryDescription": "Descubre los mejores productos organizados por categoría, pensados para el bienestar de tu mascota.",
     "featuredProducts": "Productos Destacados",
-    "featuredProductsDescription": "Una selección de nuestros productos más populares, elegidos con cuidado para tus amigos de cuatro patas."
+    "featuredProductsDescription": "Una selección de nuestros productos más queridos, elegidos con cuidado para tus amigos de cuatro patas.",
+    "shopNow": "Comprar Ahora",
+    "pagination": "Paginación",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "copyLink": "Copiar enlace",
+    "copied": "copiado"
   },
   "nav": {
     "openNavigation": "Abrir navegación",
-    "userMenu": "Menú de cuenta de usuario",
+    "userMenu": "Menú de cuenta",
     "myAccount": "Mi cuenta",
     "myOrders": "Mis pedidos",
     "logout": "Cerrar sesión",
-    "loginToAccount": "Inicia sesión en tu cuenta"
+    "loginToAccount": "Inicia sesión en tu cuenta",
+    "pages": "Páginas",
+    "notFoundPage": "Página 404"
   },
   "cart": {
     "openCartWithItems": "Abrir carrito ({count} {count, plural, one {artículo} other {artículos}})",
@@ -33,7 +41,7 @@
     "emptyDescription": "Agrega tus productos favoritos para mascotas y vuelve aquí para completar tu pedido.",
     "goToCatalog": "Ir al catálogo",
     "readyForPet": "Listo para tu mascota",
-    "cartDescription": "Revisa los artículos seleccionados, actualiza las cantidades o elimina lo que no necesites antes de proceder al pago.",
+    "cartDescription": "Revisa tus artículos seleccionados, actualiza cantidades o elimina lo que no necesites antes de proceder al pago.",
     "orderSummary": "Resumen del pedido",
     "subtotal": "Subtotal",
     "taxes": "Impuestos",
@@ -43,7 +51,7 @@
     "proceedToCheckout": "Proceder al checkout",
     "securePayment": "Pagos seguros con Shopify. Podrás agregar notas o códigos de descuento en la siguiente página.",
     "needHelp": "¿Necesitas ayuda?",
-    "contactUs": "Contáctanos y nuestro equipo te guiará en la elección de los mejores productos para tu mascota.",
+    "contactUs": "Contáctanos y nuestro equipo te ayudará a elegir los mejores productos para tu mascota.",
     "increaseItem": "Aumentar cantidad del artículo",
     "decreaseItem": "Reducir cantidad del artículo",
     "quantityUpdated": "Cantidad actualizada con éxito",
@@ -51,13 +59,13 @@
   },
   "product": {
     "outOfStock": "Agotado",
-    "selectVariant": "Seleccionar Variante",
+    "selectVariant": "Seleccionar variante",
     "addToCart": "Agregar",
     "adding": "Agregando...",
     "inCart": "En el carrito",
-    "inCartClickMore": "En el carrito - Clic para agregar +1",
+    "inCartClickMore": "En el carrito - haz clic para agregar +1",
     "addedSuccess": "Producto agregado al carrito con éxito",
-    "addError": "Error al agregar al carrito",
+    "addError": "Error al agregar el producto al carrito",
     "available": "Disponible",
     "soldOut": "Agotado",
     "quantity": "Cantidad:",
@@ -69,8 +77,8 @@
     "relatedProducts": "Productos Relacionados",
     "description": "Descripción",
     "moreInfo": "Más información",
-    "share": "Compartir:",
-    "tags": "Etiquetas:",
+    "share": "Compartir",
+    "tags": "Etiquetas",
     "freeShipping": "Envío Gratis",
     "freeShippingDesc": "En pedidos mayores a $49",
     "easyReturns": "Devoluciones Fáciles",
@@ -78,15 +86,16 @@
     "securePayments": "Pagos Seguros",
     "securePaymentsDesc": "Certificados SSL",
     "selectedProducts": "Productos Seleccionados",
-    "selectedProductsDesc": "Probados por el equipo"
+    "selectedProductsDesc": "Probados por el equipo",
+    "maxQuantity": "Máx: {max}"
   },
   "products": {
     "allProducts": "Todos los Productos",
     "resultsFor": "Resultados para \"{query}\"",
     "productCount": "{count} {count, plural, one {producto} other {productos}}",
     "found": "encontrados",
-    "noProductsFound": "Ningún producto encontrado",
-    "noProductsDescription": "Intenta modificar los filtros o buscar algo diferente",
+    "noProductsFound": "No se encontraron productos",
+    "noProductsDescription": "Prueba cambiar los filtros o buscar algo diferente",
     "seeAllProducts": "Ver todos los productos"
   },
   "auth": {
@@ -108,32 +117,32 @@
     "signupButton": "Registrarse",
     "signingUp": "Registrando...",
     "hasAccount": "¿Ya tienes cuenta?",
-    "login": "Inicia Sesión",
+    "login": "Inicia sesión",
     "termsAccept": "He leído y acepto los",
     "termsLink": "Términos y Condiciones",
-    "invalidCredentials": "Email o contraseña inválidos"
+    "invalidCredentials": "Correo o contraseña inválidos"
   },
   "account": {
     "title": "Mi Cuenta",
     "description": "Gestiona tu cuenta y visualiza tus pedidos",
     "myOrders": "Mis Pedidos",
-    "myOrdersDesc": "Visualiza el estado de tus pedidos y el historial de compras",
+    "myOrdersDesc": "Visualiza el estado de tus pedidos y tu historial de compras",
     "addresses": "Direcciones",
     "addressesDesc": "Gestiona tus direcciones de envío",
     "personalData": "Datos Personales",
     "personalDataDesc": "Modifica tu información personal",
     "privacySecurity": "Privacidad y Seguridad",
-    "privacySecurityDesc": "Gestiona la configuración de privacidad y contraseña",
-    "comingSoon": "(Próximamente)"
+    "privacySecurityDesc": "Gestiona la privacidad y la contraseña",
+    "comingSoon": "Próximamente"
   },
   "orders": {
     "title": "Mis Pedidos",
-    "description": "Visualiza el historial de tus pedidos",
-    "noOrders": "Ningún pedido encontrado",
+    "description": "Visualiza tu historial de pedidos",
+    "noOrders": "No se encontraron pedidos",
     "noOrdersDesc": "Aún no has realizado pedidos. ¡Empieza a comprar!",
     "goToShop": "Ir a la tienda",
     "orderNumber": "Pedido {name}",
-    "quantity": "Cantidad: {count}",
+    "quantity": "Cantidad",
     "paid": "Pagado",
     "pending": "Pendiente",
     "authorized": "Autorizado",
@@ -144,29 +153,29 @@
     "unfulfilled": "No enviado",
     "fulfilled": "Enviado",
     "partiallyFulfilled": "Parcialmente enviado",
-    "restocked": "Devuelto al almacén"
+    "restocked": "Reabastecido"
   },
   "footer": {
     "description": "Productos para mascotas seleccionados con cuidado para perros y gatos felices, entregados con amor directamente a tu hogar.",
     "discover": "Descubrir",
     "support": "Soporte",
     "securePaymentMethods": "Métodos de pago seguros",
-    "footerNav": "Navegación pie de página",
-    "footerNavigation": "Navegación pie de página",
+    "footerNav": "Navegación del pie",
+    "footerNavigation": "Navegación del pie",
     "copyright": "© {year} {siteName}. Todos los derechos reservados."
   },
   "topbar": {
     "freeShipping": "Envío gratis",
-    "freeShippingHighlight": "en pedidos mayores a $49",
-    "freeShippingThreshold": "en pedidos mayores a $49",
-    "dealOfDay": "Oferta del día:",
+    "freeShippingHighlight": "en pedidos superiores a $49",
+    "freeShippingThreshold": "en pedidos superiores a $49",
     "dailyDeal": "Oferta del día:",
-    "dealHighlight": "-20% comida orgánica",
     "dailyDealHighlight": "-20% comida orgánica",
     "newArrivals": "Novedades:",
-    "newArrivalsHighlight": "juegos interactivos",
+    "newArrivalsHighlight": "juguetes interactivos",
     "searchPlaceholder": "Buscar productos...",
-    "announcement": "Anuncio {number}"
+    "announcement": "Anuncio {number}",
+    "supportLink": "Soporte",
+    "orderTrackingLink": "Seguimiento"
   },
   "searchBar": {
     "placeholder": "Buscar productos",
@@ -175,19 +184,19 @@
     "fieldLabel": "Campo de búsqueda de productos",
     "searchInputField": "Campo de búsqueda de productos",
     "clearSearch": "Borrar búsqueda",
-    "executeSearch": "Ejecutar búsqueda",
-    "submitSearch": "Ejecutar búsqueda"
+    "executeSearch": "Buscar",
+    "submitSearch": "Buscar"
   },
   "newsletter": {
     "exclusiveDiscount": "Descuento Exclusivo",
     "joinFamily": "Únete a la Familia LoveBirdsLand",
     "title": "Únete a la Familia LoveBirdsLand",
-    "description": "Recibe 10% de descuento en tu primer pedido, consejos para el bienestar de tu mascota y ofertas exclusivas directamente en tu correo electrónico.",
-    "subtitle": "Recibe <strong>10% de descuento</strong> en tu primer pedido, consejos para el bienestar de tu mascota y ofertas exclusivas directamente en tu correo electrónico.",
+    "description": "Recibe 10% de descuento en tu primer pedido, consejos para el bienestar de tu mascota y ofertas exclusivas directamente en tu correo.",
+    "subtitle": "Recibe <strong>10% de descuento</strong> en tu primer pedido, consejos para el bienestar de tu mascota y ofertas exclusivas directamente en tu correo.",
     "emailPlaceholder": "Ingresa tu email",
     "getDiscount": "Obtener el Descuento",
     "sending": "Enviando...",
-    "successMessage": "¡Gracias! Revisa tu email para el código de descuento.",
+    "successMessage": "¡Gracias! Revisa tu correo para el código de descuento.",
     "privacyNote": "Respetamos tu privacidad. Puedes darte de baja en cualquier momento.",
     "subscriberCount": "Más de 2,000 suscriptores al boletín"
   },
@@ -211,12 +220,118 @@
     "brand": "Marca: {value}",
     "category": "Categoría: {value}",
     "tag": "Etiqueta: {value}",
-    "clearAll": "Borrar todos los filtros"
+    "clearAll": "Borrar todos los filtros",
+    "priceRange": "Selecciona rango de precio",
+    "productCategories": "Categorías de producto",
+    "brands": "Marcas",
+    "tagsLabel": "Etiquetas"
   },
   "localeSwitcher": {
     "label": "Idioma y mercado",
     "mexico": "México (Español)",
     "italy": "Italia (Italiano)",
     "usa": "EE.UU. (Inglés)"
+  },
+  "hero": {
+    "badge": "Envío Gratis en pedidos superiores a $49",
+    "title": "Lo Mejor para Tus Amigos de Cuatro Patas",
+    "subtitle": "Productos naturales probados y seleccionados con cuidado",
+    "reviewsCount": "500+ reseñas",
+    "cta": "Descubrir Productos"
+  },
+  "valueProposition": {
+    "badge": "Quiénes Somos",
+    "title": "La Calidad que tu Mascota Merece",
+    "paragraphOne": "<strong>LoveBirdsLand</strong> nace de la pasión por los animales y del compromiso de ofrecer solo productos de excelencia. Cada artículo de nuestro catálogo es <strong>seleccionado cuidadosamente</strong> y probado por nuestro equipo experto.",
+    "paragraphTwo": "Creemos que nuestros amigos de cuatro patas merecen lo mejor: alimento natural, juguetes seguros y accesorios duraderos. Por eso trabajamos solo con <strong>proveedores certificados</strong> y garantizamos máxima transparencia sobre el origen y la composición de los productos.",
+    "naturalIngredientsTitle": "Ingredientes Naturales",
+    "naturalIngredientsDescription": "Solo productos con ingredientes seleccionados, sin aditivos dañinos.",
+    "teamTestedTitle": "Probados por el Equipo",
+    "teamTestedDescription": "Cada producto es verificado por veterinarios y educadores caninos.",
+    "sustainabilityTitle": "Sostenibilidad",
+    "sustainabilityDescription": "Empaques eco-friendly y alianzas con marcas éticas.",
+    "cta": "Descubre Más Sobre Nuestra Historia",
+    "imageAlt": "Equipo LoveBirdsLand con mascotas felices",
+    "commitmentTitle": "Nuestro compromiso",
+    "commitmentDescription": "Más de 10 años de experiencia en bienestar animal"
+  },
+  "trustBar": {
+    "freeShippingTitle": "Envío Gratis",
+    "freeShippingDescription": "Pedidos superiores a $49",
+    "easyReturnsTitle": "Devolución Fácil",
+    "easyReturnsDescription": "Dentro de 30 días",
+    "securePaymentsTitle": "Pagos Seguros",
+    "securePaymentsDescription": "Certificados SSL",
+    "selectedProductsTitle": "Productos Seleccionados",
+    "selectedProductsDescription": "Probados por el equipo"
+  },
+  "reviews": {
+    "title": "Lo Que Dicen Nuestros Clientes",
+    "subtitle": "Más de 500 reseñas positivas de dueños satisfechos",
+    "reviewOneName": "Maria R.",
+    "reviewOneComment": "¡Productos de excelente calidad! A mi perro le encantan los snacks naturales y llegaron rapidísimo. El empaque estaba muy cuidado.",
+    "reviewOneProduct": "Snacks Naturales para Perros",
+    "reviewOneDate": "Hace 2 días",
+    "reviewTwoName": "Luca T.",
+    "reviewTwoComment": "Por fin una tienda seria para mascotas. Atención al cliente disponible y productos probados. ¡Mi gata está feliz con el nuevo rascador!",
+    "reviewTwoProduct": "Rascador Deluxe",
+    "reviewTwoDate": "Hace 1 semana",
+    "reviewThreeName": "Giulia M.",
+    "reviewThreeComment": "Servicio impecable. Tuve un problema con el envío y me respondieron en 10 minutos resolviendo todo. ¡Volveré a comprar sin duda!",
+    "reviewThreeProduct": "Cama Memory Foam",
+    "reviewThreeDate": "Hace 3 días",
+    "reviewFourName": "Alessandro P.",
+    "reviewFourComment": "Precios competitivos y productos top. La comida orgánica que pedí mejoró la digestión de mi perro. ¡Muy recomendable!",
+    "reviewFourProduct": "Comida Orgánica Premium",
+    "reviewFourDate": "Hace 5 días",
+    "productsSold": "Productos Vendidos",
+    "averageRating": "Valoración Media",
+    "satisfiedCustomers": "Clientes Satisfechos"
+  },
+  "mobileDrawer": {
+    "greeting": "Hola, {name}!",
+    "guestGreeting": "Área de Clientes",
+    "guestDescription": "Inicia sesión para seguir pedidos y datos de entrega.",
+    "loadingProfile": "Cargando perfil...",
+    "goToAccount": "Ir a la cuenta",
+    "logout": "Cerrar sesión",
+    "login": "Iniciar sesión",
+    "createAccount": "Crear cuenta",
+    "closeNavigation": "Cerrar navegación",
+    "searchCatalog": "Buscar en el catálogo",
+    "searchPlaceholder": "Buscar productos y colecciones..."
+  },
+  "productCard": {
+    "newBadge": "NUEVO",
+    "outBadge": "AGOT.",
+    "details": "Detalle",
+    "alternativeImageAlt": "{title} - vista alternativa"
+  },
+  "rangeSlider": {
+    "apply": "Aplicar"
+  },
+  "aboutPage": {
+    "staffTitle": "Nuestro Equipo",
+    "reasonsTitle": "Razones para comprar con nosotros",
+    "supportTitle": "Soporte Amable 24/7",
+    "supportDescription": "Nuestro equipo de soporte siempre está listo para ayudarte, siete días a la semana.",
+    "returnsTitle": "Devolución Fácil en 7 Días",
+    "returnsDescription": "Si un producto tiene problemas, puedes solicitar rápidamente un reemplazo.",
+    "qualityTitle": "Calidad Garantizada",
+    "qualityDescription": "Si un producto no cumple con tus expectativas, puedes solicitar un reembolso completo."
+  },
+  "contactPage": {
+    "title": "Nos encantará saber de ti",
+    "firstName": "Nombre",
+    "firstNamePlaceholder": "Juan",
+    "lastName": "Apellido",
+    "lastNamePlaceholder": "Pérez",
+    "email": "Correo Electrónico",
+    "emailPlaceholder": "juan.perez@email.com",
+    "subject": "Asunto",
+    "subjectPlaceholder": "¿Cómo podemos ayudarte?",
+    "message": "Mensaje",
+    "messagePlaceholder": "Escribe tu mensaje...",
+    "send": "Enviar mensaje"
   }
 }
