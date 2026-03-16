@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import Price from "@/components/Price";
 import { DeleteItemButton } from "@/components/cart/DeleteItemButton";
 import { EditItemQuantityButton } from "@/components/cart/EditItemQuantityButton";
@@ -12,6 +13,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { localeToShopify } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
+import { resolveRequestMarket } from "@/lib/i18n/market";
 import { getMetadataAlternates } from "@/lib/i18n/metadata";
 
 type MerchandiseSearchParams = {
@@ -146,6 +148,7 @@ const CartLine = ({ item }: { item: CartItem }) => {
 const CartSummary = ({
   cart,
   translations,
+  checkoutAllowed,
 }: {
   cart: Cart;
   translations: {
@@ -157,7 +160,10 @@ const CartSummary = ({
     total: string;
     proceedToCheckout: string;
     securePayment: string;
+    checkoutUnavailable: string;
+    unsupportedCountryNotice: string;
   };
+  checkoutAllowed: boolean;
 }) => (
   <aside className="rounded-2xl border border-border/60 bg-body p-6 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
     <h2 className="text-lg font-semibold text-text-dark dark:text-white">
@@ -193,15 +199,30 @@ const CartSummary = ({
         />
       </div>
     </div>
-    <a
-      href={cart.checkoutUrl}
-      className="btn btn-primary mt-6 flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold"
-    >
-      {translations.proceedToCheckout}
-    </a>
+    {checkoutAllowed ? (
+      <a
+        href={cart.checkoutUrl}
+        className="btn btn-primary mt-6 flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold"
+      >
+        {translations.proceedToCheckout}
+      </a>
+    ) : (
+      <button
+        type="button"
+        disabled
+        className="btn btn-primary mt-6 flex w-full cursor-not-allowed items-center justify-center rounded-full px-6 py-3 text-sm font-semibold opacity-60"
+      >
+        {translations.checkoutUnavailable}
+      </button>
+    )}
     <p className="mt-3 text-xs text-text-light dark:text-darkmode-text">
       {translations.securePayment}
     </p>
+    {!checkoutAllowed ? (
+      <p className="mt-3 rounded-2xl bg-warning/10 px-4 py-3 text-xs font-medium text-warning dark:bg-warning/10">
+        {translations.unsupportedCountryNotice}
+      </p>
+    ) : null}
   </aside>
 );
 
@@ -215,7 +236,13 @@ export default async function CartPage({
   const t = await getTranslations("cart");
   const context = localeToShopify[locale as Locale];
 
+  const headerStore = await headers();
   const cookieStore = await cookies();
+  const marketState = resolveRequestMarket(
+    headerStore,
+    cookieStore,
+    locale as Locale,
+  );
   const cartId = cookieStore.get("cartId")?.value;
   const cart = cartId ? await getCart(cartId, context) : undefined;
 
@@ -239,6 +266,8 @@ export default async function CartPage({
     total: t("total"),
     proceedToCheckout: t("proceedToCheckout"),
     securePayment: t("securePayment"),
+    checkoutUnavailable: t("checkoutUnavailable"),
+    unsupportedCountryNotice: t("unsupportedCountryNotice"),
   };
 
   return (
@@ -261,7 +290,11 @@ export default async function CartPage({
             <CartLine key={item.id} item={item} />
           ))}
         </ul>
-        <CartSummary cart={cart} translations={summaryTranslations} />
+        <CartSummary
+          cart={cart}
+          translations={summaryTranslations}
+          checkoutAllowed={marketState.checkoutAllowed}
+        />
       </div>
 
       <div className="mt-12 rounded-2xl border border-border/40 bg-light/60 p-6 text-sm text-text-light shadow-sm dark:border-darkmode-border/40 dark:bg-darkmode-light/10 dark:text-darkmode-text">

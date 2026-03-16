@@ -1,6 +1,7 @@
 "use server";
 
 import { TAGS } from "@/lib/constants";
+import { MARKET_OVERRIDE_COOKIE } from "@/lib/i18n/market";
 import { localeToShopify, type Locale } from "@/lib/i18n/config";
 import {
   addToCart,
@@ -24,6 +25,14 @@ const cartCookieOptions = {
   sameSite: "lax" as const,
   path: "/",
   maxAge: 60 * 60 * 24 * 30, // 30 giorni
+};
+
+const marketOverrideCookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax" as const,
+  path: "/",
+  maxAge: 60 * 60 * 24 * 365,
 };
 
 const success = (): CartActionResult => ({ status: "success" });
@@ -170,6 +179,17 @@ export async function updateCartMarket(
 ): Promise<CartActionResult> {
   const cookieStore = await cookies();
   const cartId = cookieStore.get("cartId")?.value;
+
+  cookieStore.set({
+    name: "NEXT_LOCALE",
+    value: locale,
+    ...marketOverrideCookieOptions,
+  });
+  cookieStore.set({
+    name: MARKET_OVERRIDE_COOKIE,
+    value: "true",
+    ...marketOverrideCookieOptions,
+  });
 
   if (!cartId) {
     return success();

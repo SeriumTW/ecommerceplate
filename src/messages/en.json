@@ -50,10 +50,13 @@
     "total": "Total",
     "proceedToCheckout": "Proceed to checkout",
     "securePayment": "Secure payments with Shopify. You can add notes or discount codes on the next page.",
+    "checkoutUnavailable": "Checkout unavailable",
+    "unsupportedCountryNotice": "We currently don't ship to your country. You can browse the catalog, but checkout is disabled.",
     "needHelp": "Need help?",
     "contactUs": "Contact us and our team will help you choose the best products for your pet.",
-    "increaseItem": "Increase item quantity",
-    "decreaseItem": "Decrease item quantity",
+    "helpDescription": "to confirm availability and delivery times.",
+    "increaseItemQuantity": "Increase item quantity",
+    "decreaseItemQuantity": "Decrease item quantity",
     "quantityUpdated": "Quantity updated successfully",
     "quantityError": "Error updating quantity"
   },
@@ -228,9 +231,12 @@
   },
   "localeSwitcher": {
     "label": "Language and market",
-    "mexico": "Mexico (Spanish)",
-    "italy": "Italy (Italian)",
-    "usa": "USA (English)"
+    "mexico": "Mexico",
+    "mexicoLang": "Spanish",
+    "italy": "Italy",
+    "italyLang": "Italian",
+    "international": "International",
+    "internationalLang": "English"
   },
   "hero": {
     "badge": "Free Shipping over $49",

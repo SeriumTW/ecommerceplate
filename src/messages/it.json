@@ -50,10 +50,13 @@
     "total": "Totale",
     "proceedToCheckout": "Procedi al checkout",
     "securePayment": "Pagamenti sicuri con Shopify. Potrai aggiungere note o codici sconto nella pagina successiva.",
+    "checkoutUnavailable": "Checkout non disponibile",
+    "unsupportedCountryNotice": "Al momento non spediamo nel tuo paese. Puoi consultare il catalogo, ma il checkout è disabilitato.",
     "needHelp": "Hai bisogno di assistenza?",
     "contactUs": "Contattaci e il nostro team ti guiderà nella scelta dei prodotti migliori per il tuo animale domestico.",
-    "increaseItem": "Aumenta quantità articolo",
-    "decreaseItem": "Riduci quantità articolo",
+    "helpDescription": "per verificare disponibilità e tempi di consegna.",
+    "increaseItemQuantity": "Aumenta quantità articolo",
+    "decreaseItemQuantity": "Riduci quantità articolo",
     "quantityUpdated": "Quantità aggiornata con successo",
     "quantityError": "Errore durante l'aggiornamento quantità"
   },
@@ -228,9 +231,12 @@
   },
   "localeSwitcher": {
     "label": "Lingua e mercato",
-    "mexico": "Messico (Spagnolo)",
-    "italy": "Italia (Italiano)",
-    "usa": "USA (Inglese)"
+    "mexico": "Messico",
+    "mexicoLang": "Spagnolo",
+    "italy": "Italia",
+    "italyLang": "Italiano",
+    "international": "Internazionale",
+    "internationalLang": "Inglese"
   },
   "hero": {
     "badge": "Spedizione Gratuita oltre 49€",

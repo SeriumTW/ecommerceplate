@@ -193,7 +193,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
           </Link>
         ) : null}
 
-        <LocaleSwitcher />
+        <LocaleSwitcher placement="bottom" />
 
         {settings.account ? <NavUser /> : null}
 

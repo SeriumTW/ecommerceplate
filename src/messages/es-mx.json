@@ -50,10 +50,13 @@
     "total": "Total",
     "proceedToCheckout": "Proceder al checkout",
     "securePayment": "Pagos seguros con Shopify. Podrás agregar notas o códigos de descuento en la siguiente página.",
+    "checkoutUnavailable": "Checkout no disponible",
+    "unsupportedCountryNotice": "Por ahora no enviamos a tu país. Puedes navegar el catálogo, pero el checkout está deshabilitado.",
     "needHelp": "¿Necesitas ayuda?",
     "contactUs": "Contáctanos y nuestro equipo te ayudará a elegir los mejores productos para tu mascota.",
-    "increaseItem": "Aumentar cantidad del artículo",
-    "decreaseItem": "Reducir cantidad del artículo",
+    "helpDescription": "para confirmar disponibilidad y tiempos de entrega.",
+    "increaseItemQuantity": "Aumentar cantidad del artículo",
+    "decreaseItemQuantity": "Reducir cantidad del artículo",
     "quantityUpdated": "Cantidad actualizada con éxito",
     "quantityError": "Error al actualizar la cantidad"
   },
@@ -228,9 +231,12 @@
   },
   "localeSwitcher": {
     "label": "Idioma y mercado",
-    "mexico": "México (Español)",
-    "italy": "Italia (Italiano)",
-    "usa": "EE.UU. (Inglés)"
+    "mexico": "México",
+    "mexicoLang": "Español",
+    "italy": "Italia",
+    "italyLang": "Italiano",
+    "international": "Internacional",
+    "internationalLang": "English"
   },
   "hero": {
     "badge": "Envío Gratis en pedidos superiores a $49",

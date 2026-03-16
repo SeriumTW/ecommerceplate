@@ -263,7 +263,6 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
         <div className="border-t border-border/60 px-6 py-6 dark:border-darkmode-border/60">
           <div className="flex items-center justify-between">
-            <LocaleSwitcher />
             {navigationButton?.enable ? (
               <Link
                 href={navigationButton.link}
@@ -272,7 +271,10 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
               >
                 {navigationButton.label}
               </Link>
-            ) : null}
+            ) : (
+              <div />
+            )}
+            <LocaleSwitcher placement="top" showCaret={false} />
           </div>
         </div>
       </div>

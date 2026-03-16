@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://tf-commerceplate.netlify.app
+Host: https://petmarketexpress.com
 
 # Sitemaps
-Sitemap: https://tf-commerceplate.netlify.app/sitemap.xml
+Sitemap: https://petmarketexpress.com/sitemap.xml
