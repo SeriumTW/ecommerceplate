@@ -1,11 +1,14 @@
 import { defineRouting } from "next-intl/routing";
 import { createNavigation } from "next-intl/navigation";
-import { locales, defaultLocale } from "@/lib/i18n/config";
+import { localeToPathPrefix, locales, defaultLocale } from "@/lib/i18n/config";
 
 export const routing = defineRouting({
   locales,
   defaultLocale,
-  localePrefix: "as-needed",
+  localePrefix: {
+    mode: "always",
+    prefixes: localeToPathPrefix,
+  },
   localeDetection: false,
 });
 

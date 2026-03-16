@@ -5,14 +5,14 @@ import {
   getManualOverrideLocale,
   resolveAutomaticLocale,
 } from "@/lib/i18n/market";
-import { defaultLocale, locales } from "@/lib/i18n/config";
+import { localeToPathPrefix, pathPrefixToLocale } from "@/lib/i18n/config";
 import { routing } from "@/i18n/navigation";
 
 const intlMiddleware = createMiddleware(routing);
 
 const hasLocalePrefix = (pathname: string) =>
-  locales.some(
-    (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
+  Object.keys(pathPrefixToLocale).some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );
 
 export default function middleware(request: NextRequest) {
@@ -24,22 +24,9 @@ export default function middleware(request: NextRequest) {
   const overrideLocale = getManualOverrideLocale(request.cookies);
   const locale = overrideLocale ?? resolveAutomaticLocale(request.headers);
 
-  if (locale === defaultLocale) {
-    const response = intlMiddleware(request);
-
-    if (manualOverride !== "true") {
-      response.cookies.set("NEXT_LOCALE", locale, {
-        sameSite: "lax",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 30,
-      });
-    }
-
-    return response;
-  }
-
   const url = request.nextUrl.clone();
-  url.pathname = `/${locale}${request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname}`;
+  const localePrefix = localeToPathPrefix[locale];
+  url.pathname = `${localePrefix}${request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname}`;
 
   const response = NextResponse.redirect(url);
 

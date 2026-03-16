@@ -1,6 +1,7 @@
 import config from "@/config/config.json";
 import {
   defaultLocale,
+  localeToPathPrefix,
   locales,
   localeToIntl,
   type Locale,
@@ -10,8 +11,11 @@ const siteUrl = config.site.base_url.replace(/\/$/, "");
 
 const normalizePathname = (pathname: string) => {
   const cleanedPathname = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  const localePrefixes = Object.values(localeToPathPrefix)
+    .map((prefix) => prefix.slice(1))
+    .join("|");
   const withoutLocale = cleanedPathname.replace(
-    new RegExp(`^/(${locales.join("|")})(?=/|$)`),
+    new RegExp(`^/(${localePrefixes})(?=/|$)`),
     "",
   );
 
@@ -20,7 +24,7 @@ const normalizePathname = (pathname: string) => {
 
 export const getLocalizedUrl = (locale: Locale, pathname = "/") => {
   const normalizedPathname = normalizePathname(pathname);
-  const localePrefix = locale === defaultLocale ? "" : `/${locale}`;
+  const localePrefix = localeToPathPrefix[locale];
 
   return `${siteUrl}${localePrefix}${normalizedPathname === "/" ? "" : normalizedPathname}`;
 };
