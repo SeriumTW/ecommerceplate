@@ -16,6 +16,20 @@ const nextConfig = {
   outputFileTracingIncludes: {
     "/**": ["src/content/**/*"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/es-mx",
+        destination: "/mx",
+        permanent: true,
+      },
+      {
+        source: "/es-mx/:path*",
+        destination: "/mx/:path*",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "cdn.shopify.com", pathname: "/**" },
