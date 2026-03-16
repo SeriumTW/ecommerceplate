@@ -20,7 +20,7 @@ const normalizePathname = (pathname: string) => {
 
 export const getLocalizedUrl = (locale: Locale, pathname = "/") => {
   const normalizedPathname = normalizePathname(pathname);
-  const localePrefix = `/${locale}`;
+  const localePrefix = locale === defaultLocale ? "" : `/${locale}`;
 
   return `${siteUrl}${localePrefix}${normalizedPathname === "/" ? "" : normalizedPathname}`;
 };
