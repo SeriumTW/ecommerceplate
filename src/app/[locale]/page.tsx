@@ -96,7 +96,7 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
             }}
           />
           {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/98 via-white/85 to-white/40   " />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent" />
         </div>
 
         {/* Content */}
