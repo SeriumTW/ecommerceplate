@@ -69,7 +69,7 @@ const Header: React.FC<HeaderCartProps> = ({ cartFallback, cartContent }) => {
       {header_topbar?.enable && <UnifiedTopBar links={topBarLinks} />}
 
       <div className="relative bg-body/95 backdrop-blur ">
-        <div className="container space-y-3 py-2 lg:space-y-5 lg:py-5">
+        <div className="container space-y-3 py-2 lg:space-y-5 lg:py-3">
           <MobileHeaderRow
             onToggleDrawer={toggleDrawer}
             cartFallback={cartFallback}

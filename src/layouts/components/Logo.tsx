@@ -32,7 +32,7 @@ const Logo = ({ src }: { src?: string }) => {
           src={logoPath}
           alt={title}
           priority
-          className="h-auto w-auto object-contain drop-shadow-[0_6px_12px_rgba(0,0,0,0.12)]"
+          className="h-auto w-auto object-contain"
           style={{ maxWidth: `${width}px`, maxHeight: `${height}px` }}
         />
       ) : logo_text ? (
