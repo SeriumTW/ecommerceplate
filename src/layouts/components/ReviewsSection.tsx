@@ -55,9 +55,7 @@ const ReviewsSection = () => {
           <span
             key={index}
             className={`text-lg ${
-              index < rating
-                ? "text-rating-gold"
-                : "text-border dark:text-darkmode-border"
+              index < rating ? "text-rating-gold" : "text-border "
             }`}
           >
             ★
@@ -68,11 +66,11 @@ const ReviewsSection = () => {
   };
 
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-b from-white to-light/30 dark:from-black dark:to-darkmode-light/10">
+    <section className="py-16 md:py-20 bg-gradient-to-b from-white to-light/30  ">
       <div className="container">
         <div className="text-center mb-10 md:mb-14">
           <h2 className="mb-3">{t("title")}</h2>
-          <p className="text-lg text-text dark:text-darkmode-text max-w-2xl mx-auto">
+          <p className="text-lg text-text  max-w-2xl mx-auto">
             {t("subtitle")}
           </p>
         </div>
@@ -102,25 +100,23 @@ const ReviewsSection = () => {
         >
           {reviews.map((review, index) => (
             <SwiperSlide key={index}>
-              <div className="bg-white dark:bg-darkmode-body p-6 md:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all h-full border border-border/20 dark:border-darkmode-border/20">
+              <div className="bg-white  p-6 md:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all h-full border border-border/20 ">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h4 className="font-bold text-text-dark dark:text-darkmode-text-dark mb-1">
+                    <h4 className="font-bold text-text-dark  mb-1">
                       {review.name}
                     </h4>
-                    <p className="text-sm text-text dark:text-darkmode-text">
-                      {review.date}
-                    </p>
+                    <p className="text-sm text-text ">{review.date}</p>
                   </div>
                   {renderStars(review.rating)}
                 </div>
 
-                <p className="text-text dark:text-darkmode-text mb-4 leading-relaxed">
+                <p className="text-text  mb-4 leading-relaxed">
                   &ldquo;{review.comment}&rdquo;
                 </p>
 
-                <div className="pt-4 border-t border-border/30 dark:border-darkmode-border/30">
-                  <p className="text-sm font-medium text-primary dark:text-darkmode-primary">
+                <div className="pt-4 border-t border-border/30 ">
+                  <p className="text-sm font-medium text-primary ">
                     📦 {review.product}
                   </p>
                 </div>
@@ -132,28 +128,22 @@ const ReviewsSection = () => {
         {/* Trust indicators */}
         <div className="mt-12 flex flex-wrap items-center justify-center gap-8 md:gap-12">
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-primary dark:text-darkmode-primary mb-1">
+            <div className="text-3xl md:text-4xl font-bold text-primary  mb-1">
               10.000+
             </div>
-            <p className="text-sm text-text dark:text-darkmode-text">
-              {t("productsSold")}
-            </p>
+            <p className="text-sm text-text ">{t("productsSold")}</p>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-primary dark:text-darkmode-primary mb-1">
+            <div className="text-3xl md:text-4xl font-bold text-primary  mb-1">
               4.9/5
             </div>
-            <p className="text-sm text-text dark:text-darkmode-text">
-              {t("averageRating")}
-            </p>
+            <p className="text-sm text-text ">{t("averageRating")}</p>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-primary dark:text-darkmode-primary mb-1">
+            <div className="text-3xl md:text-4xl font-bold text-primary  mb-1">
               98%
             </div>
-            <p className="text-sm text-text dark:text-darkmode-text">
-              {t("satisfiedCustomers")}
-            </p>
+            <p className="text-sm text-text ">{t("satisfiedCustomers")}</p>
           </div>
         </div>
       </div>

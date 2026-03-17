@@ -168,7 +168,7 @@ const ImageLightbox = ({
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] bg-black/95 dark:bg-black/95 flex items-center justify-center"
+      className="fixed inset-0 z-[9999] bg-black/95  flex items-center justify-center"
       onClick={handleBackdropClick}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}

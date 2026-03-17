@@ -26,20 +26,20 @@ export default function CategoryHeader({
   return (
     <section>
       <div className="text-center">
-        <div className="bg-gradient-to-b from-body to-light px-8 py-14 md:py-20 dark:from-darkmode-body dark:to-darkmode-light">
+        <div className="bg-gradient-to-b from-body to-light px-8 py-14 md:py-20  ">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
             {title}
           </h1>
 
           {description && (
-            <p className="text-base md:text-lg text-text dark:text-darkmode-text max-w-2xl mx-auto mb-6 leading-relaxed">
+            <p className="text-base md:text-lg text-text  max-w-2xl mx-auto mb-6 leading-relaxed">
               {description}
             </p>
           )}
 
-          <p className="text-sm md:text-base text-text dark:text-darkmode-text mb-6">
+          <p className="text-sm md:text-base text-text  mb-6">
             {productCount === 0 ? (
-              <span className="text-error dark:text-darkmode-error font-medium">
+              <span className="text-error  font-medium">
                 {t("noProductsFound")}
               </span>
             ) : (

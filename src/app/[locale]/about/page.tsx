@@ -84,7 +84,7 @@ const About = async () => {
                   <div className="mt-10 lg:mt-0">
                     <h2>{section?.title}</h2>
                     <p
-                      className="mt-4 text-text-light dark:text-darkmode-text-light leading-7"
+                      className="mt-4 text-text-light  leading-7"
                       dangerouslySetInnerHTML={markdownify(section?.content)}
                     />
                   </div>
@@ -94,7 +94,7 @@ const About = async () => {
                   <div>
                     <h2>{section.title}</h2>
                     <p
-                      className="mt-4 text-text-light dark:text-darkmode-text-light leading-7"
+                      className="mt-4 text-text-light  leading-7"
                       dangerouslySetInnerHTML={markdownify(section.content)}
                     />
                   </div>
@@ -130,9 +130,7 @@ const About = async () => {
                   <div key={idx} className="border border-border rounded-2xl">
                     <div className="py-6 space-y-2">
                       <h3 className="h4">{s.name}</h3>
-                      <p className="text-text-dark dark:text-darkmode-text-light">
-                        {s.designation}
-                      </p>
+                      <p className="text-text-dark ">{s.designation}</p>
                     </div>
                     <div className="bg-light rounded-b-2xl mx-auto">
                       <ImageFallback
@@ -152,7 +150,7 @@ const About = async () => {
 
       <section className="section">
         <div className="container">
-          <div className="bg-light px-7 py-20 dark:bg-darkmode-light text-center rounded-2xl">
+          <div className="bg-light px-7 py-20  text-center rounded-2xl">
             <h2>{t("reasonsTitle")}</h2>
 
             <div className="row justify-center gap-6 mt-14">
@@ -186,7 +184,7 @@ const About = async () => {
 
       <section>
         <div className="container">
-          <div className="bg-light px-7 lg:px-32 py-20 dark:bg-darkmode-light mb-14 xl:mb-28 rounded-b-2xl">
+          <div className="bg-light px-7 lg:px-32 py-20  mb-14 xl:mb-28 rounded-b-2xl">
             <div className="row">
               <div className="md:col-5 mx-auto space-y-5 mb-10 md:mb-0">
                 <h1 dangerouslySetInnerHTML={markdownify(faq_section_title!)} />

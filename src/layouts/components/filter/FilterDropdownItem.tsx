@@ -19,7 +19,7 @@ function PathFilterItem({ item }: { item: PathFilterItemType }) {
   newParams.delete("q");
 
   return (
-    <li className="mt-2 flex text-black dark:text-white" key={item.title}>
+    <li className="mt-2 flex text-black " key={item.title}>
       <DynamicTag
         href={createUrl(item.path, newParams)}
         className={`w-full text-sm ${
@@ -60,7 +60,7 @@ function SortFilterItem({ item }: { item: SortFilterItemType }) {
         className={`w-full px-4 py-2.5 transition-colors ${
           active
             ? "bg-primary text-white font-semibold"
-            : "text-text dark:text-darkmode-text hover:bg-light dark:hover:bg-darkmode-light"
+            : "text-text  hover:bg-light "
         }`}
       >
         {item.title}

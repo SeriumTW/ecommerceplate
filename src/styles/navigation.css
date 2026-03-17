@@ -1,5 +1,5 @@
 .header {
-  @apply bg-body dark:bg-darkmode-body;
+  @apply bg-body;
 }
 
 /* navbar items */
@@ -8,7 +8,7 @@
 }
 
 .navbar-brand {
-  @apply text-xl font-semibold text-dark dark:text-darkmode-dark;
+  @apply text-xl font-semibold text-dark;
   image {
     @apply max-h-full max-w-full;
   }
@@ -19,7 +19,7 @@
 }
 
 .nav-link {
-  @apply block p-3 font-bold text-2xl transition text-text-light hover:text-text-dark dark:!text-darkmode-text dark:hover:!text-darkmode-primary lg:px-2 lg:py-3 cursor-pointer;
+  @apply block p-3 font-bold text-2xl transition text-text-light hover:text-text-dark   lg:px-2 lg:py-3 cursor-pointer;
 }
 
 .nav-list {
@@ -27,7 +27,7 @@
 }
 
 /* .nav-link {
-  @apply text-gray-700 dark:text-gray-200;
+  @apply text-gray-700 ;
 } */
 
 .submenu-arrow.active {
@@ -35,7 +35,7 @@
 }
 
 .nav-active {
-  @apply text-text-dark dark:text-darkmode-text-dark;
+  @apply text-text-dark;
 }
 
 .nav-dropdown {
@@ -43,7 +43,7 @@
 }
 
 .nav-dropdown-list {
-  @apply z-10 rounded bg-body p-4 shadow dark:bg-darkmode-dark;
+  @apply z-10 rounded bg-body p-4 shadow;
 }
 
 .nav-dropdown-item {
@@ -51,7 +51,7 @@
 }
 
 .nav-dropdown-link {
-  @apply block py-1 font-medium text-xl text-text-light transition hover:!text-darkmode-text-dark dark:!text-darkmode-text dark:hover:text-darkmode-primary;
+  @apply block py-1 text-xl font-medium text-text-light transition hover:!text-text-dark;
 }
 
 /* theme-switcher */
@@ -67,7 +67,7 @@
   }
 
   span {
-    @apply absolute -top-1 left-0 dark:lg:left-4 flex h-6 w-6 items-center justify-center rounded-full bg-dark transition-all duration-300 dark:bg-white;
+    @apply absolute -top-1 left-0  flex h-6 w-6 items-center justify-center rounded-full bg-dark transition-all duration-300;
   }
 
   input:checked + label {
@@ -79,11 +79,11 @@
 
 /* search style */
 .search-icon {
-  @apply cursor-pointer transition text-text-inverse bg-primary dark:text-darkmode-text-dark dark:bg-darkmode-primary;
+  @apply cursor-pointer transition text-text-inverse bg-primary;
 }
 
 .search-modal {
-  @apply invisible absolute left-0 right-0 top-0 z-10 h-10 bg-white opacity-0 transition dark:bg-darkmode-light md:h-full;
+  @apply invisible absolute left-0 right-0 top-0 z-10 h-10 bg-white opacity-0 transition  md:h-full;
   .form-input {
     @apply h-full w-full border-0 text-lg;
   }
@@ -97,5 +97,5 @@
 
 /* footer items */
 .footer-link {
-  @apply text-sm md:text-base font-medium transition text-text-light hover:text-text-dark dark:text-darkmode-text dark:hover:text-darkmode-primary;
+  @apply text-sm md:text-base font-medium transition text-text-light hover:text-text-dark;
 }

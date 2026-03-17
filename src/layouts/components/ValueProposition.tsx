@@ -7,22 +7,22 @@ const ValueProposition = () => {
   const t = useTranslations("valueProposition");
 
   return (
-    <section className="py-16 md:py-20 bg-white dark:bg-darkmode-body">
+    <section className="py-16 md:py-20 bg-white ">
       <div className="container">
         <div className="row items-center gap-y-10">
           {/* Content */}
           <div className="lg:col-6">
             <div className="lg:pr-12">
-              <span className="inline-block px-4 py-2 mb-4 text-sm font-semibold rounded-full bg-primary/10 text-primary dark:bg-darkmode-primary/10 dark:text-darkmode-primary">
+              <span className="inline-block px-4 py-2 mb-4 text-sm font-semibold rounded-full bg-primary/10 text-primary  ">
                 {t("badge")}
               </span>
               <h2 className="mb-4">{t("title")}</h2>
-              <p className="text-lg text-text dark:text-darkmode-text mb-6 leading-relaxed">
+              <p className="text-lg text-text  mb-6 leading-relaxed">
                 {t.rich("paragraphOne", {
                   strong: (chunks) => <strong>{chunks}</strong>,
                 })}
               </p>
-              <p className="text-lg text-text dark:text-darkmode-text mb-8 leading-relaxed">
+              <p className="text-lg text-text  mb-8 leading-relaxed">
                 {t.rich("paragraphTwo", {
                   strong: (chunks) => <strong>{chunks}</strong>,
                 })}
@@ -31,9 +31,9 @@ const ValueProposition = () => {
               {/* Value points */}
               <div className="space-y-4 mb-8">
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-success/20 dark:bg-darkmode-success/20 flex items-center justify-center mt-1">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-success/20  flex items-center justify-center mt-1">
                     <svg
-                      className="w-4 h-4 text-success dark:text-darkmode-success"
+                      className="w-4 h-4 text-success "
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -45,19 +45,19 @@ const ValueProposition = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-text-dark dark:text-darkmode-text-dark mb-1">
+                    <h4 className="font-bold text-text-dark  mb-1">
                       {t("naturalIngredientsTitle")}
                     </h4>
-                    <p className="text-text dark:text-darkmode-text">
+                    <p className="text-text ">
                       {t("naturalIngredientsDescription")}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-success/20 dark:bg-darkmode-success/20 flex items-center justify-center mt-1">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-success/20  flex items-center justify-center mt-1">
                     <svg
-                      className="w-4 h-4 text-success dark:text-darkmode-success"
+                      className="w-4 h-4 text-success "
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -69,19 +69,17 @@ const ValueProposition = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-text-dark dark:text-darkmode-text-dark mb-1">
+                    <h4 className="font-bold text-text-dark  mb-1">
                       {t("teamTestedTitle")}
                     </h4>
-                    <p className="text-text dark:text-darkmode-text">
-                      {t("teamTestedDescription")}
-                    </p>
+                    <p className="text-text ">{t("teamTestedDescription")}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-success/20 dark:bg-darkmode-success/20 flex items-center justify-center mt-1">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-success/20  flex items-center justify-center mt-1">
                     <svg
-                      className="w-4 h-4 text-success dark:text-darkmode-success"
+                      className="w-4 h-4 text-success "
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -93,10 +91,10 @@ const ValueProposition = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-text-dark dark:text-darkmode-text-dark mb-1">
+                    <h4 className="font-bold text-text-dark  mb-1">
                       {t("sustainabilityTitle")}
                     </h4>
-                    <p className="text-text dark:text-darkmode-text">
+                    <p className="text-text ">
                       {t("sustainabilityDescription")}
                     </p>
                   </div>
@@ -119,11 +117,11 @@ const ValueProposition = () => {
                 height={800}
                 className="w-full h-auto object-cover"
               />
-              <div className="absolute bottom-6 left-6 right-6 bg-white/95 dark:bg-darkmode-body/95 backdrop-blur-sm p-4 rounded-2xl">
-                <p className="text-sm font-bold text-text-dark dark:text-darkmode-text-dark mb-1">
+              <div className="absolute bottom-6 left-6 right-6 bg-white/95  backdrop-blur-sm p-4 rounded-2xl">
+                <p className="text-sm font-bold text-text-dark  mb-1">
                   {t("commitmentTitle")}
                 </p>
-                <p className="text-xs text-text dark:text-darkmode-text">
+                <p className="text-xs text-text ">
                   {t("commitmentDescription")}
                 </p>
               </div>

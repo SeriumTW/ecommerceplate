@@ -23,7 +23,7 @@ const NewsletterSignup = () => {
   };
 
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-br from-primary/10 via-primary-muted/20 to-light/30 dark:from-darkmode-primary/10 dark:via-darkmode-primary-muted/20 dark:to-darkmode-light/10">
+    <section className="py-16 md:py-20 bg-gradient-to-br from-primary/10 via-primary-muted/20 to-light/30   ">
       <div className="container">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge incentivo */}
@@ -35,7 +35,7 @@ const NewsletterSignup = () => {
           </div>
 
           <h2 className="mb-4">{t("title")}</h2>
-          <p className="text-lg md:text-xl text-text dark:text-darkmode-text mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-text  mb-8 max-w-2xl mx-auto leading-relaxed">
             {t.rich("subtitle", {
               strong: (chunks) => <strong>{chunks}</strong>,
             })}
@@ -51,25 +51,12 @@ const NewsletterSignup = () => {
                 placeholder={t("emailPlaceholder")}
                 required
                 disabled={isSubmitting}
-                className="flex-1 px-5 py-4 rounded-2xl border-2 border-border dark:border-darkmode-border bg-white dark:bg-darkmode-body text-text dark:text-darkmode-text placeholder:text-text/50 dark:placeholder:text-darkmode-text/50 focus:outline-none focus:border-primary dark:focus:border-darkmode-primary transition-colors disabled:opacity-50"
+                className="flex-1 px-5 py-4 rounded-2xl border-2 border-border  bg-white  text-text  placeholder:text-text/50  focus:outline-none focus:border-primary  transition-colors disabled:opacity-50"
               />
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn btn-lg px-8 font-semibold whitespace-nowrap disabled:opacity-50"
-                style={{
-                  backgroundColor: "#FF7A59",
-                  color: "#FFFFFF",
-                  borderColor: "#FF7A59",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isSubmitting) {
-                    e.currentTarget.style.backgroundColor = "#FF6342";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "#FF7A59";
-                }}
+                className="btn btn-lg btn-primary whitespace-nowrap px-8 font-semibold disabled:opacity-50"
               >
                 {isSubmitting ? t("sending") : t("getDiscount")}
               </button>
@@ -91,17 +78,15 @@ const NewsletterSignup = () => {
           )}
 
           {/* Privacy note */}
-          <p className="text-xs text-text/70 dark:text-darkmode-text/70 mt-4">
-            {t("privacyNote")}
-          </p>
+          <p className="text-xs text-text/70  mt-4">{t("privacyNote")}</p>
 
           {/* Social proof mini */}
-          <div className="flex items-center justify-center gap-2 mt-8 text-sm text-text dark:text-darkmode-text">
+          <div className="flex items-center justify-center gap-2 mt-8 text-sm text-text ">
             <div className="flex -space-x-2">
               {[1, 2, 3, 4].map((i) => (
                 <div
                   key={i}
-                  className="w-8 h-8 rounded-full bg-primary-muted dark:bg-darkmode-primary-muted border-2 border-white dark:border-darkmode-body"
+                  className="w-8 h-8 rounded-full bg-primary-muted  border-2 border-white "
                 />
               ))}
             </div>

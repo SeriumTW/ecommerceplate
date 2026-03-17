@@ -77,7 +77,7 @@ const UnifiedTopBar: React.FC<UnifiedTopBarProps> = ({ links }) => {
 
   return (
     <div
-      className="bg-gradient-to-r from-primary via-primary-hover to-primary dark:from-darkmode-primary dark:via-darkmode-primary-hover dark:to-darkmode-primary text-white shadow-sm relative overflow-hidden"
+      className="bg-gradient-to-r from-primary via-primary-hover to-primary    text-white shadow-sm relative overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

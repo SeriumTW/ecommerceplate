@@ -41,10 +41,9 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
   const enableDropdown = false; // toggle rapido per riabilitare il dropdown desktop
 
   const baseItemClasses =
-    "rounded-full px-4 py-2 whitespace-nowrap transition hover:bg-primary/10 hover:text-primary dark:hover:bg-darkmode-primary/20 dark:hover:text-darkmode-primary";
-  const activeItemClasses =
-    "bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary";
-  const inactiveItemClasses = "text-text-dark dark:text-darkmode-text";
+    "rounded-full px-4 py-2 whitespace-nowrap transition hover:bg-primary/10 hover:text-primary  ";
+  const activeItemClasses = "bg-primary/10 text-primary  ";
+  const inactiveItemClasses = "text-text-dark ";
 
   const getItemClassName = (isActive: boolean, extraClassName = "") =>
     `${baseItemClasses} ${isActive ? activeItemClasses : inactiveItemClasses} ${extraClassName}`.trim();
@@ -133,7 +132,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
         </button>
 
         <div
-          className={`absolute left-0 top-full z-20 mt-3 min-w-[200px] rounded-3xl bg-body p-3 shadow-lg/20 transition-all duration-150 dark:bg-darkmode-body ${
+          className={`absolute left-0 top-full z-20 mt-3 min-w-[200px] rounded-3xl bg-body p-3 shadow-lg/20 transition-all duration-150  ${
             isOpen
               ? "visible translate-y-0 opacity-100"
               : "invisible translate-y-2 opacity-0"

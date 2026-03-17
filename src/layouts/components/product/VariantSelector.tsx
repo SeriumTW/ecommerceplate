@@ -166,17 +166,17 @@ export function VariantSelector({
                     title={`${option.name} ${value}${
                       !isAvailableForSale ? ` (${t("outOfStock")})` : ""
                     }`}
-                    className={`flex min-w-[48px] min-h-[44px] items-center justify-center rounded-2xl border border-border text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 ${
+                    className={`flex min-w-[48px] min-h-[44px] items-center justify-center rounded-2xl border border-border text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50  ${
                       isActive && option.name !== "Color"
-                        ? "cursor-default ring-2 ring-dark dark:ring-darkmode-dark"
+                        ? "cursor-default ring-2 ring-dark "
                         : ""
                     } ${
                       !isActive && isAvailableForSale && option.name !== "Color"
-                        ? "ring-1 ring-transparent transition duration-300 ease-in-out hover:scale-110 hover:ring-dark hover:dark:ring-darkmode-dark"
+                        ? "ring-1 ring-transparent transition duration-300 ease-in-out hover:scale-110 hover:ring-dark "
                         : ""
                     } ${
                       !isAvailableForSale
-                        ? "relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 dark:bg-neutral-900 dark:text-neutral-400"
+                        ? "relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500  "
                         : ""
                     }`}
                   >
@@ -185,8 +185,7 @@ export function VariantSelector({
                       <div
                         key={value}
                         className={`relative rounded-2xl overflow-hidden ${
-                          isActive &&
-                          "outline-1 outline-dark dark:outline-darkmode-dark"
+                          isActive && "outline-1 outline-dark "
                         }`}
                       >
                         <Image

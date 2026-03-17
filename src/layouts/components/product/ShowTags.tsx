@@ -34,8 +34,8 @@ const ShowTags: React.FC<ShowTagsProps> = ({ tags }) => {
           key={tag}
           className={`cursor-pointer px-3 md:px-4 py-1.5 md:py-2 rounded-2xl border text-xs md:text-sm font-medium transition-all ${
             selectedTag === slugify(tag.toLowerCase())
-              ? "bg-primary text-white border-primary dark:bg-darkmode-primary dark:border-darkmode-primary"
-              : "border-border dark:border-darkmode-border/40 text-text-dark dark:text-darkmode-text-dark hover:border-primary/50 hover:bg-primary/5 dark:hover:bg-darkmode-primary/5"
+              ? "bg-primary text-white border-primary  "
+              : "border-border  text-text-dark  hover:border-primary/50 hover:bg-primary/5 "
           }`}
           onClick={() => handleTagClick(tag)}
         >

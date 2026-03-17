@@ -52,7 +52,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Card Elevation Container - Orizzontale */}
-      <div className="bg-white dark:bg-darkmode-body shadow-lg hover:shadow-2xl rounded-2xl overflow-hidden transition-all duration-300 group-hover:-translate-y-1 flex flex-col md:flex-row">
+      <div className="bg-white  shadow-lg hover:shadow-2xl rounded-2xl overflow-hidden transition-all duration-300 group-hover:-translate-y-1 flex flex-col md:flex-row">
         {/* Immagine Container Quadrata (40% width desktop) */}
         <div className="relative md:w-[40%] aspect-square overflow-hidden">
           {/* Badge piccoli nell'angolo alto-sinistra */}
@@ -68,7 +68,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
               </span>
             )}
             {!product?.availableForSale && (
-              <span className="px-2 py-0.5 bg-text/70 dark:bg-darkmode-text/70 text-white text-[10px] font-semibold rounded-2xl shadow">
+              <span className="px-2 py-0.5 bg-text/70  text-white text-[10px] font-semibold rounded-2xl shadow">
                 {t("outBadge")}
               </span>
             )}
@@ -108,7 +108,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
             <h2 className="text-lg md:text-xl font-semibold mb-3">
               <Link
                 href={`/products/${product?.handle}`}
-                className="hover:text-primary dark:hover:text-darkmode-primary transition-colors"
+                className="hover:text-primary  transition-colors"
               >
                 {product?.title}
               </Link>
@@ -120,7 +120,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
                 as="span"
                 amount={currentPrice.toFixed(2)}
                 currencyCode={product.priceRange.minVariantPrice.currencyCode}
-                className="text-xl md:text-2xl font-bold text-text-dark dark:text-darkmode-text-dark"
+                className="text-xl md:text-2xl font-bold text-text-dark "
               />
               {hasDiscount && (
                 <Price
@@ -129,13 +129,13 @@ export default function ProductListItem({ product }: ProductListItemProps) {
                   currencyCode={
                     product.compareAtPriceRange.maxVariantPrice.currencyCode
                   }
-                  className="text-sm md:text-base text-text-light dark:text-darkmode-text-light line-through"
+                  className="text-sm md:text-base text-text-light  line-through"
                 />
               )}
             </div>
 
             {/* Descrizione */}
-            <p className="text-sm md:text-base text-text-light dark:text-darkmode-text-light mb-4 line-clamp-2">
+            <p className="text-sm md:text-base text-text-light  mb-4 line-clamp-2">
               {product?.description}
             </p>
           </div>
@@ -154,7 +154,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
                 .map((color, idx) => (
                   <div
                     key={idx}
-                    className="w-5 h-5 rounded-full border border-border dark:border-darkmode-border shadow-sm cursor-pointer hover:scale-110 transition-transform"
+                    className="w-5 h-5 rounded-full border border-border  shadow-sm cursor-pointer hover:scale-110 transition-transform"
                     style={{ backgroundColor: getColorHex(color) }}
                     title={color}
                   />

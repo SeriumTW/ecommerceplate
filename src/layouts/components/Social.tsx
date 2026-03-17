@@ -83,7 +83,7 @@ const Social: React.FC<{ socialName: string; className: string }> = ({
         >
           <span className="sr-only">{t("copyLink")}</span>
           {isTooltipVisible && (
-            <span className="text-xs absolute -right-16 text-text dark:text-darkmode-text whitespace-nowrap">
+            <span className="text-xs absolute -right-16 text-text  whitespace-nowrap">
               <DynamicIcon
                 className="inline-block text-green-500"
                 icon={"FaLink"}

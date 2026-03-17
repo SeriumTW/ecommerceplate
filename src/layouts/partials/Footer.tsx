@@ -22,12 +22,12 @@ const Footer = () => {
   const t = useTranslations("footer");
 
   return (
-    <footer className="footer-grain border-t border-border/80 bg-primary_muted dark:border-darkmode-border/40 dark:bg-darkmode-light">
+    <footer className="footer-grain border-t border-border/80 bg-primary_muted  ">
       <div className="container py-12 md:py-16">
         <div className="grid gap-10 md:grid-cols-[minmax(0,2fr)_repeat(2,minmax(0,1fr))] md:gap-14 lg:gap-20">
           <div>
             <Logo />
-            <p className="mt-4 max-w-md text-sm text-support-1 dark:text-support-1">
+            <p className="mt-4 max-w-md text-sm text-support-1 ">
               {t("description")}
             </p>
             <ul className="mt-6 flex gap-3 social-icons social-icons-footer">
@@ -48,14 +48,14 @@ const Footer = () => {
           </div>
 
           <nav aria-label={t("footerNavigation")}>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.35em] text-support-1 dark:text-support-1">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.35em] text-support-1 ">
               {t("discover")}
             </h2>
-            <ul className="mt-4 space-y-3 text-sm font-medium text-text dark:text-darkmode-text">
+            <ul className="mt-4 space-y-3 text-sm font-medium text-text ">
               {menu.footer.map((item) => (
                 <li key={item.name}>
                   <Link
-                    className="transition hover:text-support-1 dark:hover:text-support-1"
+                    className="transition hover:text-support-1 "
                     href={item.url}
                   >
                     {getFooterLinkLabel(item.url, item.name, tCommon)}
@@ -66,14 +66,14 @@ const Footer = () => {
           </nav>
 
           <div>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.35em] text-support-1 dark:text-support-1">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.35em] text-support-1 ">
               {t("support")}
             </h2>
-            <ul className="mt-4 space-y-3 text-sm font-medium text-text dark:text-darkmode-text">
+            <ul className="mt-4 space-y-3 text-sm font-medium text-text ">
               {menu.footerCopyright.map((item) => (
                 <li key={item.name}>
                   <Link
-                    className="transition hover:text-support-1 dark:hover:text-support-1"
+                    className="transition hover:text-support-1 "
                     href={item.url}
                   >
                     {getFooterLinkLabel(item.url, item.name, tCommon)}
@@ -84,10 +84,10 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-border/80 pt-6 dark:border-darkmode-border/40">
+        <div className="mt-12 border-t border-border/80 pt-6 ">
           {/* Payment methods */}
           <div className="flex flex-col items-center gap-4 mb-6">
-            <p className="text-xs font-semibold uppercase tracking-wider text-support-1 dark:text-support-1">
+            <p className="text-xs font-semibold uppercase tracking-wider text-support-1 ">
               {t("securePaymentMethods")}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 opacity-70">
@@ -140,7 +140,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-3 text-sm text-text dark:text-darkmode-text md:flex-row">
+          <div className="flex flex-col items-center justify-between gap-3 text-sm text-text  md:flex-row">
             <p className="order-2 text-center md:order-1 md:text-left">
               {t("copyright", {
                 year: new Date().getFullYear(),

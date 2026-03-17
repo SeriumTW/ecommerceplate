@@ -65,10 +65,10 @@ const AccountPage = () => {
         <div className="container">
           <div className="max-w-4xl mx-auto">
             {/* User Profile */}
-            <div className="bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl p-6 md:p-8 mb-6">
+            <div className="bg-white  border border-border  rounded-2xl p-6 md:p-8 mb-6">
               <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
                 <div className="flex-shrink-0">
-                  <div className="h-24 w-24 rounded-full overflow-hidden border-2 border-border dark:border-darkmode-border flex items-center justify-center bg-light dark:bg-darkmode-light">
+                  <div className="h-24 w-24 rounded-full overflow-hidden border-2 border-border  flex items-center justify-center bg-light ">
                     <Gravatar
                       email={customer.email ?? ""}
                       style={{ borderRadius: "50px" }}
@@ -77,16 +77,12 @@ const AccountPage = () => {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-text-dark dark:text-darkmode-text-dark mb-2">
+                  <h2 className="text-2xl font-bold text-text-dark  mb-2">
                     {customer.firstName} {customer.lastName}
                   </h2>
-                  <p className="text-text-light dark:text-darkmode-text-light mb-1">
-                    {customer.email}
-                  </p>
+                  <p className="text-text-light  mb-1">{customer.email}</p>
                   {customer.phone && (
-                    <p className="text-text-light dark:text-darkmode-text-light">
-                      {customer.phone}
-                    </p>
+                    <p className="text-text-light ">{customer.phone}</p>
                   )}
                 </div>
               </div>
@@ -97,19 +93,19 @@ const AccountPage = () => {
               {/* My Orders */}
               <Link
                 href="/orders"
-                className="bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl p-6 hover:border-primary dark:hover:border-darkmode-primary transition-colors group"
+                className="bg-white  border border-border  rounded-2xl p-6 hover:border-primary  transition-colors group"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <div className="h-12 w-12 rounded-full bg-primary/10 dark:bg-darkmode-primary/10 flex items-center justify-center group-hover:bg-primary/20 dark:group-hover:bg-darkmode-primary/20 transition-colors">
-                      <BsBox className="text-primary dark:text-darkmode-primary text-xl" />
+                    <div className="h-12 w-12 rounded-full bg-primary/10  flex items-center justify-center group-hover:bg-primary/20  transition-colors">
+                      <BsBox className="text-primary  text-xl" />
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-text-dark dark:text-darkmode-text-dark mb-1">
+                    <h3 className="text-lg font-semibold text-text-dark  mb-1">
                       {t("myOrders")}
                     </h3>
-                    <p className="text-sm text-text-light dark:text-darkmode-text-light">
+                    <p className="text-sm text-text-light ">
                       {t("myOrdersDesc")}
                     </p>
                   </div>
@@ -117,21 +113,21 @@ const AccountPage = () => {
               </Link>
 
               {/* Addresses */}
-              <div className="bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl p-6 opacity-50 cursor-not-allowed">
+              <div className="bg-white  border border-border  rounded-2xl p-6 opacity-50 cursor-not-allowed">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <div className="h-12 w-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                    <div className="h-12 w-12 rounded-full bg-gray-100  flex items-center justify-center">
                       <BsCreditCard className="text-gray-400 text-xl" />
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-text-dark dark:text-darkmode-text-dark mb-1">
+                    <h3 className="text-lg font-semibold text-text-dark  mb-1">
                       {t("addresses")}
                     </h3>
-                    <p className="text-sm text-text-light dark:text-darkmode-text-light">
+                    <p className="text-sm text-text-light ">
                       {t("addressesDesc")}
                     </p>
-                    <span className="text-xs text-text-light dark:text-darkmode-text-light mt-2 inline-block">
+                    <span className="text-xs text-text-light  mt-2 inline-block">
                       ({t("comingSoon")})
                     </span>
                   </div>
@@ -139,21 +135,21 @@ const AccountPage = () => {
               </div>
 
               {/* Personal Data */}
-              <div className="bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl p-6 opacity-50 cursor-not-allowed">
+              <div className="bg-white  border border-border  rounded-2xl p-6 opacity-50 cursor-not-allowed">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <div className="h-12 w-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                    <div className="h-12 w-12 rounded-full bg-gray-100  flex items-center justify-center">
                       <BsPerson className="text-gray-400 text-xl" />
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-text-dark dark:text-darkmode-text-dark mb-1">
+                    <h3 className="text-lg font-semibold text-text-dark  mb-1">
                       {t("personalData")}
                     </h3>
-                    <p className="text-sm text-text-light dark:text-darkmode-text-light">
+                    <p className="text-sm text-text-light ">
                       {t("personalDataDesc")}
                     </p>
-                    <span className="text-xs text-text-light dark:text-darkmode-text-light mt-2 inline-block">
+                    <span className="text-xs text-text-light  mt-2 inline-block">
                       ({t("comingSoon")})
                     </span>
                   </div>
@@ -161,21 +157,21 @@ const AccountPage = () => {
               </div>
 
               {/* Privacy and Security */}
-              <div className="bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl p-6 opacity-50 cursor-not-allowed">
+              <div className="bg-white  border border-border  rounded-2xl p-6 opacity-50 cursor-not-allowed">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <div className="h-12 w-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                    <div className="h-12 w-12 rounded-full bg-gray-100  flex items-center justify-center">
                       <BsFileText className="text-gray-400 text-xl" />
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-text-dark dark:text-darkmode-text-dark mb-1">
+                    <h3 className="text-lg font-semibold text-text-dark  mb-1">
                       {t("privacySecurity")}
                     </h3>
-                    <p className="text-sm text-text-light dark:text-darkmode-text-light">
+                    <p className="text-sm text-text-light ">
                       {t("privacySecurityDesc")}
                     </p>
-                    <span className="text-xs text-text-light dark:text-darkmode-text-light mt-2 inline-block">
+                    <span className="text-xs text-text-light  mt-2 inline-block">
                       ({t("comingSoon")})
                     </span>
                   </div>

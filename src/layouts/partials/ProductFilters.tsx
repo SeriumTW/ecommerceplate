@@ -62,7 +62,7 @@ const ProductFilters = ({
     <div>
       <div>
         <h5 className="mb-2 lg:text-xl">{t("priceRange")}</h5>
-        <hr className="border-border dark:border-darkmode-border" />
+        <hr className="border-border " />
         <div className="pt-4">
           <Suspense>
             <RangeSlider maxPriceData={maxPriceData} />
@@ -74,15 +74,15 @@ const ProductFilters = ({
         <h5 className="mb-2 mt-4 lg:mt-6 lg:text-xl">
           {t("productCategories")}
         </h5>
-        <hr className="border-border dark:border-darkmode-border" />
+        <hr className="border-border " />
         <ul className="mt-4 space-y-4">
           {categories.map((category) => (
             <li
               key={category.handle}
               className={`flex items-center justify-between cursor-pointer ${
                 selectedCategory === category.handle
-                  ? "text-text-dark dark:text-darkmode-text-dark font-semibold"
-                  : "text-text-light dark:text-darkmode-text-light"
+                  ? "text-text-dark  font-semibold"
+                  : "text-text-light "
               }`}
               onClick={() => handleCategoryClick(category.handle)}
             >
@@ -108,12 +108,12 @@ const ProductFilters = ({
       {vendors && (
         <div>
           <h5 className="mb-2 mt-8 lg:mt-10 lg:text-xl">{t("brands")}</h5>
-          <hr className="border-border dark:border-darkmode-border" />
+          <hr className="border-border " />
           <ul className="mt-4 space-y-4">
             {vendors.map((vendor) => (
               <li
                 key={vendor.vendor}
-                className={`flex items-center justify-between cursor-pointer text-text-light dark:text-darkmode-text-light`}
+                className="flex cursor-pointer items-center justify-between text-text-light"
                 onClick={() => handleBrandClick(vendor.vendor)}
               >
                 {searchParams.has("b") &&
@@ -136,7 +136,7 @@ const ProductFilters = ({
                       : `${vendor.vendor} (${vendor.productCount})`}
                   </span>
                 )}
-                <div className="h-4 w-4 rounded-sm flex items-center justify-center border border-border dark:border-border/40">
+                <div className="flex h-4 w-4 items-center justify-center rounded-sm border border-border">
                   {selectedBrands.map((b, i) =>
                     slugify(vendor.vendor.toLowerCase()) === b ? (
                       <span key={i}>
@@ -154,7 +154,7 @@ const ProductFilters = ({
       {tags.length > 0 && (
         <div>
           <h5 className="mb-2 mt-8 lg:mt-10 lg:text-xl">{t("tagsLabel")}</h5>
-          <hr className="border-border dark:border-darkmode-border" />
+          <hr className="border-border " />
           <div className="mt-4">
             <Suspense>
               {" "}

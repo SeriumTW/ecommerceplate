@@ -28,7 +28,7 @@ const MobileHeaderRow = ({
 }) => (
   <div className="flex items-center justify-between lg:hidden">
     <div className="flex items-center">
-      <div className="origin-left scale-[0.80]">
+      <div className="origin-left scale-[0.88]">
         <Logo />
       </div>
     </div>
@@ -41,7 +41,7 @@ const MobileHeaderRow = ({
         type="button"
         onClick={onToggleDrawer}
         aria-label={openNavigationLabel}
-        className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border text-2xl text-text-dark transition hover:border-primary/40 hover:text-primary dark:border-darkmode-border dark:text-darkmode-text dark:hover:border-darkmode-primary/40 dark:hover:text-darkmode-primary"
+        className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border text-2xl text-text-dark transition hover:border-primary/40 hover:text-primary    "
       >
         <LuMenu />
       </button>
@@ -68,7 +68,7 @@ const Header: React.FC<HeaderCartProps> = ({ cartFallback, cartContent }) => {
     >
       {header_topbar?.enable && <UnifiedTopBar links={topBarLinks} />}
 
-      <div className="relative bg-body/95 backdrop-blur dark:bg-darkmode-body/95">
+      <div className="relative bg-body/95 backdrop-blur ">
         <div className="container space-y-3 py-2 lg:space-y-5 lg:py-5">
           <MobileHeaderRow
             onToggleDrawer={toggleDrawer}

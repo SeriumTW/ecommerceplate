@@ -17,7 +17,7 @@ const StockIndicator = ({
   if (availableForSale) {
     return (
       <div
-        className={`inline-flex items-center gap-1.5 text-success dark:text-darkmode-success ${className}`}
+        className={`inline-flex items-center gap-1.5 text-success  ${className}`}
       >
         <HiCheckCircle size={18} />
         <span className="text-sm md:text-base font-medium">
@@ -29,7 +29,7 @@ const StockIndicator = ({
 
   return (
     <div
-      className={`inline-flex items-center gap-1.5 text-error dark:text-darkmode-error ${className}`}
+      className={`inline-flex items-center gap-1.5 text-error  ${className}`}
     >
       <HiXCircle size={18} />
       <span className="text-sm md:text-base font-medium">{t("soldOut")}</span>

@@ -95,9 +95,9 @@ const MobileDrawerUserSection: React.FC<{
   );
 
   return (
-    <section className="space-y-5 rounded-2xl border border-border/60 bg-white/95 p-6 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
+    <section className="space-y-5 rounded-2xl border border-border/60 bg-white/95 p-6 shadow-md  ">
       <div className="flex items-center gap-4">
-        <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-border/40 bg-white dark:border-darkmode-border/50 dark:bg-darkmode-light/30">
+        <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-border/40 bg-white  ">
           {customer ? (
             <Gravatar
               email={customer.email ?? ""}
@@ -105,24 +105,24 @@ const MobileDrawerUserSection: React.FC<{
               style={{ borderRadius: "9999px" }}
             />
           ) : (
-            <BsPerson className="text-4xl text-primary dark:text-darkmode-primary" />
+            <BsPerson className="text-4xl text-primary " />
           )}
         </div>
 
         <div className="min-w-0">
-          <p className="text-lg font-semibold text-text-dark dark:text-darkmode-text">
+          <p className="text-lg font-semibold text-text-dark ">
             {customer
               ? t("greeting", { name: greetingName })
               : t("guestGreeting")}
           </p>
-          <p className="text-sm text-text-light dark:text-darkmode-text/70">
+          <p className="text-sm text-text-light ">
             {customer ? customer.email : t("guestDescription")}
           </p>
         </div>
       </div>
 
       {loading ? (
-        <p className="text-base font-medium text-text-light dark:text-darkmode-text/60">
+        <p className="text-base font-medium text-text-light ">
           {t("loadingProfile")}
         </p>
       ) : customer ? (
@@ -184,11 +184,11 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
       />
 
       <div
-        className={`fixed inset-0 z-50 flex h-full w-full transform flex-col bg-body/95 backdrop-blur transition-transform duration-300 dark:bg-darkmode-body/95 ${open ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed inset-0 z-50 flex h-full w-full transform flex-col bg-body/95 backdrop-blur transition-transform duration-300  ${open ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="flex items-center justify-between border-b border-border/60 px-4 py-2 dark:border-darkmode-border/60">
+        <div className="flex items-center justify-between border-b border-border/60 px-4 py-2 ">
           <div className="flex items-center">
-            <div className="origin-left scale-[0.80]">
+            <div className="origin-left scale-[0.88]">
               <Logo />
             </div>
           </div>
@@ -199,7 +199,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
             <button
               type="button"
-              className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border text-2xl transition hover:border-primary/40 hover:text-primary dark:border-darkmode-border dark:text-darkmode-text dark:hover:border-darkmode-primary/40 dark:hover:text-darkmode-primary"
+              className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-border text-2xl transition hover:border-primary/40 hover:text-primary    "
               onClick={onClose}
               aria-label={t("closeNavigation")}
             >
@@ -211,8 +211,8 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
         <div className="flex-1 overflow-y-auto px-6 pb-12 pt-8">
           <div className="space-y-10">
             {settings.search ? (
-              <section className="space-y-5 rounded-2xl border border-border/50 bg-white/95 p-6 shadow-md dark:border-darkmode-border/60 dark:bg-darkmode-light/20">
-                <p className="text-base font-semibold uppercase tracking-[0.3em] text-primary/70 dark:text-darkmode-primary">
+              <section className="space-y-5 rounded-2xl border border-border/50 bg-white/95 p-6 shadow-md  ">
+                <p className="text-base font-semibold uppercase tracking-[0.3em] text-primary/70 ">
                   {t("searchCatalog")}
                 </p>
                 <Suspense fallback={null}>
@@ -235,19 +235,19 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
                   <Link
                     href={item.url || "#"}
                     onClick={onClose}
-                    className="flex items-center justify-between rounded-2xl bg-white px-6 py-4 text-lg font-semibold text-text-dark shadow-sm transition hover:bg-primary/10 hover:text-primary dark:bg-darkmode-light/20 dark:text-darkmode-text dark:hover:bg-darkmode-primary/20 dark:hover:text-darkmode-primary"
+                    className="flex items-center justify-between rounded-2xl bg-white px-6 py-4 text-lg font-semibold text-text-dark shadow-sm transition hover:bg-primary/10 hover:text-primary    "
                   >
                     {getNavigationItemLabel(item, tCommon, tNav)}
                     <LuArrowRight className="text-base opacity-60" />
                   </Link>
                   {item.children?.length ? (
-                    <ul className="ml-4 border-l border-border/40 pl-4 dark:border-darkmode-border/40">
+                    <ul className="ml-4 border-l border-border/40 pl-4 ">
                       {item.children.map((child) => (
                         <li key={child.url} className="py-2">
                           <Link
                             href={child.url}
                             onClick={onClose}
-                            className="text-base text-text-light transition hover:text-primary dark:text-darkmode-text dark:hover:text-darkmode-primary"
+                            className="text-base text-text-light transition hover:text-primary  "
                           >
                             {getNavigationItemLabel(child, tCommon, tNav)}
                           </Link>
@@ -261,7 +261,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
           </div>
         </div>
 
-        <div className="border-t border-border/60 px-6 py-6 dark:border-darkmode-border/60">
+        <div className="border-t border-border/60 px-6 py-6 ">
           <div className="flex items-center justify-between">
             {navigationButton?.enable ? (
               <Link

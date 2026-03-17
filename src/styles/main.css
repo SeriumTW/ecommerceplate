@@ -4,8 +4,6 @@
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @import "./safe.css";
 @import "./utilities.css";
 
@@ -29,18 +27,6 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px var(--color-light) inset;
-}
-
-.dark input:-webkit-autofill,
-.dark input:-webkit-autofill:hover,
-.dark input:-webkit-autofill:focus,
-.dark input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px rgba(0, 0, 0, 0.9) inset;
-}
-
-/*Change text in autofill textbox*/
-.dark input:-webkit-autofill {
-  -webkit-text-fill-color: var(--color-darkmode-text-light);
 }
 
 /* AnnouncementBar Animations */

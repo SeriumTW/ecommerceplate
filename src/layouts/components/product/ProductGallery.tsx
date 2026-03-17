@@ -108,7 +108,7 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
         >
           {filteredImages.map((item: ImageItem, index: number) => (
             <SwiperSlide key={item.url}>
-              <div className="mb-6 border border-border dark:border-border/40 rounded-2xl max-h-[623px] overflow-hidden cursor-zoom-in group">
+              <div className="mb-6 border border-border  rounded-2xl max-h-[623px] overflow-hidden cursor-zoom-in group">
                 <div
                   onClick={() => handleImageClick(index)}
                   className="relative w-full h-full"
@@ -123,7 +123,7 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
                   />
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <div className="bg-white/90 dark:bg-darkmode-body/90 px-4 py-2 rounded-full text-sm font-medium text-text-dark dark:text-darkmode-text-dark">
+                    <div className="bg-white/90  px-4 py-2 rounded-full text-sm font-medium text-text-dark ">
                       Clicca per ingrandire
                     </div>
                   </div>
@@ -140,14 +140,14 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
           >
             <div
               ref={prevRef}
-              className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm absolute left-4 hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm absolute left-4 hover:bg-primary/10  transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50  min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Immagine precedente"
             >
               <HiOutlineArrowNarrowLeft size={24} />
             </div>
             <div
               ref={nextRef}
-              className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm absolute right-4 hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="p-2 lg:p-4 rounded-2xl bg-body cursor-pointer shadow-sm absolute right-4 hover:bg-primary/10  transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50  min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Immagine successiva"
             >
               <HiOutlineArrowNarrowRight size={24} />
@@ -169,8 +169,8 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
               onClick={() => handleThumbSlideClick(item.url)}
               className={`rounded-2xl cursor-pointer overflow-hidden transition-all ${
                 picUrl === item.url
-                  ? "border-2 border-primary dark:border-darkmode-primary"
-                  : "border border-border dark:border-border/40 hover:border-primary/50 dark:hover:border-darkmode-primary/50"
+                  ? "border-2 border-primary "
+                  : "border border-border  hover:border-primary/50 "
               }`}
             >
               <Image

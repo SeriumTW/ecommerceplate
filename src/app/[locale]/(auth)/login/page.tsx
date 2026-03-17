@@ -68,7 +68,7 @@ const Login = () => {
             </Suspense>
             <div className="mb-14 text-center">
               <h2 className="max-md:h1 md:mb-2">{t("loginTitle")}</h2>
-              <p className="md:text-lg text-text-light dark:text-darkmode-text-light">
+              <p className="md:text-lg text-text-light ">
                 {t("loginSubtitle")}
               </p>
             </div>
@@ -76,7 +76,7 @@ const Login = () => {
             <form
               onSubmit={handleLogin}
               noValidate
-              className="border border-border dark:border-darkmode-border rounded-2xl p-10"
+              className="border border-border  rounded-2xl p-10"
             >
               <div>
                 <label htmlFor="email" className="form-label">
@@ -134,7 +134,7 @@ const Login = () => {
                   {errorMessages.map((error: CustomerError) => (
                     <p
                       key={error.code}
-                      className="font-medium text-error dark:text-darkmode-error text-sm flex items-start gap-2"
+                      className="font-medium text-error  text-sm flex items-start gap-2"
                     >
                       <span aria-hidden="true">*</span>
                       <span>
@@ -149,7 +149,7 @@ const Login = () => {
 
               <button
                 type="submit"
-                className="btn btn-primary md:text-lg md:font-medium w-full mt-10 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 min-h-[44px]"
+                className="btn btn-primary md:text-lg md:font-medium w-full mt-10 focus:outline-none focus:ring-2 focus:ring-primary/50  min-h-[44px]"
                 disabled={loading}
                 aria-busy={loading}
               >
@@ -169,11 +169,9 @@ const Login = () => {
             </form>
 
             <div className="flex gap-x-2 text-sm md:text-base mt-4">
-              <p className="text-text-light dark:text-darkmode-text-light">
-                {t("noAccount")}
-              </p>
+              <p className="text-text-light ">{t("noAccount")}</p>
               <Link
-                className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
+                className="underline font-medium text-primary hover:text-primary_hover   transition-colors"
                 href={"/sign-up"}
               >
                 {t("register")}

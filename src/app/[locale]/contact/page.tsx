@@ -56,11 +56,11 @@ const Contact = async () => {
               contact_meta?.map((contact: ContactUsItem) => (
                 <div
                   key={contact.name}
-                  className="p-10 bg-light dark:bg-darkmode-light rounded-2xl text-center"
+                  className="p-10 bg-light  rounded-2xl text-center"
                 >
                   <p
                     dangerouslySetInnerHTML={markdownify(contact.name)}
-                    className="mb-6 h3 font-medium text-text-dark dark:text-darkmode-text-dark"
+                    className="mb-6 h3 font-medium text-text-dark "
                   />
                   <p dangerouslySetInnerHTML={markdownify(contact.contact)} />
                 </div>
@@ -75,7 +75,7 @@ const Contact = async () => {
             <h2 className="mb-14 text-center">{t("title")}</h2>
 
             <form
-              className="border border-border dark:border-darkmode-border rounded-2xl p-10"
+              className="border border-border  rounded-2xl p-10"
               action={contact_form_action}
               method="POST"
             >

@@ -25,20 +25,17 @@ const Breadcrumbs = ({ className, items }: BreadcrumbsProps) => {
   if (items && items.length > 0) {
     return (
       <nav aria-label="Breadcrumb" className={className}>
-        <ol className="flex items-center justify-center gap-2 text-sm text-text-light dark:text-darkmode-text-light">
+        <ol className="flex items-center justify-center gap-2 text-sm text-text-light ">
           {/* Home sempre visibile */}
           <li className="flex items-center gap-2">
             <Link
               href="/"
-              className="flex items-center gap-1 hover:text-primary dark:hover:text-darkmode-primary transition-colors"
+              className="flex items-center gap-1 hover:text-primary  transition-colors"
             >
               <HiHome size={16} />
               <span className="hidden sm:inline">{t("home")}</span>
             </Link>
-            <HiChevronRight
-              size={14}
-              className="text-border dark:text-darkmode-border"
-            />
+            <HiChevronRight size={14} className="text-border " />
           </li>
 
           {items.map((item, index) => {
@@ -47,20 +44,20 @@ const Breadcrumbs = ({ className, items }: BreadcrumbsProps) => {
             return (
               <li key={item.href} className="flex items-center gap-2">
                 {isLast || item.current ? (
-                  <span className="text-text-dark dark:text-darkmode-text-dark font-medium truncate max-w-[200px]">
+                  <span className="text-text-dark  font-medium truncate max-w-[200px]">
                     {item.label}
                   </span>
                 ) : (
                   <>
                     <Link
                       href={item.href}
-                      className="hover:text-primary dark:hover:text-darkmode-primary transition-colors truncate max-w-[150px]"
+                      className="hover:text-primary  transition-colors truncate max-w-[150px]"
                     >
                       {item.label}
                     </Link>
                     <HiChevronRight
                       size={14}
-                      className="text-border dark:text-darkmode-border flex-shrink-0"
+                      className="text-border  flex-shrink-0"
                     />
                   </>
                 )}
@@ -76,12 +73,7 @@ const Breadcrumbs = ({ className, items }: BreadcrumbsProps) => {
   const paths = pathname.split("/").filter((x) => x);
   let parts = [
     {
-      label: (
-        <HiHome
-          className="text-text-light dark:text-darkmode-text-light"
-          size={16}
-        />
-      ),
+      label: <HiHome className="text-text-light " size={16} />,
       href: "/",
       "aria-label": pathname === "/" ? "page" : undefined,
     },
@@ -109,23 +101,13 @@ const Breadcrumbs = ({ className, items }: BreadcrumbsProps) => {
             role="listitem"
             key={index}
           >
-            {index > 0 && (
-              <HiChevronRight
-                size={14}
-                className="text-border dark:text-darkmode-border"
-              />
-            )}
+            {index > 0 && <HiChevronRight size={14} className="text-border " />}
             {index !== parts.length - 1 ? (
-              <Link
-                className="text-primary dark:text-darkmode-primary hover:underline"
-                {...attrs}
-              >
+              <Link className="text-primary  hover:underline" {...attrs}>
                 {label}
               </Link>
             ) : (
-              <span className="text-text-dark dark:text-darkmode-text-dark font-medium">
-                {label}
-              </span>
+              <span className="text-text-dark  font-medium">{label}</span>
             )}
           </li>
         ))}

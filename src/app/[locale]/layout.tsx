@@ -59,16 +59,14 @@ export default async function LocaleLayout({
         <link rel="shortcut icon" href={config.site.favicon} />
         {/* theme meta */}
         <meta name="theme-name" content="commerceplate" />
-        <meta name="msapplication-TileColor" content="#000000" />
         <meta
-          name="theme-color"
-          media="(prefers-color-scheme: light)"
-          content="#fff"
+          name="msapplication-TileColor"
+          content={theme.colors.default.theme_color.primary}
         />
         <meta
           name="theme-color"
-          media="(prefers-color-scheme: dark)"
-          content="#000"
+          media="(prefers-color-scheme: light)"
+          content={theme.colors.default.theme_color.body}
         />
 
         {/* google font css */}

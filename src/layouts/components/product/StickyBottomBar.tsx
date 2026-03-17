@@ -25,7 +25,7 @@ const StickyBottomBar = ({
   const hasDiscount = compareAtPrice > currentPrice && compareAtPrice > 0;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-darkmode-body border-t border-border dark:border-darkmode-border shadow-2xl z-50 lg:hidden">
+    <div className="fixed bottom-0 left-0 right-0 bg-white  border-t border-border  shadow-2xl z-50 lg:hidden">
       <div className="container">
         <div className="flex items-center justify-between gap-3 py-4">
           {/* Prezzo */}
@@ -35,7 +35,7 @@ const StickyBottomBar = ({
                 as="span"
                 amount={currentPrice.toFixed(2)}
                 currencyCode={product.priceRange.minVariantPrice.currencyCode}
-                className="text-xl md:text-2xl font-bold text-text-dark dark:text-darkmode-text-dark"
+                className="text-xl md:text-2xl font-bold text-text-dark "
               />
               {hasDiscount && (
                 <Price
@@ -44,12 +44,12 @@ const StickyBottomBar = ({
                   currencyCode={
                     product.compareAtPriceRange.maxVariantPrice.currencyCode
                   }
-                  className="text-xs md:text-sm text-text-light dark:text-darkmode-text-light line-through"
+                  className="text-xs md:text-sm text-text-light  line-through"
                 />
               )}
             </div>
             {hasDiscount && (
-              <span className="text-xs text-success dark:text-darkmode-success font-medium">
+              <span className="text-xs text-success  font-medium">
                 {t("save")}{" "}
                 <Price
                   as="span"

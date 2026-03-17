@@ -181,10 +181,7 @@ const ProductCardView = ({
 
       {(hasNextPage || isFetchingMore) && (
         <div className="flex justify-center mt-12">
-          <BiLoaderAlt
-            className="animate-spin text-primary dark:text-darkmode-primary"
-            size={40}
-          />
+          <BiLoaderAlt className="animate-spin text-primary " size={40} />
         </div>
       )}
     </div>

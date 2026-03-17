@@ -123,7 +123,7 @@ const ShowProductSingle = async ({
 
             {/* left side contents  */}
             <div className="col-10 md:col-8 lg:col-6 md:ml-7 py-6 lg:py-0">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-text-dark dark:text-darkmode-text-dark">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-text-dark ">
                 {title}
               </h1>
 
@@ -132,7 +132,7 @@ const ShowProductSingle = async ({
                   as="span"
                   amount={priceRange.minVariantPrice.amount}
                   currencyCode={priceRange.minVariantPrice.currencyCode}
-                  className="text-xl md:text-2xl font-bold text-text-dark dark:text-darkmode-text-dark"
+                  className="text-xl md:text-2xl font-bold text-text-dark "
                 />
                 {parseFloat(compareAtPriceRange?.maxVariantPrice.amount) > 0 ? (
                   <Price
@@ -141,7 +141,7 @@ const ShowProductSingle = async ({
                     currencyCode={
                       compareAtPriceRange.maxVariantPrice.currencyCode
                     }
-                    className="text-sm md:text-base text-text-light dark:text-darkmode-text-light line-through"
+                    className="text-sm md:text-base text-text-light  line-through"
                   />
                 ) : (
                   ""
@@ -179,8 +179,8 @@ const ShowProductSingle = async ({
                 <TrustBadges />
               </div>
 
-              <div className="mb-8 md:mb-10 bg-light/50 dark:bg-darkmode-light/30 p-4 md:p-5 rounded-2xl overflow-hidden">
-                <h5 className="text-sm md:text-base font-semibold text-text-dark dark:text-darkmode-text-dark mb-3">
+              <div className="mb-8 md:mb-10 bg-light/50  p-4 md:p-5 rounded-2xl overflow-hidden">
+                <h5 className="text-sm md:text-base font-semibold text-text-dark  mb-3">
                   {t("share")}:
                 </h5>
                 <div className="overflow-x-auto">
@@ -189,8 +189,8 @@ const ShowProductSingle = async ({
               </div>
 
               {tags.length > 0 && (
-                <div className="bg-light/50 dark:bg-darkmode-light/30 p-4 md:p-5 rounded-2xl overflow-hidden">
-                  <h5 className="text-sm md:text-base font-semibold text-text-dark dark:text-darkmode-text-dark mb-3">
+                <div className="bg-light/50  p-4 md:p-5 rounded-2xl overflow-hidden">
+                  <h5 className="text-sm md:text-base font-semibold text-text-dark  mb-3">
                     {t("tags")}:
                   </h5>
                   <div className="flex flex-wrap gap-2 overflow-visible">

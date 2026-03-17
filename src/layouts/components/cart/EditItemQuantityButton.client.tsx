@@ -34,16 +34,16 @@ function SubmitButton({ type }: { type: "plus" | "minus" }) {
       }
       aria-disabled={pending}
       disabled={pending}
-      className={`ease flex h-full min-w-[44px] min-h-[44px] flex-none items-center justify-center rounded-full px-2 transition-all duration-200 hover:border-neutral-800 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 ${
+      className={`ease flex h-full min-w-[44px] min-h-[44px] flex-none items-center justify-center rounded-full px-2 transition-all duration-200 hover:border-neutral-800 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-primary/50  ${
         pending ? "cursor-not-allowed opacity-50" : ""
       } ${type === "minus" ? "ml-auto" : ""}`}
     >
       {pending ? (
-        <LoadingDots className="bg-black dark:bg-white" />
+        <LoadingDots className="bg-black " />
       ) : type === "plus" ? (
-        <FaPlus className="h-4 w-4 dark:text-neutral-500" />
+        <FaPlus className="h-4 w-4 " />
       ) : (
-        <FaMinus className="h-4 w-4 dark:text-neutral-500" />
+        <FaMinus className="h-4 w-4 " />
       )}
     </button>
   );

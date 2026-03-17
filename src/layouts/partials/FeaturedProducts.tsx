@@ -54,7 +54,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
               <div className="pt-4 md:pt-6 text-center z-20">
                 <h2 className="font-semibold text-sm md:text-base">
                   <Link
-                    className="after:absolute after:inset-0 text-text-dark dark:text-darkmode-text-dark hover:text-primary dark:hover:text-darkmode-primary transition-colors"
+                    className="after:absolute after:inset-0 text-text-dark  hover:text-primary  transition-colors"
                     href={`/products/${handle}`}
                   >
                     {title}
@@ -65,7 +65,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                     as="span"
                     amount={priceRange.minVariantPrice.amount}
                     currencyCode={priceRange.minVariantPrice.currencyCode}
-                    className="text-sm md:text-base font-bold text-text-dark dark:text-darkmode-text-dark"
+                    className="text-sm md:text-base font-bold text-text-dark "
                   />
 
                   {parseFloat(compareAtPriceRange?.maxVariantPrice.amount) >
@@ -76,7 +76,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                       currencyCode={
                         compareAtPriceRange.maxVariantPrice.currencyCode
                       }
-                      className="text-text-light line-through dark:text-darkmode-text-light text-xs md:text-sm font-medium"
+                      className="text-text-light line-through  text-xs md:text-sm font-medium"
                     />
                   ) : (
                     ""

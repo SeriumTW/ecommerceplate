@@ -57,28 +57,28 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
             return (
               <SwiperSlide key={handle}>
                 <div className="text-center relative group">
-                  <div className="relative overflow-hidden rounded-2xl">
+                  <div className="relative mx-auto aspect-square w-full max-w-[280px] overflow-hidden rounded-full border-4 border-white/70 bg-white/60 p-2 shadow-lg  ">
                     <ImageFallback
                       src={image?.url || "/images/image-placeholder.png"}
                       fallback="/images/image-placeholder.png"
                       width={424}
                       height={306}
                       alt={image?.altText || `${title} collection`}
-                      className="h-[200px] md:h-[250px] lg:h-[306px] object-cover w-full transition-transform duration-300 group-hover:scale-105"
+                      className="h-full w-full rounded-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     {/* Overlay scuro su hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
                   <div className="py-4 md:py-6">
-                    <h3 className="mb-1 md:mb-2 font-bold text-lg md:text-xl text-text-dark dark:text-darkmode-text-dark">
+                    <h3 className="mb-1 md:mb-2 font-bold text-lg md:text-xl text-text-dark ">
                       <Link
-                        className="after:absolute after:inset-0 hover:text-primary dark:hover:text-darkmode-primary transition-colors"
+                        className="after:absolute after:inset-0 hover:text-primary  transition-colors"
                         href={`/products?c=${handle}`}
                       >
                         {title}
                       </Link>
                     </h3>
-                    <p className="text-text dark:text-darkmode-text text-sm md:text-base">
+                    <p className="text-text  text-sm md:text-base">
                       {t("productCount", {
                         count: item.products?.edges.length || 0,
                       })}
@@ -92,33 +92,36 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
       </div>
 
       {/* Desktop: grid statico 3 colonne */}
-      <div className="hidden md:grid md:grid-cols-3 md:gap-6">
+      <div className="hidden md:grid md:grid-cols-3 md:gap-6 md:justify-items-center">
         {collectionsData?.map((item: any) => {
           const { title, handle, image, path, products } = item;
           return (
-            <div key={handle} className="text-center relative group">
-              <div className="relative overflow-hidden rounded-2xl">
+            <div
+              key={handle}
+              className="text-center relative group w-full max-w-[320px]"
+            >
+              <div className="relative mx-auto aspect-square w-full max-w-[320px] overflow-hidden rounded-full border-4 border-white/70 bg-white/60 p-2 shadow-lg  ">
                 <ImageFallback
                   src={image?.url || "/images/image-placeholder.png"}
                   fallback="/images/image-placeholder.png"
                   width={424}
                   height={306}
                   alt={image?.altText || `${title} collection`}
-                  className="h-[250px] lg:h-[306px] object-cover w-full transition-transform duration-300 group-hover:scale-105"
+                  className="h-full w-full rounded-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 {/* Overlay scuro su hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
               <div className="py-4 md:py-6">
-                <h3 className="mb-1 md:mb-2 font-bold text-lg md:text-xl text-text-dark dark:text-darkmode-text-dark">
+                <h3 className="mb-1 md:mb-2 font-bold text-lg md:text-xl text-text-dark ">
                   <Link
-                    className="after:absolute after:inset-0 hover:text-primary dark:hover:text-darkmode-primary transition-colors"
+                    className="after:absolute after:inset-0 hover:text-primary  transition-colors"
                     href={`/products?c=${handle}`}
                   >
                     {title}
                   </Link>
                 </h3>
-                <p className="text-text dark:text-darkmode-text text-sm md:text-base">
+                <p className="text-text  text-sm md:text-base">
                   {t("productCount", {
                     count: item.products?.edges.length || 0,
                   })}

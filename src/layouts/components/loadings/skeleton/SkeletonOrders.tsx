@@ -10,23 +10,23 @@ const SkeletonOrders = () => {
                 .map((_, index) => (
                   <div
                     key={index}
-                    className="bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl p-6"
+                    className="bg-white  border border-border  rounded-2xl p-6"
                   >
                     {/* Header Ordine Skeleton */}
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 pb-6 border-b border-border/20 dark:border-darkmode-border/20">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 pb-6 border-b border-border/20 ">
                       <div className="flex-1">
                         {/* Titolo ordine */}
-                        <div className="h-6 w-32 mb-2 rounded animate-pulse bg-neutral-200 dark:bg-neutral-700" />
+                        <div className="h-6 w-32 mb-2 rounded animate-pulse bg-neutral-200 " />
                         {/* Data */}
-                        <div className="h-4 w-40 rounded animate-pulse bg-neutral-200 dark:bg-neutral-700" />
+                        <div className="h-4 w-40 rounded animate-pulse bg-neutral-200 " />
                       </div>
                       <div className="flex flex-col md:items-end gap-2">
                         {/* Prezzo */}
-                        <div className="h-7 w-24 rounded animate-pulse bg-neutral-200 dark:bg-neutral-700" />
+                        <div className="h-7 w-24 rounded animate-pulse bg-neutral-200 " />
                         {/* Badge status */}
                         <div className="flex gap-2">
-                          <div className="h-6 w-20 rounded-full animate-pulse bg-neutral-200 dark:bg-neutral-700" />
-                          <div className="h-6 w-24 rounded-full animate-pulse bg-neutral-200 dark:bg-neutral-700" />
+                          <div className="h-6 w-20 rounded-full animate-pulse bg-neutral-200 " />
+                          <div className="h-6 w-24 rounded-full animate-pulse bg-neutral-200 " />
                         </div>
                       </div>
                     </div>
@@ -42,15 +42,15 @@ const SkeletonOrders = () => {
                           >
                             {/* Immagine prodotto */}
                             <div className="flex-shrink-0">
-                              <div className="w-20 h-20 rounded-2xl animate-pulse bg-neutral-200 dark:bg-neutral-700" />
+                              <div className="w-20 h-20 rounded-2xl animate-pulse bg-neutral-200 " />
                             </div>
                             {/* Dettagli prodotto */}
                             <div className="flex-1 min-w-0">
-                              <div className="h-5 w-3/4 mb-2 rounded animate-pulse bg-neutral-200 dark:bg-neutral-700" />
-                              <div className="h-4 w-1/2 mb-2 rounded animate-pulse bg-neutral-200 dark:bg-neutral-700" />
+                              <div className="h-5 w-3/4 mb-2 rounded animate-pulse bg-neutral-200 " />
+                              <div className="h-4 w-1/2 mb-2 rounded animate-pulse bg-neutral-200 " />
                               <div className="flex items-center gap-4 mt-2">
-                                <div className="h-4 w-16 rounded animate-pulse bg-neutral-200 dark:bg-neutral-700" />
-                                <div className="h-4 w-20 rounded animate-pulse bg-neutral-200 dark:bg-neutral-700" />
+                                <div className="h-4 w-16 rounded animate-pulse bg-neutral-200 " />
+                                <div className="h-4 w-20 rounded animate-pulse bg-neutral-200 " />
                               </div>
                             </div>
                           </div>

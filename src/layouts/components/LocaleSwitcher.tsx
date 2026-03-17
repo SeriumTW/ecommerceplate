@@ -162,18 +162,18 @@ export default function LocaleSwitcher({
     ? "bottom-[calc(100%+0.5rem)] right-0 origin-bottom-right"
     : "top-[calc(100%+0.5rem)] right-0 origin-top-right";
   const outerCaretClasses = openUp
-    ? "-bottom-[6px] border-t-[6px] border-t-border border-b-0 dark:border-t-darkmode-border"
-    : "-top-[6px] border-b-[6px] border-b-border border-t-0 dark:border-b-darkmode-border";
+    ? "-bottom-[6px] border-t-[6px] border-t-border border-b-0 "
+    : "-top-[6px] border-b-[6px] border-b-border border-t-0 ";
   const innerCaretClasses = openUp
-    ? "-bottom-[5px] border-t-[6px] border-t-body border-b-0 dark:border-t-darkmode-body"
-    : "-top-[5px] border-b-[6px] border-b-body border-t-0 dark:border-b-darkmode-body";
+    ? "-bottom-[5px] border-t-[6px] border-t-body border-b-0 "
+    : "-top-[5px] border-b-[6px] border-b-body border-t-0 ";
 
   return (
     <div ref={containerRef} className="relative inline-block">
       <button
         ref={buttonRef}
         type="button"
-        className="flex min-h-[44px] items-center gap-2 rounded-full border border-border px-3 py-2 text-sm font-medium text-text-dark transition-colors hover:bg-theme-light dark:border-darkmode-border dark:text-darkmode-text dark:hover:bg-darkmode-theme-light"
+        className="flex min-h-[44px] items-center gap-2 rounded-full border border-border px-3 py-2 text-sm font-medium text-text-dark transition-colors hover:bg-theme-light   "
         aria-label={t("label")}
         aria-haspopup="menu"
         aria-expanded={isOpen}
@@ -207,7 +207,7 @@ export default function LocaleSwitcher({
       {isOpen ? (
         <div
           id={menuId}
-          className={`absolute z-50 w-[min(260px,calc(100vw-1rem))] rounded-2xl border border-border bg-body p-1.5 shadow-lg transition-all dark:border-darkmode-border dark:bg-darkmode-body ${menuPositionClasses}`}
+          className={`absolute z-50 w-[min(260px,calc(100vw-1rem))] rounded-2xl border border-border bg-body p-1.5 shadow-lg transition-all   ${menuPositionClasses}`}
           role="menu"
           aria-label={t("label")}
         >
@@ -234,11 +234,7 @@ export default function LocaleSwitcher({
                 disabled={isPending}
                 className={`flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${
                   isPending ? "opacity-60" : ""
-                } ${
-                  isActive
-                    ? "bg-theme-light dark:bg-darkmode-theme-light"
-                    : "hover:bg-theme-light dark:hover:bg-darkmode-theme-light"
-                }`}
+                } ${isActive ? "bg-theme-light " : "hover:bg-theme-light "}`}
                 role="menuitemradio"
                 aria-checked={isActive}
               >
@@ -246,10 +242,10 @@ export default function LocaleSwitcher({
                   <Flag />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <span className="block text-sm font-medium text-dark dark:text-darkmode-text">
+                  <span className="block text-sm font-medium text-dark ">
                     {t(config.labelKey)}
                   </span>
-                  <span className="block text-xs text-text-light dark:text-darkmode-text/60">
+                  <span className="block text-xs text-text-light ">
                     {t(config.langKey)} · {config.currency}
                   </span>
                 </div>

@@ -5,19 +5,18 @@
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
-    "logo": "/images/logo.png",
-    "logo_darkmode": "/images/logo.png",
-    "logo_width": "70",
-    "logo_height": "70",
-    "logo_text": "Commerceplate"
+    "logo": "/images/petmarket-logo.png",
+    "logo_width": "112",
+    "logo_height": "112",
+    "logo_text": "PetMarket Express"
   },
 
   "settings": {
     "search": true,
     "account": true,
     "sticky_header": true,
-    "theme_switcher": true,
-    "default_theme": "system",
+    "theme_switcher": false,
+    "default_theme": "light",
     "pagination_card": 9,
     "pagination_list": 4,
     "summary_length": 200,

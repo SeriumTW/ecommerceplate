@@ -96,7 +96,7 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
             }}
           />
           {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/98 via-white/85 to-white/40 dark:from-black/98 dark:via-black/85 dark:to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/98 via-white/85 to-white/40   " />
         </div>
 
         {/* Content */}
@@ -113,7 +113,7 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
         <div className="container">
           <div className="text-center mb-6 md:mb-14">
             <h2 className="mb-3">{t("exploreByCategory")}</h2>
-            <p className="text-lg text-text dark:text-darkmode-text max-w-2xl mx-auto">
+            <p className="text-lg text-text  max-w-2xl mx-auto">
               {t("exploreByCategoryDescription")}
             </p>
           </div>
@@ -128,7 +128,7 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
         <div className="container">
           <div className="text-center mb-6 md:mb-14">
             <h2 className="mb-3">{t("featuredProducts")}</h2>
-            <p className="text-lg text-text dark:text-darkmode-text max-w-2xl mx-auto">
+            <p className="text-lg text-text  max-w-2xl mx-auto">
               {t("featuredProductsDescription")}
             </p>
           </div>

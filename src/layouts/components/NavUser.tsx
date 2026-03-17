@@ -111,13 +111,13 @@ const NavUser = () => {
             ref={buttonRef}
             id={buttonId}
             onClick={toggleDropdown}
-            className="flex items-center gap-2 rounded-2xl border border-border dark:border-darkmode-border px-3 py-2 text-sm font-medium text-text-dark dark:text-darkmode-text-dark hover:border-primary dark:hover:border-darkmode-primary focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 transition-colors min-h-[44px]"
+            className="flex items-center gap-2 rounded-2xl border border-border  px-3 py-2 text-sm font-medium text-text-dark  hover:border-primary  focus:outline-none focus:ring-2 focus:ring-primary/50  transition-colors min-h-[44px]"
             aria-haspopup="true"
             aria-expanded={dropdownOpen}
             aria-controls={menuId}
             aria-label={t("userMenu")}
           >
-            <div className="h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border border-border dark:border-darkmode-border">
+            <div className="h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border border-border ">
               <Gravatar
                 email={user?.email ?? ""}
                 style={{ borderRadius: "50px" }}
@@ -151,24 +151,24 @@ const NavUser = () => {
             <div
               ref={dropdownRef}
               id={menuId}
-              className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-2xl bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border shadow-2xl focus:outline-none overflow-hidden"
+              className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-2xl bg-white  border border-border  shadow-2xl focus:outline-none overflow-hidden"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby={buttonId}
             >
               <div className="py-2">
-                <div className="px-4 py-3 border-b border-border/20 dark:border-darkmode-border/20">
-                  <p className="text-sm font-semibold text-text-dark dark:text-darkmode-text-dark truncate">
+                <div className="px-4 py-3 border-b border-border/20 ">
+                  <p className="text-sm font-semibold text-text-dark  truncate">
                     {user?.firstName} {user?.lastName}
                   </p>
-                  <p className="text-xs text-text-light dark:text-darkmode-text-light truncate mt-1">
+                  <p className="text-xs text-text-light  truncate mt-1">
                     {user?.email}
                   </p>
                 </div>
 
                 <Link
                   href="/account"
-                  className="block px-4 py-3 text-sm text-text-dark dark:text-darkmode-text-dark hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 focus:bg-primary/10 dark:focus:bg-darkmode-primary/10 focus:outline-none transition-colors"
+                  className="block px-4 py-3 text-sm text-text-dark  hover:bg-primary/10  focus:bg-primary/10  focus:outline-none transition-colors"
                   role="menuitem"
                   onClick={() => setDropdownOpen(false)}
                 >
@@ -177,18 +177,18 @@ const NavUser = () => {
 
                 <Link
                   href="/orders"
-                  className="block px-4 py-3 text-sm text-text-dark dark:text-darkmode-text-dark hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 focus:bg-primary/10 dark:focus:bg-darkmode-primary/10 focus:outline-none transition-colors"
+                  className="block px-4 py-3 text-sm text-text-dark  hover:bg-primary/10  focus:bg-primary/10  focus:outline-none transition-colors"
                   role="menuitem"
                   onClick={() => setDropdownOpen(false)}
                 >
                   {t("myOrders")}
                 </Link>
 
-                <div className="border-t border-border/20 dark:border-darkmode-border/20 my-2" />
+                <div className="border-t border-border/20  my-2" />
 
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left px-4 py-3 text-sm font-medium text-error dark:text-darkmode-error hover:bg-error/10 dark:hover:bg-darkmode-error/10 focus:bg-error/10 dark:focus:bg-darkmode-error/10 focus:outline-none transition-colors"
+                  className="w-full text-left px-4 py-3 text-sm font-medium text-error  hover:bg-error/10  focus:bg-error/10  focus:outline-none transition-colors"
                   role="menuitem"
                 >
                   {t("logout")}
@@ -199,7 +199,7 @@ const NavUser = () => {
         </>
       ) : (
         <Link
-          className="inline-flex items-center justify-center rounded-2xl border border-border dark:border-darkmode-border px-3 py-2 text-xl text-text-dark hover:text-primary dark:text-darkmode-text-dark dark:hover:text-darkmode-primary hover:border-primary dark:hover:border-darkmode-primary focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 transition-colors min-h-[44px] min-w-[44px]"
+          className="inline-flex items-center justify-center rounded-2xl border border-border  px-3 py-2 text-xl text-text-dark hover:text-primary   hover:border-primary  focus:outline-none focus:ring-2 focus:ring-primary/50  transition-colors min-h-[44px] min-w-[44px]"
           href="/login"
           aria-label={t("loginToAccount")}
         >

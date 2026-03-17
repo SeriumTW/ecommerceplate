@@ -75,7 +75,7 @@ const ProductLayouts = ({
 
             {/* Dropdown Modale Filtri */}
             {isExpanded && (
-              <div className="collapse-container-class absolute top-full left-0 mt-2 w-screen max-w-sm md:max-w-md lg:max-w-lg bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl shadow-2xl z-50 max-h-[80vh] overflow-y-auto">
+              <div className="collapse-container-class absolute top-full left-0 mt-2 w-screen max-w-sm md:max-w-md lg:max-w-lg bg-white  border border-border  rounded-2xl shadow-2xl z-50 max-h-[80vh] overflow-y-auto">
                 <div className="p-4 md:p-6">
                   <Suspense>
                     <ProductFilters
@@ -94,7 +94,7 @@ const ProductLayouts = ({
 
           {/* DESTRA: Sort */}
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-text-dark dark:text-darkmode-text-dark hidden sm:inline">
+            <span className="text-sm font-medium text-text-dark  hidden sm:inline">
               Ordina:
             </span>
             <Suspense>

@@ -41,9 +41,9 @@ export default function ActiveFilters({ filters }: ActiveFiltersProps) {
   };
 
   return (
-    <div className="container py-4 border-b border-border/30 dark:border-darkmode-border/30">
+    <div className="container py-4 border-b border-border/30 ">
       <div className="flex items-center flex-wrap gap-3">
-        <span className="text-sm font-medium text-text-dark dark:text-darkmode-text-dark">
+        <span className="text-sm font-medium text-text-dark ">
           {t("activeFilters", { count: activeCount })}
         </span>
 
@@ -102,7 +102,7 @@ export default function ActiveFilters({ filters }: ActiveFiltersProps) {
         {/* Pulsante Clear All */}
         <Link
           href={clearAllHref()}
-          className="text-sm text-primary dark:text-darkmode-primary hover:underline font-medium ml-auto"
+          className="text-sm text-primary  hover:underline font-medium ml-auto"
         >
           {t("clearAll")}
         </Link>
@@ -116,7 +116,7 @@ function FilterChip({ label, href }: { label: string; href: string }) {
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 dark:bg-darkmode-primary/10 text-primary dark:text-darkmode-primary text-sm font-medium hover:bg-primary/20 dark:hover:bg-darkmode-primary/20 transition-colors group"
+      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10  text-primary  text-sm font-medium hover:bg-primary/20  transition-colors group"
     >
       <span>{label}</span>
       <HiX className="w-4 h-4 group-hover:scale-110 transition-transform" />

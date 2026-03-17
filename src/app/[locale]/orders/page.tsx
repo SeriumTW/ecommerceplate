@@ -126,14 +126,12 @@ const OrdersPage = () => {
         <div className="container">
           <div className="max-w-4xl mx-auto">
             {orders.length === 0 ? (
-              <div className="bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl p-12 text-center">
-                <BsBox className="text-6xl text-text-light dark:text-darkmode-text-light mx-auto mb-4" />
-                <h2 className="text-2xl font-bold text-text-dark dark:text-darkmode-text-dark mb-2">
+              <div className="bg-white  border border-border  rounded-2xl p-12 text-center">
+                <BsBox className="text-6xl text-text-light  mx-auto mb-4" />
+                <h2 className="text-2xl font-bold text-text-dark  mb-2">
                   {t("noOrders")}
                 </h2>
-                <p className="text-text-light dark:text-darkmode-text-light mb-6">
-                  {t("noOrdersDesc")}
-                </p>
+                <p className="text-text-light  mb-6">{t("noOrdersDesc")}</p>
                 <Link href="/products" className="btn btn-primary inline-block">
                   {t("goToShop")}
                 </Link>
@@ -148,30 +146,30 @@ const OrdersPage = () => {
                   return (
                     <div
                       key={order.id}
-                      className="bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-2xl p-6 hover:border-primary dark:hover:border-darkmode-primary transition-colors"
+                      className="bg-white  border border-border  rounded-2xl p-6 hover:border-primary  transition-colors"
                     >
                       {/* Order Header */}
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 pb-6 border-b border-border/20 dark:border-darkmode-border/20">
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 pb-6 border-b border-border/20 ">
                         <div>
-                          <h3 className="text-lg font-semibold text-text-dark dark:text-darkmode-text-dark mb-1">
+                          <h3 className="text-lg font-semibold text-text-dark  mb-1">
                             {t("orderNumber", { name: order.name })}
                           </h3>
-                          <p className="text-sm text-text-light dark:text-darkmode-text-light">
+                          <p className="text-sm text-text-light ">
                             {formatDate(order.processedAt)}
                           </p>
                         </div>
                         <div className="flex flex-col md:items-end gap-2">
-                          <p className="text-xl font-bold text-text-dark dark:text-darkmode-text-dark">
+                          <p className="text-xl font-bold text-text-dark ">
                             {formatCurrency(
                               order.totalPrice.amount,
                               order.totalPrice.currencyCode,
                             )}
                           </p>
                           <div className="flex gap-2 flex-wrap">
-                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary dark:bg-darkmode-primary/10 dark:text-darkmode-primary">
+                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary  ">
                               {getFinancialStatusLabel(order.financialStatus)}
                             </span>
-                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-light dark:bg-darkmode-light text-text-dark dark:text-darkmode-text-dark">
+                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-light  text-text-dark ">
                               {getFulfillmentStatusLabel(
                                 order.fulfillmentStatus,
                               )}
@@ -196,7 +194,7 @@ const OrdersPage = () => {
                                     }
                                     width={80}
                                     height={80}
-                                    className="rounded-2xl border border-border dark:border-darkmode-border"
+                                    className="rounded-2xl border border-border "
                                   />
                                 </Link>
                               </div>
@@ -204,21 +202,21 @@ const OrdersPage = () => {
                             <div className="flex-1 min-w-0">
                               <Link
                                 href={`/products/${item.product?.handle || ""}`}
-                                className="font-medium text-text-dark dark:text-darkmode-text-dark hover:text-primary dark:hover:text-darkmode-primary transition-colors"
+                                className="font-medium text-text-dark  hover:text-primary  transition-colors"
                               >
                                 {item.title}
                               </Link>
                               {item.variant?.title && (
-                                <p className="text-sm text-text-light dark:text-darkmode-text-light mt-1">
+                                <p className="text-sm text-text-light  mt-1">
                                   {item.variant.title}
                                 </p>
                               )}
                               <div className="flex items-center gap-4 mt-2">
-                                <span className="text-sm text-text-light dark:text-darkmode-text-light">
+                                <span className="text-sm text-text-light ">
                                   {t("quantity")}: {item.quantity}
                                 </span>
                                 {item.variant?.price && (
-                                  <span className="text-sm font-medium text-text-dark dark:text-darkmode-text-dark">
+                                  <span className="text-sm font-medium text-text-dark ">
                                     {formatCurrency(
                                       item.variant.price.amount,
                                       item.variant.price.currencyCode,

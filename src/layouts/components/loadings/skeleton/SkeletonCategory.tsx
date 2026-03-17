@@ -1,13 +1,13 @@
 const SkeletonCategory = () => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6">
+    <div className="grid grid-cols-2 gap-x-6 md:grid-cols-3 md:justify-items-center">
       {Array(3)
         .fill(0)
         .map((_, index) => {
           return (
             <div
               key={index}
-              className="h-[150px] md:h-[250px] lg:h-[306px] rounded-2xl animate-pulse bg-neutral-200 dark:bg-neutral-700"
+              className="aspect-square w-full max-w-[320px] rounded-full animate-pulse bg-neutral-200 shadow-lg "
             />
           );
         })}

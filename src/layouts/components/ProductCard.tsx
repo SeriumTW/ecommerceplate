@@ -61,16 +61,16 @@ export default function ProductCard({
     <div className="w-full h-full">
       {/* Card Amazon-Style: Flat, Functional, Info-Dense */}
       <div
-        className={`bg-white dark:bg-darkmode-body border rounded-2xl overflow-hidden h-full flex flex-col transition-all duration-300 ${
+        className={`bg-white  border rounded-2xl overflow-hidden h-full flex flex-col transition-all duration-300 ${
           hasDiscount
-            ? "border-error/60 dark:border-error/60 shadow-lg shadow-error/20 animate-pulse-border hover:shadow-xl hover:shadow-error/30"
-            : "border-border/60 dark:border-darkmode-border/60 hover:border-primary/50 hover:shadow-md"
+            ? "border-error/60  shadow-lg shadow-error/20 animate-pulse-border hover:shadow-xl hover:shadow-error/30"
+            : "border-border/60  hover:border-primary/50 hover:shadow-md"
         }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Immagine Container + Badges + Icon Cart */}
-        <div className="relative aspect-square overflow-hidden bg-light/50 dark:bg-darkmode-light/30 group">
+        <div className="relative aspect-square overflow-hidden bg-light/50  group">
           {/* Ribbon Diagonale Sconto */}
           {hasDiscount && (
             <div className="absolute top-0 left-0 z-20 w-24 h-24 pointer-events-none">
@@ -141,7 +141,7 @@ export default function ProductCard({
           <h3 className="text-sm md:text-lg font-semibold line-clamp-2 min-h-[40px] md:min-h-[56px] leading-snug">
             <Link
               href={`/products/${product?.handle}`}
-              className="hover:text-primary dark:hover:text-darkmode-primary transition-colors"
+              className="hover:text-primary  transition-colors"
             >
               {product?.title}
             </Link>
@@ -155,7 +155,7 @@ export default function ProductCard({
                 as="span"
                 amount={currentPrice.toFixed(2)}
                 currencyCode={product.priceRange.minVariantPrice.currencyCode}
-                className="text-xl md:text-2xl font-bold text-error dark:text-darkmode-error"
+                className="text-xl md:text-2xl font-bold text-error "
               />
               {hasDiscount && (
                 <Price
@@ -164,7 +164,7 @@ export default function ProductCard({
                   currencyCode={
                     product.compareAtPriceRange.maxVariantPrice.currencyCode
                   }
-                  className="text-xs md:text-sm text-text-light dark:text-darkmode-text-light line-through"
+                  className="text-xs md:text-sm text-text-light  line-through"
                 />
               )}
             </div>
@@ -188,13 +188,13 @@ export default function ProductCard({
               {colors.slice(0, 5).map((color, idx) => (
                 <div
                   key={idx}
-                  className="w-5 h-5 md:w-6 md:h-6 rounded-full border border-border dark:border-darkmode-border cursor-pointer hover:scale-110 transition-transform"
+                  className="w-5 h-5 md:w-6 md:h-6 rounded-full border border-border  cursor-pointer hover:scale-110 transition-transform"
                   style={{ backgroundColor: getColorHex(color) }}
                   title={color}
                 />
               ))}
               {colors.length > 5 && (
-                <span className="text-xs text-text-light dark:text-darkmode-text-light">
+                <span className="text-xs text-text-light ">
                   +{colors.length - 5}
                 </span>
               )}

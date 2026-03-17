@@ -69,16 +69,14 @@ const EmptyCartState = ({
   };
 }) => (
   <section className="container py-24">
-    <div className="mx-auto max-w-xl rounded-2xl border border-border/60 bg-light/70 p-10 text-center shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-light/10">
-      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary/80 dark:text-darkmode-primary">
+    <div className="mx-auto max-w-xl rounded-2xl border border-border/60 bg-light/70 p-10 text-center shadow-sm  ">
+      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary/80 ">
         {translations.yourCart}
       </p>
-      <h1 className="mt-4 text-3xl font-semibold text-text-dark dark:text-white">
+      <h1 className="mt-4 text-3xl font-semibold text-text-dark ">
         {translations.emptyTitle}
       </h1>
-      <p className="mt-3 text-text-light dark:text-darkmode-text">
-        {translations.emptyDescription}
-      </p>
+      <p className="mt-3 text-text-light ">{translations.emptyDescription}</p>
       <Link
         href="/products"
         className="btn btn-primary mt-8 inline-flex rounded-full px-6 py-3 text-sm"
@@ -96,11 +94,11 @@ const CartLine = ({ item }: { item: CartItem }) => {
   );
 
   return (
-    <li className="rounded-2xl border border-border/60 bg-body p-4 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
+    <li className="rounded-2xl border border-border/60 bg-body p-4 shadow-sm  ">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
         <Link
           href={merchandiseUrl}
-          className="relative h-24 w-24 flex-none overflow-hidden rounded-2xl border border-border/50 bg-light/80 dark:border-darkmode-border/50 dark:bg-darkmode-light/20"
+          className="relative h-24 w-24 flex-none overflow-hidden rounded-2xl border border-border/50 bg-light/80  "
         >
           <Image
             src={
@@ -118,12 +116,12 @@ const CartLine = ({ item }: { item: CartItem }) => {
             <div className="space-y-1">
               <Link
                 href={merchandiseUrl}
-                className="text-lg font-semibold text-text-dark transition hover:text-primary dark:text-white dark:hover:text-darkmode-primary"
+                className="text-lg font-semibold text-text-dark transition hover:text-primary  "
               >
                 {item.merchandise.product.title}
               </Link>
               {options.length ? (
-                <ul className="text-sm text-text-light dark:text-darkmode-text">
+                <ul className="text-sm text-text-light ">
                   {options.map(({ name, value }) => (
                     <li key={name}>
                       {name}: {value}
@@ -133,16 +131,16 @@ const CartLine = ({ item }: { item: CartItem }) => {
               ) : null}
             </div>
             <Price
-              className="text-base font-semibold text-text-dark dark:text-white"
+              className="text-base font-semibold text-text-dark "
               amount={item.cost.totalAmount.amount}
               currencyCode={item.cost.totalAmount.currencyCode}
             />
           </div>
 
           <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-2 rounded-full border border-border/50 bg-light/60 px-2 py-1 dark:border-darkmode-border/50 dark:bg-darkmode-light/10">
+            <div className="flex items-center gap-2 rounded-full border border-border/50 bg-light/60 px-2 py-1  ">
               <EditItemQuantityButton item={item} type="minus" />
-              <span className="min-w-[28px] text-center text-sm font-semibold text-text-dark dark:text-white">
+              <span className="min-w-[28px] text-center text-sm font-semibold text-text-dark ">
                 {item.quantity}
               </span>
               <EditItemQuantityButton item={item} type="plus" />
@@ -175,15 +173,15 @@ const CartSummary = ({
   };
   checkoutAllowed: boolean;
 }) => (
-  <aside className="rounded-2xl border border-border/60 bg-body p-6 shadow-sm dark:border-darkmode-border/60 dark:bg-darkmode-body">
-    <h2 className="text-lg font-semibold text-text-dark dark:text-white">
+  <aside className="rounded-2xl border border-border/60 bg-body p-6 shadow-sm  ">
+    <h2 className="text-lg font-semibold text-text-dark ">
       {translations.orderSummary}
     </h2>
-    <div className="mt-4 space-y-3 text-sm text-text-light dark:text-darkmode-text">
+    <div className="mt-4 space-y-3 text-sm text-text-light ">
       <div className="flex items-center justify-between">
         <span>{translations.subtotal}</span>
         <Price
-          className="text-base font-semibold text-text-dark dark:text-white"
+          className="text-base font-semibold text-text-dark "
           amount={cart.cost.subtotalAmount.amount}
           currencyCode={cart.cost.subtotalAmount.currencyCode}
         />
@@ -191,7 +189,7 @@ const CartSummary = ({
       <div className="flex items-center justify-between">
         <span>{translations.taxes}</span>
         <Price
-          className="text-base font-semibold text-text-dark dark:text-white"
+          className="text-base font-semibold text-text-dark "
           amount={cart.cost.totalTaxAmount.amount}
           currencyCode={cart.cost.totalTaxAmount.currencyCode}
         />
@@ -200,7 +198,7 @@ const CartSummary = ({
         <span>{translations.shipping}</span>
         <span>{translations.shippingCalculated}</span>
       </div>
-      <div className="flex items-center justify-between border-t border-border/40 pt-3 text-base font-semibold text-text-dark dark:border-darkmode-border/60 dark:text-white">
+      <div className="flex items-center justify-between border-t border-border/40 pt-3 text-base font-semibold text-text-dark  ">
         <span>{translations.total}</span>
         <Price
           className="text-xl font-semibold"
@@ -225,11 +223,11 @@ const CartSummary = ({
         {translations.checkoutUnavailable}
       </button>
     )}
-    <p className="mt-3 text-xs text-text-light dark:text-darkmode-text">
+    <p className="mt-3 text-xs text-text-light ">
       {translations.securePayment}
     </p>
     {!checkoutAllowed ? (
-      <p className="mt-3 rounded-2xl bg-warning/10 px-4 py-3 text-xs font-medium text-warning dark:bg-warning/10">
+      <p className="mt-3 rounded-2xl bg-warning/10 px-4 py-3 text-xs font-medium text-warning ">
         {translations.unsupportedCountryNotice}
       </p>
     ) : null}
@@ -289,15 +287,13 @@ export default async function CartPage({
   return (
     <section className="container py-16">
       <div className="max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary/80 dark:text-darkmode-primary">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary/80 ">
           {t("yourCart")}
         </p>
-        <h1 className="mt-3 text-4xl font-semibold text-text-dark dark:text-white">
+        <h1 className="mt-3 text-4xl font-semibold text-text-dark ">
           {t("readyForPet")}
         </h1>
-        <p className="mt-2 text-text-light dark:text-darkmode-text">
-          {t("cartDescription")}
-        </p>
+        <p className="mt-2 text-text-light ">{t("cartDescription")}</p>
       </div>
 
       <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
@@ -313,13 +309,10 @@ export default async function CartPage({
         />
       </div>
 
-      <div className="mt-12 rounded-2xl border border-border/40 bg-light/60 p-6 text-sm text-text-light shadow-sm dark:border-darkmode-border/40 dark:bg-darkmode-light/10 dark:text-darkmode-text">
+      <div className="mt-12 rounded-2xl border border-border/40 bg-light/60 p-6 text-sm text-text-light shadow-sm   ">
         <p>
           {t("needHelp")}{" "}
-          <Link
-            href="/contact"
-            className="font-semibold text-primary dark:text-darkmode-primary"
-          >
+          <Link href="/contact" className="font-semibold text-primary ">
             {t("contactUs")}
           </Link>{" "}
           {t("helpDescription")}

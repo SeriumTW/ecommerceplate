@@ -36,7 +36,7 @@ function SubmitButton() {
       {pending ? (
         <LoadingDots className="bg-white" />
       ) : (
-        <FaXmark className="hover:text-accent-3 mx-[1px] h-4 w-4 text-white dark:text-black" />
+        <FaXmark className="hover:text-accent-3 mx-[1px] h-4 w-4 text-white " />
       )}
     </button>
   );

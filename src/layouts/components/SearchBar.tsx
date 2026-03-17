@@ -75,7 +75,7 @@ const SearchBar = ({
   return (
     <form
       onSubmit={onSubmit}
-      className={`border border-border dark:border-darkmode-border rounded-full flex bg-light/90 dark:bg-dark/10 pl-4 relative focus-within:ring-2 focus-within:ring-primary/50 dark:focus-within:ring-darkmode-primary/50 focus-within:border-primary dark:focus-within:border-darkmode-primary transition-all`}
+      className={`border border-border  rounded-full flex bg-light/90  pl-4 relative focus-within:ring-2 focus-within:ring-primary/50  focus-within:border-primary  transition-all`}
       role="search"
       aria-label={t("searchProducts")}
     >
@@ -96,7 +96,7 @@ const SearchBar = ({
       {inputValue && (
         <button
           type="button"
-          className="p-2 m-1 rounded-full hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+          className="p-2 m-1 rounded-full hover:bg-primary/10  focus:outline-none focus:ring-2 focus:ring-primary/50  transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
           onClick={handleClear}
           aria-label={t("clearSearch")}
         >
@@ -105,7 +105,7 @@ const SearchBar = ({
       )}
       <button
         type="submit"
-        className="search-icon p-2 m-1 rounded-full hover:bg-primary/10 dark:hover:bg-darkmode-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+        className="search-icon p-2 m-1 rounded-full hover:bg-primary/10  focus:outline-none focus:ring-2 focus:ring-primary/50  transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
         aria-label={t("submitSearch")}
       >
         <IoSearch size={20} aria-hidden="true" />

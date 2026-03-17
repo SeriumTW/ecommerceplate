@@ -24,12 +24,12 @@ const HeroSection = () => {
           </div>
 
           {/* Headline UVP */}
-          <h1 className="mb-4 text-5xl md:text-6xl lg:text-7xl font-bold text-text-dark dark:text-darkmode-text-dark leading-[1.1]">
+          <h1 className="mb-4 text-5xl md:text-6xl lg:text-7xl font-bold text-text-dark  leading-[1.1]">
             {t("title")}
           </h1>
 
           {/* Subheadline breve */}
-          <p className="mb-6 text-xl md:text-2xl text-text dark:text-darkmode-text max-w-xl mx-auto lg:mx-0 font-medium">
+          <p className="mb-6 text-xl md:text-2xl text-text  max-w-xl mx-auto lg:mx-0 font-medium">
             {t("subtitle")}
           </p>
 
@@ -37,30 +37,17 @@ const HeroSection = () => {
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8">
             <div className="flex items-center gap-1.5">
               <span className="text-rating-gold text-lg">★★★★★</span>
-              <span className="text-text-dark dark:text-darkmode-text font-semibold text-sm">
+              <span className="text-text-dark  font-semibold text-sm">
                 4.9/5
               </span>
             </div>
-            <span className="text-text/60 dark:text-darkmode-text/60 text-sm">
-              • {t("reviewsCount")}
-            </span>
+            <span className="text-text/60  text-sm">• {t("reviewsCount")}</span>
           </div>
 
           {/* CTA Unica */}
           <Link
-            className="btn btn-lg inline-flex items-center gap-2 px-8 py-4 font-bold text-lg shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
-            style={{
-              backgroundColor: "#FF7A59",
-              color: "#FFFFFF",
-              borderColor: "#FF7A59",
-            }}
+            className="btn btn-lg btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg font-bold shadow-xl transition-all hover:scale-105 hover:shadow-2xl"
             href="/products"
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#FF6342";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "#FF7A59";
-            }}
           >
             {t("cta")}
             <svg

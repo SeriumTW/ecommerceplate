@@ -14,6 +14,10 @@ rootDirs.forEach(removeDarkModeFromPages);
 configFiles.forEach(removeDarkMode);
 
 function removeDarkModeFromFiles(filePath, regexPatterns) {
+  if (!fs.existsSync(filePath)) {
+    return;
+  }
+
   const fileContent = fs.readFileSync(filePath, "utf8");
   let updatedContent = fileContent;
   regexPatterns.forEach((pattern) => {

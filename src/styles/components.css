@@ -18,7 +18,7 @@
   li {
     @apply inline-block;
     a {
-      @apply h-6 w-6 p-1 flex items-center justify-center rounded-full bg-support-1/10 text-support-1 hover:bg-support-1 hover:text-text-inverse duration-300 text-center leading-9 border border-border dark:border-border/30 dark:bg-darkmode-light/40 dark:text-support-1 dark:hover:bg-support-1 dark:hover:text-darkmode-text-dark;
+      @apply h-6 w-6 p-1 flex items-center justify-center rounded-full bg-support-1/10 text-support-1 hover:bg-support-1 hover:text-text-inverse duration-300 text-center leading-9 border border-border;
       svg {
         @apply text-xs;
       }
@@ -40,23 +40,19 @@
   @apply mb-6 rounded-2xl border px-8 py-6;
 
   &.note {
-    @apply text-[#1B83E2];
-    @apply border-current;
+    @apply border-current bg-support-1/8 text-support-1;
   }
 
   &.tip {
-    @apply text-[#40D294];
-    @apply border-current;
+    @apply border-current bg-primary/8 text-primary;
   }
 
   &.info {
-    @apply text-[#E3A72C];
-    @apply border-current;
+    @apply border-current bg-warning/10 text-warning;
   }
 
   &.warning {
-    @apply text-[#DB2C23];
-    @apply border-current;
+    @apply border-current bg-error/10 text-error;
   }
 }
 
@@ -66,7 +62,7 @@
     @apply mr-3;
   }
   p {
-    @apply font-secondary text-xl font-semibold text-text-dark dark:text-darkmode-text-light;
+    @apply font-secondary text-xl font-semibold text-text-dark;
   }
 }
 
@@ -84,11 +80,6 @@
   background-blend-mode: soft-light;
 }
 
-.dark .footer-grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
-  background-blend-mode: lighten;
-}
-
 /* swiper pagination */
 .swiper-pagination {
   @apply mt-9 flex items-center justify-center space-x-2 text-center;
@@ -99,7 +90,7 @@
 }
 
 .banner-pagination-bullet-active {
-  @apply h-2.5 w-5 bg-dark dark:bg-darkmode-primary duration-200;
+  @apply h-2.5 w-5 bg-dark  duration-200;
 }
 
 .swiper-button-disabled {
@@ -116,12 +107,12 @@
 }
 
 .tab-nav-item {
-  @apply cursor-pointer border-b py-2 text-lg text-text-dark dark:text-darkmode-text-light opacity-80 dark:border-darkmode-primary;
+  @apply cursor-pointer border-b py-2 text-lg text-text-dark  opacity-80;
   @apply my-0! px-8!;
 }
 
 .tab-nav-item.active {
-  @apply border border-b-0 border-border rounded-tr-lg rounded-tl-lg opacity-100 dark:border-darkmode-primary;
+  @apply border border-b-0 border-border rounded-tr-lg rounded-tl-lg opacity-100;
 }
 
 .tab-content {
@@ -142,11 +133,11 @@
 
 /* accordion */
 .accordion {
-  @apply overflow-hidden border-b-2 border-border bg-light dark:border-darkmode-border dark:bg-darkmode-light;
+  @apply overflow-hidden border-b-2 border-border bg-light;
 }
 
 .accordion-header {
-  @apply flex w-full cursor-pointer items-center justify-between px-0 py-3 text-lg text-text-light dark:bg-darkmode-light dark:text-darkmode-text-light text-start;
+  @apply flex w-full cursor-pointer items-center justify-between px-0 py-3 text-lg text-text-light   text-start;
 }
 
 .accordion-icon {
@@ -158,7 +149,7 @@
 }
 
 .accordion.active .accordion-header {
-  @apply text-text-dark dark:text-darkmode-primary font-medium;
+  @apply text-text-dark  font-medium;
 }
 
 .accordion.active .accordion-icon {
@@ -183,11 +174,11 @@
 }
 
 .modal-content {
-  @apply relative top-1/2 z-50 mx-auto max-w-[90%] translate-y-14 rounded-2xl bg-body p-8 dark:bg-darkmode-body;
+  @apply relative top-1/2 z-50 mx-auto max-w-[90%] translate-y-14 rounded-2xl bg-body p-8;
 }
 
 .modal-close {
-  @apply absolute right-3 top-3 h-8 w-8 rounded-full bg-light text-center leading-8 text-text-dark dark:bg-darkmode-light dark:text-darkmode-text-dark;
+  @apply absolute right-3 top-3 h-8 w-8 rounded-full bg-light text-center leading-8 text-text-dark;
 }
 
 /* modal cart */
@@ -200,37 +191,37 @@
 }
 
 .modalCart-header {
-  @apply flex justify-between items-center relative ml-auto z-50 w-full md:max-w-[50%] lg:max-w-[30%] bg-body border-b-2 p-8 pb-4 dark:bg-darkmode-body;
+  @apply flex justify-between items-center relative ml-auto z-50 w-full md:max-w-[50%] lg:max-w-[30%] bg-body border-b-2 p-8 pb-4;
 }
 
 .modalCart-content {
-  @apply relative ml-auto z-50 w-full md:max-w-[50%] lg:max-w-[30%] rounded-bl-2xl bg-body p-8 dark:bg-darkmode-body py-36;
+  @apply relative ml-auto z-50 w-full md:max-w-[50%] lg:max-w-[30%] rounded-bl-2xl bg-body p-8  py-36;
 }
 
 .modalCart-close {
-  @apply rounded-full p-2 text-text-dark dark:text-darkmode-text-dark;
+  @apply rounded-full p-2 text-text-dark;
 }
 
 /* content style */
 /* content style */
 .content {
   @apply prose max-w-none;
-  @apply prose-headings:mb-[.3em] prose-headings:mt-[.6em] prose-headings:text-text-dark dark:prose-headings:text-darkmode-text-dark;
+  @apply prose-headings:mb-[.3em] prose-headings:mt-[.6em] prose-headings:text-text-dark;
   @apply prose-h1:text-h1-sm md:prose-h1:text-h1;
   @apply prose-h2:text-h2-sm md:prose-h2:text-h2;
   @apply prose-h3:text-h3-sm md:prose-h3:text-h3;
-  @apply prose-p:text-base prose-p:text-text dark:prose-p:text-darkmode-text;
-  @apply prose-a:text-text prose-a:[&.btn]:no-underline  dark:prose-a:text-darkmode-text;
+  @apply prose-p:text-base prose-p:text-text;
+  @apply prose-a:text-text prose-a:[&.btn]:no-underline;
   @apply prose-img:max-w-full prose-img:rounded;
-  @apply prose-strong:text-text-dark dark:prose-strong:text-darkmode-text;
-  @apply prose-hr:border-border dark:prose-hr:border-darkmode-border;
-  @apply prose-pre:rounded-2xl prose-pre:bg-dark dark:prose-pre:bg-darkmode-light;
-  @apply prose-code:text-darkmode-text-dark;
-  @apply prose-li:text-text dark:prose-li:text-darkmode-text;
-  @apply prose-blockquote:rounded-2xl prose-blockquote:border prose-blockquote:border-l-[10px] prose-blockquote:border-primary prose-blockquote:bg-light prose-blockquote:px-8 prose-blockquote:py-10 prose-blockquote:font-secondary prose-blockquote:text-2xl prose-blockquote:not-italic prose-blockquote:text-text-dark dark:prose-blockquote:border-darkmode-primary dark:prose-blockquote:bg-darkmode-light dark:prose-blockquote:text-darkmode-text-light;
-  @apply prose-table:relative prose-table:overflow-hidden prose-table:rounded-2xl prose-table:before:absolute prose-table:before:left-0 prose-table:before:top-0 prose-table:before:h-full prose-table:before:w-full prose-table:before:rounded-[inherit] prose-table:before:border prose-table:before:border-border prose-table:before:content-[""] dark:prose-table:before:border-darkmode-border;
-  @apply prose-thead:border-border prose-thead:bg-light dark:prose-thead:border-darkmode-border dark:prose-thead:bg-darkmode-light;
-  @apply prose-th:relative prose-th:z-10 prose-th:px-4 prose-th:py-[18px] prose-th:text-text-dark dark:prose-th:text-darkmode-text;
-  @apply prose-tr:border-border dark:prose-tr:border-darkmode-border;
-  @apply prose-td:relative prose-td:z-10 prose-td:px-3 prose-td:py-[18px] dark:prose-td:text-darkmode-text;
+  @apply prose-strong:text-text-dark;
+  @apply prose-hr:border-border;
+  @apply prose-pre:rounded-2xl prose-pre:bg-dark;
+  @apply prose-code:text-text-dark;
+  @apply prose-li:text-text;
+  @apply prose-blockquote:rounded-2xl prose-blockquote:border prose-blockquote:border-l-[10px] prose-blockquote:border-primary prose-blockquote:bg-light prose-blockquote:px-8 prose-blockquote:py-10 prose-blockquote:font-secondary prose-blockquote:text-2xl prose-blockquote:not-italic prose-blockquote:text-text-dark;
+  @apply prose-table:relative prose-table:overflow-hidden prose-table:rounded-2xl prose-table:before:absolute prose-table:before:left-0 prose-table:before:top-0 prose-table:before:h-full prose-table:before:w-full prose-table:before:rounded-[inherit] prose-table:before:border prose-table:before:border-border prose-table:before:content-[""];
+  @apply prose-thead:border-border prose-thead:bg-light;
+  @apply prose-th:relative prose-th:z-10 prose-th:px-4 prose-th:py-[18px] prose-th:text-text-dark;
+  @apply prose-tr:border-border;
+  @apply prose-td:relative prose-td:z-10 prose-td:px-3 prose-td:py-[18px];
 }

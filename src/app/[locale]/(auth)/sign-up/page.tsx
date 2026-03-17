@@ -69,7 +69,7 @@ const SignUp = () => {
           <div className="col-11 sm:col-9 md:col-7 mx-auto">
             <div className="mb-14 text-center">
               <h2 className="max-md:h1 md:mb-2">{t("signupTitle")}</h2>
-              <p className="md:text-lg text-text-light dark:text-darkmode-text-light">
+              <p className="md:text-lg text-text-light ">
                 {t("signupSubtitle")}
               </p>
             </div>
@@ -77,7 +77,7 @@ const SignUp = () => {
             <form
               onSubmit={handleSignUp}
               noValidate
-              className="border border-border dark:border-darkmode-border rounded-2xl p-10"
+              className="border border-border  rounded-2xl p-10"
             >
               <div>
                 <label htmlFor="firstName" className="form-label">
@@ -157,7 +157,7 @@ const SignUp = () => {
                   {errorMessages.map((error: CustomerError) => (
                     <p
                       key={error.code}
-                      className="font-medium text-error dark:text-darkmode-error text-sm flex items-start gap-2"
+                      className="font-medium text-error  text-sm flex items-start gap-2"
                     >
                       <span aria-hidden="true">*</span>
                       <span>{error.message}</span>
@@ -168,7 +168,7 @@ const SignUp = () => {
 
               <button
                 type="submit"
-                className="btn btn-primary md:text-lg md:font-medium w-full mt-10 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-darkmode-primary/50 min-h-[44px]"
+                className="btn btn-primary md:text-lg md:font-medium w-full mt-10 focus:outline-none focus:ring-2 focus:ring-primary/50  min-h-[44px]"
                 disabled={loading}
                 aria-busy={loading}
               >
@@ -189,11 +189,9 @@ const SignUp = () => {
 
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm md:text-base mt-6">
               <div className="flex gap-x-2">
-                <p className="text-text-light dark:text-darkmode-text-light">
-                  {t("hasAccount")}
-                </p>
+                <p className="text-text-light ">{t("hasAccount")}</p>
                 <Link
-                  className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
+                  className="underline font-medium text-primary hover:text-primary_hover   transition-colors"
                   href={"/login"}
                 >
                   {t("login")}
@@ -201,10 +199,10 @@ const SignUp = () => {
               </div>
 
               <div className="md:text-right">
-                <p className="text-text-light dark:text-darkmode-text-light">
+                <p className="text-text-light ">
                   {t("termsAccept")}{" "}
                   <Link
-                    className="underline font-medium text-primary hover:text-primary_hover dark:text-darkmode-primary dark:hover:text-darkmode-primary_hover transition-colors"
+                    className="underline font-medium text-primary hover:text-primary_hover   transition-colors"
                     href={"/terms-services"}
                   >
                     {t("termsLink")}

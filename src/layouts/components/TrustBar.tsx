@@ -141,7 +141,7 @@ const TrustBar = () => {
   ];
 
   return (
-    <section className="py-8 md:py-12 bg-light/30 dark:bg-darkmode-light/10 border-y border-border/50 dark:border-darkmode-border/50 overflow-hidden">
+    <section className="py-8 md:py-12 bg-light/30  border-y border-border/50  overflow-hidden">
       <div className="container">
         {/* Mobile: scroll orizzontale con auto-scroll | Desktop: grid statico */}
         <div
@@ -154,14 +154,14 @@ const TrustBar = () => {
               key={`original-${index}`}
               className="flex flex-col items-center text-center gap-2 group min-w-[220px] flex-shrink-0 md:min-w-0 md:gap-3"
             >
-              <div className="text-primary dark:text-darkmode-primary transition-transform group-hover:scale-110 duration-300">
+              <div className="text-primary  transition-transform group-hover:scale-110 duration-300">
                 {item.icon}
               </div>
               <div>
-                <h3 className="text-base md:text-lg font-bold text-text-dark dark:text-darkmode-text-dark mb-1 whitespace-nowrap">
+                <h3 className="text-base md:text-lg font-bold text-text-dark  mb-1 whitespace-nowrap">
                   {item.title}
                 </h3>
-                <p className="text-sm text-text dark:text-darkmode-text whitespace-nowrap">
+                <p className="text-sm text-text  whitespace-nowrap">
                   {item.description}
                 </p>
               </div>
@@ -174,14 +174,14 @@ const TrustBar = () => {
               key={`duplicate-${index}`}
               className="flex md:hidden flex-col items-center text-center gap-2 group min-w-[220px] flex-shrink-0"
             >
-              <div className="text-primary dark:text-darkmode-primary transition-transform group-hover:scale-110 duration-300">
+              <div className="text-primary  transition-transform group-hover:scale-110 duration-300">
                 {item.icon}
               </div>
               <div>
-                <h3 className="text-base md:text-lg font-bold text-text-dark dark:text-darkmode-text-dark mb-1 whitespace-nowrap">
+                <h3 className="text-base md:text-lg font-bold text-text-dark  mb-1 whitespace-nowrap">
                   {item.title}
                 </h3>
-                <p className="text-sm text-text dark:text-darkmode-text whitespace-nowrap">
+                <p className="text-sm text-text  whitespace-nowrap">
                   {item.description}
                 </p>
               </div>
